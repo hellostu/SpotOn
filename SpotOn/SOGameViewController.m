@@ -29,7 +29,7 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithPlayType:(SLPlayType)playType code:(NSArray *)code
+- (id)initWithPlayType:(SOPlayType)playType code:(NSArray *)code
 {
     if ( (self = [super init]) != nil)
     {
@@ -205,8 +205,8 @@
     int rightColorWrongPosition = 0;
     for (int i=0; i<code.count; i++)
     {
-        SLCircleColor thisColor = (SLCircleColor)((NSNumber *)_code[i]).intValue;
-        SLCircleColor thatColor = (SLCircleColor)((NSNumber *)code[i]).intValue;
+        SOCircleColor thisColor = (SOCircleColor)((NSNumber *)_code[i]).intValue;
+        SOCircleColor thatColor = (SOCircleColor)((NSNumber *)code[i]).intValue;
         
         if (thisColor == thatColor)
         {

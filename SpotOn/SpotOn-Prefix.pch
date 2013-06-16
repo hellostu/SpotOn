@@ -37,16 +37,16 @@
 #endif
 
 typedef enum  {
-    SLPlayTypePassAndPlayPlayerOne,
-    SLPlayTypePassAndPlayPlayerTwo,
-    SLPlayTypeGameCenter
-} SLPlayType;
+    SOPlayTypePassAndPlayPlayerOne,
+    SOPlayTypePassAndPlayPlayerTwo,
+    SOPlayTypeGameCenter
+} SOPlayType;
 
 typedef enum  {
-    SLCircleColorRed,
-    SLCircleColorOrange,
-    SLCircleColorBlue,
-    SLCircleColorYellow,
-    SLCircleColorGreen,
-    SLCircleColorPurple,
-} SLCircleColor;
+    SOCircleColorRed,
+    SOCircleColorOrange,
+    SOCircleColorBlue,
+    SOCircleColorYellow,
+    SOCircleColorGreen,
+    SOCircleColorPurple,
+} SOCircleColor;

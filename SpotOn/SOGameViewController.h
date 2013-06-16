@@ -18,10 +18,10 @@ typedef enum  {
 @interface SOGameViewController : UIViewController
 
 @property(nonatomic, readonly) SLGameState gameState;
-@property(nonatomic, readonly) SLPlayType playType;
+@property(nonatomic, readonly) SOPlayType playType;
 @property(nonatomic, readwrite, assign) id<SOGameViewControllerDelegate> delegate;
 
-- (id)initWithPlayType:(SLPlayType)playType code:(NSArray *)code;
+- (id)initWithPlayType:(SOPlayType)playType code:(NSArray *)code;
 
 - (NSDictionary *)provideFeedbackForCode:(NSArray *)code;
 - (void)setFeedbackWithRightColorsRightPosition:(int)rightColorsRightPosition

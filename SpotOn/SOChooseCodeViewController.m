@@ -26,7 +26,7 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithPlayType:(SLPlayType)playType
+- (id)initWithPlayType:(SOPlayType)playType
 {
     if ( (self = [super init]) != nil)
     {
@@ -40,12 +40,12 @@
     [super viewDidLoad];
     switch (self.playerType)
     {
-        case SLPlayTypePassAndPlayPlayerOne:
+        case SOPlayTypePassAndPlayPlayerOne:
         {
             self.messageView.text = @"PLAYER 1\n SELECT A CODE FOR YOUR OPPONENT:";
             break;
         }
-        case SLPlayTypePassAndPlayPlayerTwo:
+        case SOPlayTypePassAndPlayPlayerTwo:
         {
             self.messageView.text = @"PLAYER 2\n SELECT A CODE FOR YOUR OPPONENT:";
             break;

@@ -51,7 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    SOChooseCodeViewController *player1ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SLPlayTypePassAndPlayPlayerOne];
+    SOChooseCodeViewController *player1ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne];
     player1ChooseCode.delegate = self;
     player1ChooseCode.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     _activeViewController = player1ChooseCode;
@@ -108,12 +108,12 @@
 {
     switch (passAndPlay.playType)
     {
-        case SLPlayTypePassAndPlayPlayerOne:
+        case SOPlayTypePassAndPlayPlayerOne:
         {
             [self transitionToViewController:_playerOne];
             break;
         }
-        case SLPlayTypePassAndPlayPlayerTwo:
+        case SOPlayTypePassAndPlayPlayerTwo:
         {
             [self transitionToViewController:_playerTwo];
             break;
@@ -165,19 +165,19 @@
 {
     switch (chooseCodeViewController.playerType)
     {
-        case SLPlayTypePassAndPlayPlayerOne:
+        case SOPlayTypePassAndPlayPlayerOne:
         {
-            SOChooseCodeViewController *player2ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SLPlayTypePassAndPlayPlayerTwo];
+            SOChooseCodeViewController *player2ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo];
             player2ChooseCode.delegate = self;
             player2ChooseCode.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-            _playerOne = [[SOGameViewController alloc] initWithPlayType:SLPlayTypePassAndPlayPlayerOne code:code];
+            _playerOne = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne code:code];
             _playerOne.delegate = self;
             [self transitionToViewController:player2ChooseCode];
             break;
         }
-        case SLPlayTypePassAndPlayPlayerTwo:
+        case SOPlayTypePassAndPlayPlayerTwo:
         {
-            _playerTwo = [[SOGameViewController alloc] initWithPlayType:SLPlayTypePassAndPlayPlayerTwo code:code];
+            _playerTwo = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo code:code];
             _playerTwo.delegate = self;
             [self transitionToViewController:_playerOne];
             break;

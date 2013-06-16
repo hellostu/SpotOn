@@ -20,7 +20,7 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithPlayType:(SLPlayType)playType
+- (id)initWithPlayType:(SOPlayType)playType
 {
     if ( (self = [super init]) != nil)
     {

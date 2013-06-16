@@ -166,36 +166,36 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
-+ (UIColor *)colorForTag:(SLCircleColor)tag
++ (UIColor *)colorForTag:(SOCircleColor)tag
 {
     switch (tag)
     {
-        case SLCircleColorRed:
+        case SOCircleColorRed:
         {
             return RED_COLOR;
             break;
         }
-        case SLCircleColorOrange:
+        case SOCircleColorOrange:
         {
             return ORANGE_COLOR;
             break;
         }
-        case SLCircleColorBlue:
+        case SOCircleColorBlue:
         {
             return BLUE_COLOR;
             break;
         }
-        case SLCircleColorYellow:
+        case SOCircleColorYellow:
         {
             return YELLOW_COLOR;
             break;
         }
-        case SLCircleColorGreen:
+        case SOCircleColorGreen:
         {
             return GREEN_COLOR;
             break;
         }
-        case SLCircleColorPurple:
+        case SOCircleColorPurple:
         {
             return PURPLE_COLOR;
             break;

@@ -12,10 +12,10 @@
 
 @interface SLPassAndPlayTransitionViewController : SOMessageViewController
 
-@property(nonatomic, readwrite, assign) SLPlayType playType;
+@property(nonatomic, readwrite, assign) SOPlayType playType;
 @property(nonatomic, readwrite, assign) id<SLPassAndPlayTransitionViewControllerDelegate> delegate;
 
-- (id)initWithPlayType:(SLPlayType)playType;
+- (id)initWithPlayType:(SOPlayType)playType;
 
 @end
 

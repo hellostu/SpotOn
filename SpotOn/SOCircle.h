@@ -23,7 +23,7 @@
 @property(nonatomic, readwrite, assign) id<SLCircleDelegate>    delegate;
 
 - (int)indexOfRecepticleWithCollisionFromRecepticles:(NSArray *)recepticles;
-+ (UIColor *)colorForTag:(SLCircleColor)tag;
++ (UIColor *)colorForTag:(SOCircleColor)tag;
 
 @end
 

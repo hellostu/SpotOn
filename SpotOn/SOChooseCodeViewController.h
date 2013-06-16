@@ -15,9 +15,9 @@
 @interface SOChooseCodeViewController : SOMessageViewController
 
 @property(nonatomic, readwrite, assign) id<SOChooseCodeViewControllerDelegate> delegate;
-@property(nonatomic, readonly) SLPlayType playerType;
+@property(nonatomic, readonly) SOPlayType playerType;
 
-- (id)initWithPlayType:(SLPlayType)mode;
+- (id)initWithPlayType:(SOPlayType)mode;
 
 @end
 

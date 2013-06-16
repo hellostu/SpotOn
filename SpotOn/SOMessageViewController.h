@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 UEA. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SOViewController.h"
 
-@interface SOMessageViewController : UIViewController
+@interface SOMessageViewController : SOViewController
 
 @property(nonatomic, readonly) UITextView           *messageView;
-@property(nonatomic, readwrite, assign) SLPlayType  playType;
+@property(nonatomic, readwrite, assign) SOPlayType  playType;
 
 @end
