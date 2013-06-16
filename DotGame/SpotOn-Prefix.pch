@@ -1,0 +1,52 @@
+//
+// Prefix header for all source files of the 'DotGame' target in the 'DotGame' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+
+    #define RED_COLOR [UIColor colorWithRed:244.0f/255.0f green:105.0f/255.0f blue:100.0f/255.0f alpha:1.0f]
+    #define ORANGE_COLOR [UIColor colorWithRed:252.0f/255.0f green:193.0f/255.0f blue:115.0f/255.0f alpha:1.0f]
+    #define BLUE_COLOR [UIColor colorWithRed:98.0f/255.0f green:168.0f/255.0f blue:219.0f/255.0f alpha:1.0f]
+    #define YELLOW_COLOR [UIColor colorWithRed:248.0f/255.0f green:244.0f/255.0f blue:121.0f/255.0f alpha:1.0f]
+    #define GREEN_COLOR [UIColor colorWithRed:95.0f/255.0f green:191.0f/255.0f blue:145.0f/255.0f alpha:1.0f]
+    #define PURPLE_COLOR [UIColor colorWithRed:163.0f/255.0f green:129.0f/255.0f blue:189.0f/255.0f alpha:1.0f]
+
+    #define GREY_COLOR_TOP_BACKGROUND [UIColor colorWithRed:93.0f/255.0f  green:93.0f/255.0f  blue:93.0f/255.0f  alpha:1.0f]
+    #define GREY_COLOR_TOP_CORRECT    [UIColor colorWithRed:167.0f/255.0f green:169.0f/255.0f blue:172.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_TOP_INCORRECT  [UIColor colorWithRed:109.0f/255.0f green:110.0f/255.0f blue:113.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_TOP_TEXT       [UIColor colorWithRed:167.0f/255.0f green:169.0f/255.0f blue:172.0f/255.0f alpha:1.0f]
+
+    #define GREY_COLOR_BTM_BACKGROUND [UIColor colorWithRed:241.0f/255.0f green:241.0f/255.0f blue:241.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_BTM_RECEPTICLE [UIColor colorWithRed:188.0f/255.0f green:190.0f/255.0f blue:192.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_BTM_ROUND      [UIColor colorWithRed:209.0f/255.0f green:211.0f/255.0f blue:212.0f/255.0f alpha:1.0f]
+
+
+    #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+    #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+    #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+    #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+    #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+#endif
+
+typedef enum  {
+    SLPlayTypePassAndPlayPlayerOne,
+    SLPlayTypePassAndPlayPlayerTwo,
+    SLPlayTypeGameCenter
+} SLPlayType;
+
+typedef enum  {
+    SLCircleColorRed,
+    SLCircleColorOrange,
+    SLCircleColorBlue,
+    SLCircleColorYellow,
+    SLCircleColorGreen,
+    SLCircleColorPurple,
+} SLCircleColor;
