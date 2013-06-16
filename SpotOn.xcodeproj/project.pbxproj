@@ -10,7 +10,6 @@
 		44035366176A29C700FD0DCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035365176A29C700FD0DCE /* UIKit.framework */; };
 		44035368176A29C700FD0DCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035367176A29C700FD0DCE /* Foundation.framework */; };
 		4403536A176A29C700FD0DCE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035369176A29C700FD0DCE /* CoreGraphics.framework */; };
-		44035370176A29C700FD0DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4403536E176A29C700FD0DCE /* InfoPlist.strings */; };
 		44035372176A29C700FD0DCE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 44035371176A29C700FD0DCE /* main.m */; };
 		44035376176A29C700FD0DCE /* SOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44035375176A29C700FD0DCE /* SOAppDelegate.m */; };
 		44035378176A29C700FD0DCE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 44035377176A29C700FD0DCE /* Default.png */; };
@@ -19,13 +18,12 @@
 		44035384176A29C700FD0DCE /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035383176A29C700FD0DCE /* SenTestingKit.framework */; };
 		44035385176A29C700FD0DCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035365176A29C700FD0DCE /* UIKit.framework */; };
 		44035386176A29C700FD0DCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035367176A29C700FD0DCE /* Foundation.framework */; };
-		4403538E176A29C700FD0DCE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4403538C176A29C700FD0DCE /* InfoPlist.strings */; };
-		44035391176A29C700FD0DCE /* DotGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44035390176A29C700FD0DCE /* DotGameTests.m */; };
 		4403539F176A29EE00FD0DCE /* SOGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4403539B176A29EE00FD0DCE /* SOGameViewController.m */; };
 		440353A0176A29EE00FD0DCE /* SOGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4403539B176A29EE00FD0DCE /* SOGameViewController.m */; };
 		440353A1176A29EE00FD0DCE /* SOCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4403539D176A29EE00FD0DCE /* SOCircle.m */; };
 		440353A2176A29EE00FD0DCE /* SOCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4403539D176A29EE00FD0DCE /* SOCircle.m */; };
 		440353A7176A2A4100FD0DCE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440353A5176A2A3100FD0DCE /* QuartzCore.framework */; };
+		446540ED176E673800C6BCA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446540EF176E673800C6BCA3 /* InfoPlist.strings */; };
 		4474C53B176AF2BB00FF5D7E /* SORecepticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474C53A176AF2BB00FF5D7E /* SORecepticle.m */; };
 		4474C53F176B756F00FF5D7E /* SOCodeSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474C53E176B756F00FF5D7E /* SOCodeSelectionView.m */; };
 		4474C542176B986800FF5D7E /* SOPreviousGuessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474C541176B986800FF5D7E /* SOPreviousGuessView.m */; };
@@ -65,8 +63,6 @@
 		44035365176A29C700FD0DCE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		44035367176A29C700FD0DCE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44035369176A29C700FD0DCE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4403536D176A29C700FD0DCE /* SpotOn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpotOn-Info.plist"; sourceTree = "<group>"; };
-		4403536F176A29C700FD0DCE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44035371176A29C700FD0DCE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		44035373176A29C700FD0DCE /* SpotOn-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpotOn-Prefix.pch"; sourceTree = "<group>"; };
 		44035374176A29C700FD0DCE /* SOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOAppDelegate.h; sourceTree = "<group>"; };
@@ -76,15 +72,13 @@
 		4403537B176A29C700FD0DCE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		44035382176A29C700FD0DCE /* SpotOnTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotOnTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44035383176A29C700FD0DCE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		4403538B176A29C700FD0DCE /* SpotOnTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpotOnTests-Info.plist"; sourceTree = "<group>"; };
-		4403538D176A29C700FD0DCE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4403538F176A29C700FD0DCE /* DotGameTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotGameTests.h; sourceTree = "<group>"; };
-		44035390176A29C700FD0DCE /* DotGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DotGameTests.m; sourceTree = "<group>"; };
 		4403539A176A29EE00FD0DCE /* SOGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOGameViewController.h; sourceTree = "<group>"; };
 		4403539B176A29EE00FD0DCE /* SOGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOGameViewController.m; sourceTree = "<group>"; };
 		4403539C176A29EE00FD0DCE /* SOCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCircle.h; sourceTree = "<group>"; };
 		4403539D176A29EE00FD0DCE /* SOCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCircle.m; sourceTree = "<group>"; };
 		440353A5176A2A3100FD0DCE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		446540EE176E673800C6BCA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		446540F1176E679300C6BCA3 /* SpotOn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SpotOn-Info.plist"; sourceTree = "<group>"; };
 		4474C539176AF2BB00FF5D7E /* SORecepticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SORecepticle.h; sourceTree = "<group>"; };
 		4474C53A176AF2BB00FF5D7E /* SORecepticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SORecepticle.m; sourceTree = "<group>"; };
 		4474C53D176B756F00FF5D7E /* SOCodeSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCodeSelectionView.h; sourceTree = "<group>"; };
@@ -149,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				4403536B176A29C700FD0DCE /* SpotOn */,
-				44035389176A29C700FD0DCE /* DotGameTests */,
 				44035364176A29C700FD0DCE /* Frameworks */,
 				44035363176A29C700FD0DCE /* Products */,
 			);
@@ -188,39 +181,19 @@
 				447EC2CF176D37A200CBD11C /* Assets */,
 				4403536C176A29C700FD0DCE /* Supporting Files */,
 			);
-			name = SpotOn;
-			path = DotGame;
+			path = SpotOn;
 			sourceTree = "<group>";
 		};
 		4403536C176A29C700FD0DCE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4403536D176A29C700FD0DCE /* SpotOn-Info.plist */,
-				4403536E176A29C700FD0DCE /* InfoPlist.strings */,
+				446540F1176E679300C6BCA3 /* SpotOn-Info.plist */,
+				446540EF176E673800C6BCA3 /* InfoPlist.strings */,
 				44035371176A29C700FD0DCE /* main.m */,
 				44035373176A29C700FD0DCE /* SpotOn-Prefix.pch */,
 				44035377176A29C700FD0DCE /* Default.png */,
 				44035379176A29C700FD0DCE /* Default@2x.png */,
 				4403537B176A29C700FD0DCE /* Default-568h@2x.png */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		44035389176A29C700FD0DCE /* DotGameTests */ = {
-			isa = PBXGroup;
-			children = (
-				4403538F176A29C700FD0DCE /* DotGameTests.h */,
-				44035390176A29C700FD0DCE /* DotGameTests.m */,
-				4403538A176A29C700FD0DCE /* Supporting Files */,
-			);
-			path = DotGameTests;
-			sourceTree = "<group>";
-		};
-		4403538A176A29C700FD0DCE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4403538B176A29C700FD0DCE /* SpotOnTests-Info.plist */,
-				4403538C176A29C700FD0DCE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -394,10 +367,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				447EC2F9176D49EA00CBD11C /* submit_check.png in Resources */,
-				44035370176A29C700FD0DCE /* InfoPlist.strings in Resources */,
 				44A64CC2176BDCFD00A3ECE6 /* GothamHTF-Light.otf in Resources */,
 				447EC2F2176D42D300CBD11C /* Mockup2.jpeg in Resources */,
 				447EC2FA176D49EA00CBD11C /* submit_check@2x.png in Resources */,
+				446540ED176E673800C6BCA3 /* InfoPlist.strings in Resources */,
 				44035378176A29C700FD0DCE /* Default.png in Resources */,
 				4403537A176A29C700FD0DCE /* Default@2x.png in Resources */,
 				447EC2F8176D49EA00CBD11C /* submit_check_active@2x.png in Resources */,
@@ -415,7 +388,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4403538E176A29C700FD0DCE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +436,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44035391176A29C700FD0DCE /* DotGameTests.m in Sources */,
 				440353A0176A29EE00FD0DCE /* SOGameViewController.m in Sources */,
 				440353A2176A29EE00FD0DCE /* SOCircle.m in Sources */,
 			);
@@ -481,18 +452,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4403536E176A29C700FD0DCE /* InfoPlist.strings */ = {
+		446540EF176E673800C6BCA3 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4403536F176A29C700FD0DCE /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		4403538C176A29C700FD0DCE /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4403538D176A29C700FD0DCE /* en */,
+				446540EE176E673800C6BCA3 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -557,9 +520,14 @@
 		44035395176A29C700FD0DCE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP.app/Contents/Developer/Library/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DotGame/SpotOn-Prefix.pch";
-				INFOPLIST_FILE = "DotGame/SpotOn-Info.plist";
+				GCC_PREFIX_HEADER = "SpotOn/SpotOn-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/SpotOn/SpotOn-Info.plist";
 				PRODUCT_NAME = SpotOn;
 				WRAPPER_EXTENSION = app;
 			};
@@ -568,9 +536,14 @@
 		44035396176A29C700FD0DCE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP.app/Contents/Developer/Library/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DotGame/SpotOn-Prefix.pch";
-				INFOPLIST_FILE = "DotGame/SpotOn-Info.plist";
+				GCC_PREFIX_HEADER = "SpotOn/SpotOn-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/SpotOn/SpotOn-Info.plist";
 				PRODUCT_NAME = SpotOn;
 				WRAPPER_EXTENSION = app;
 			};
