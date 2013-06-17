@@ -36,12 +36,21 @@
     _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
     [self.view addSubview:_codeSelectionView];
     [_codeSelectionView release];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture)];
+    [self.view addGestureRecognizer:panGesture];
+    [panGesture release];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)panGesture
+{
+    
 }
 
 - (void)dealloc

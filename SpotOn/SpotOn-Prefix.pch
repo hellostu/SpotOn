@@ -43,10 +43,10 @@ typedef enum  {
 } SOPlayType;
 
 typedef enum  {
-    SOCircleColorYellow,
-    SOCircleColorBlue,
     SOCircleColorGreen,
-    SOCircleColorRed,
+    SOCircleColorBlue,
     SOCircleColorPurple,
+    SOCircleColorRed,
+    SOCircleColorYellow,
     SOCircleColorBrown,
 } SOCircleColor;

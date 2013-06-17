@@ -94,7 +94,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,11 +116,13 @@
 
 - (void)codeSelectionViewWillChangeRecepticles:(SOCodeSelectionView *)codeSelectionView
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        _pastFirstPost = YES;
-        [self setViewControllers:@[_viewControllers[1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-    });
-    
+    if ([codeSelectionView recepticlesPopulated] == YES)
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            _pastFirstPost = YES;
+            [self setViewControllers:@[_viewControllers[1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+        });
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
