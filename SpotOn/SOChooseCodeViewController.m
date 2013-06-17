@@ -10,8 +10,9 @@
 #import "SOCodeSelectionView.h"
 #import "SOSubmitButton.h"
 #import "SOGuessFeedbackIndicator.h"
+#import "SODialogView.h"
 
-@interface SOChooseCodeViewController () <SOSubmitButtonDelegate, SLCodeSelectionViewDelegate>
+@interface SOChooseCodeViewController () <SOSubmitButtonDelegate, SOCodeSelectionViewDelegate>
 {
     SOCodeSelectionView *_codeSelectionView;
     SOSubmitButton      *_submitButton;

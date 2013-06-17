@@ -9,7 +9,7 @@
 #import "SOAppDelegate.h"
 #import "SOPassAndPlayViewController.h"
 
-#import "SOGameResultViewController.h"
+#import "SOTutorialViewController.h"
 
 @implementation SOAppDelegate
 
@@ -27,20 +27,14 @@
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor blackColor];
     
-    SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
-    self.window.rootViewController = passAndPlay;
-    [passAndPlay release];
+    //SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
+    //self.window.rootViewController = passAndPlay;
+    //[passAndPlay release];
     
-    /*
-    NSArray *player1Code = @[@(SOCircleColorPurple),@(SOCircleColorPurple),@(SOCircleColorRed),@(SOCircleColorPurple),@(SOCircleColorBlue)];
-    NSArray *player2Code = @[@(SOCircleColorGreen),@(SOCircleColorRed),@(SOCircleColorRed),@(SOCircleColorOrange),@(SOCircleColorOrange)];
+    SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
+    self.window.rootViewController = tutorialVC;
+    [tutorialVC release];
     
-    SOGameResultViewController *gameResult = [[SOGameResultViewController alloc] initWithWinType:SOGameResultPlayerOneWin
-                                                                                     player1Code:player1Code
-                                                                                     player2Code:player2Code];
-    self.window.rootViewController = gameResult;
-    [gameResult release];
-    */
     return YES;
 }
 

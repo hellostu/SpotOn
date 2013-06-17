@@ -33,25 +33,22 @@
         _recepticles = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
         _palette = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
         
-        CGFloat inset = 6/(numberOfRecepticles)*39;
-        CGFloat interval = (self.frame.size.width-(inset*2))/(numberOfRecepticles-1);
+        CGFloat interval = 30;
         
         for (int i=0; i<numberOfRecepticles; i++)
         {
             SORecepticle *recepticle = [[SORecepticle alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-            recepticle.center = CGPointMake(i*interval+inset, 30);
+            recepticle.center = CGPointMake(i*interval+25, 30);
             [self addSubview:recepticle];
             [_recepticles addObject:recepticle];
             [recepticle release];
         }
         
-        inset = 6/(numberOfColors)*39;
-        interval = (self.frame.size.width-(inset*2))/(numberOfColors-1);
         for (int i=0; i<numberOfColors; i++)
         {
             SOCircle *paletteCircle = [[SOCircle alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
             
-            paletteCircle.center = CGPointMake(i*interval+inset, self.frame.size.height-30);
+            paletteCircle.center = CGPointMake(i*interval+25, self.frame.size.height-30);
             paletteCircle.startLocation = paletteCircle.center;
             paletteCircle.draggable = YES;
             paletteCircle.delegate = self;
@@ -242,7 +239,7 @@
     
     if (circle.recepticle != recepticle) 
     {
-        if ([self.delegate respondsToSelector:@selector(codeSelectionViewDidChangeRecepticles:)])
+        if ([self.delegate respondsToSelector:@selector(codeSelectionViewWillChangeRecepticles:)])
         {
             [self.delegate codeSelectionViewWillChangeRecepticles:self];
         }
@@ -293,7 +290,7 @@
         circle.recepticle.circle = nil;
         circle.recepticle = nil;
         _animating = NO;
-        if ([self.delegate respondsToSelector:@selector(codeSelectionViewWillChangeRecepticles:)])
+        if ([self.delegate respondsToSelector:@selector(codeSelectionViewWillChangeRecepticles:)] == YES)
         {
             [self.delegate codeSelectionViewWillChangeRecepticles:self];
         }

@@ -49,6 +49,10 @@
 		44A64CC3176BDCFD00A3ECE6 /* GothamHTF-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A64CBE176BDCFD00A3ECE6 /* GothamHTF-Medium.otf */; };
 		44A64CC4176BDCFD00A3ECE6 /* GothamHTF-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A64CBF176BDCFD00A3ECE6 /* GothamHTF-Thin.otf */; };
 		44A64CC8176BDFE900A3ECE6 /* SOLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A64CC7176BDF7B00A3ECE6 /* SOLine.m */; };
+		44BA53C0176EF6B4001CD03A /* SODialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53BF176EF692001CD03A /* SODialogView.m */; };
+		44BA53C1176EFAA5001CD03A /* SOTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53BD176EF668001CD03A /* SOTutorialViewController.m */; };
+		44BA53C4176EFCF7001CD03A /* SODialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53C3176EFCDC001CD03A /* SODialogViewController.m */; };
+		44BA53C8176F03C0001CD03A /* SOFirstTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53C7176F03B6001CD03A /* SOFirstTutorialViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +125,14 @@
 		44A64CBF176BDCFD00A3ECE6 /* GothamHTF-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamHTF-Thin.otf"; sourceTree = "<group>"; };
 		44A64CC6176BDF7B00A3ECE6 /* SOLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOLine.h; sourceTree = "<group>"; };
 		44A64CC7176BDF7B00A3ECE6 /* SOLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOLine.m; sourceTree = "<group>"; };
+		44BA53BC176EF668001CD03A /* SOTutorialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOTutorialViewController.h; sourceTree = "<group>"; };
+		44BA53BD176EF668001CD03A /* SOTutorialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOTutorialViewController.m; sourceTree = "<group>"; };
+		44BA53BE176EF692001CD03A /* SODialogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SODialogView.h; sourceTree = "<group>"; };
+		44BA53BF176EF692001CD03A /* SODialogView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SODialogView.m; sourceTree = "<group>"; };
+		44BA53C2176EFCDC001CD03A /* SODialogViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SODialogViewController.h; sourceTree = "<group>"; };
+		44BA53C3176EFCDC001CD03A /* SODialogViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SODialogViewController.m; sourceTree = "<group>"; };
+		44BA53C6176F03B6001CD03A /* SOFirstTutorialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOFirstTutorialViewController.h; sourceTree = "<group>"; };
+		44BA53C7176F03B6001CD03A /* SOFirstTutorialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOFirstTutorialViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +222,7 @@
 		447EC2BD176D008700CBD11C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				44BA53C5176F0398001CD03A /* Tutorial */,
 				447EC2CA176D323A00CBD11C /* Pass And Play */,
 				447EC2C2176D0A6500CBD11C /* SOChooseCodeViewController.h */,
 				447EC2C3176D0A6500CBD11C /* SOChooseCodeViewController.m */,
@@ -262,6 +275,8 @@
 				447EC2FF176D877700CBD11C /* SOGuessFeedbackIndicator.m */,
 				446540FA176E721E00C6BCA3 /* SOCodeDisplayView.h */,
 				446540FB176E721E00C6BCA3 /* SOCodeDisplayView.m */,
+				44BA53BE176EF692001CD03A /* SODialogView.h */,
+				44BA53BF176EF692001CD03A /* SODialogView.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -307,6 +322,19 @@
 				44A64CBF176BDCFD00A3ECE6 /* GothamHTF-Thin.otf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		44BA53C5176F0398001CD03A /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				44BA53BC176EF668001CD03A /* SOTutorialViewController.h */,
+				44BA53BD176EF668001CD03A /* SOTutorialViewController.m */,
+				44BA53C2176EFCDC001CD03A /* SODialogViewController.h */,
+				44BA53C3176EFCDC001CD03A /* SODialogViewController.m */,
+				44BA53C6176F03B6001CD03A /* SOFirstTutorialViewController.h */,
+				44BA53C7176F03B6001CD03A /* SOFirstTutorialViewController.m */,
+			);
+			name = Tutorial;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,6 +475,10 @@
 				447EC2CE176D33DF00CBD11C /* SOSubmitButton.m in Sources */,
 				446540FC176E726100C6BCA3 /* SOCodeDisplayView.m in Sources */,
 				446540F6176E6DD800C6BCA3 /* SOGameResultViewController.m in Sources */,
+				44BA53C1176EFAA5001CD03A /* SOTutorialViewController.m in Sources */,
+				44BA53C4176EFCF7001CD03A /* SODialogViewController.m in Sources */,
+				44BA53C0176EF6B4001CD03A /* SODialogView.m in Sources */,
+				44BA53C8176F03C0001CD03A /* SOFirstTutorialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

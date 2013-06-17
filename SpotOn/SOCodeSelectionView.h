@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class SOCodeSelectionView;
-@protocol SLCodeSelectionViewDelegate;
+@protocol SOCodeSelectionViewDelegate;
 
 @interface SOCodeSelectionView : UIView
 
-@property(nonatomic, readwrite, assign) id<SLCodeSelectionViewDelegate> delegate;
+@property(nonatomic, readwrite, assign) id<SOCodeSelectionViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame numberOfColors:(int)numberOfColors numberOfRecepticles:(int)numberOfRecepticles;
 
@@ -23,7 +23,7 @@
 - (BOOL)recepticlesPopulated;
 @end
 
-@protocol SLCodeSelectionViewDelegate <NSObject>
+@protocol SOCodeSelectionViewDelegate <NSObject>
 
 @optional
 - (void)codeSelectionViewWillChangeRecepticles:(SOCodeSelectionView *)codeSelectionView;

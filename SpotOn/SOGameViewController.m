@@ -13,7 +13,7 @@
 #import "SOPreviousGuessesView.h"
 #import "SOSubmitButton.h"
 
-@interface SOGameViewController () <SLCodeSelectionViewDelegate, SOSubmitButtonDelegate>
+@interface SOGameViewController () <SOCodeSelectionViewDelegate, SOSubmitButtonDelegate>
 {
     SOCodeSelectionView     *_codeSelectionView;
     SOPreviousGuessesView   *_previousGuessesView;
