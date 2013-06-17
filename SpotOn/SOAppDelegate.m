@@ -27,13 +27,13 @@
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor blackColor];
     
-    //SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
-    //self.window.rootViewController = passAndPlay;
-    //[passAndPlay release];
+    SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
+    self.window.rootViewController = passAndPlay;
+    [passAndPlay release];
     
-    SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
-    self.window.rootViewController = tutorialVC;
-    [tutorialVC release];
+    //SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
+    //self.window.rootViewController = tutorialVC;
+    //[tutorialVC release];
     
     return YES;
 }

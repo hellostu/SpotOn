@@ -10,7 +10,7 @@
 #import "SODialogViewController.h"
 #import "SOFirstTutorialViewController.h"
 
-@interface SOTutorialViewController () <UIPageViewControllerDataSource>
+@interface SOTutorialViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 {
     NSMutableArray  *_viewControllers;
     BOOL            _pastFirstPost;
@@ -31,6 +31,7 @@
         _pastFirstPost = NO;
         _viewControllers = [[NSMutableArray alloc] init];
         self.dataSource = self;
+        self.delegate = self;
         
         SOFirstTutorialViewController *initialVC = [[SOFirstTutorialViewController alloc] init];
         initialVC.codeSelectionView.delegate = self;
@@ -120,7 +121,14 @@
     {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
             _pastFirstPost = YES;
-            [self setViewControllers:@[_viewControllers[1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+            
+            [self setViewControllers:@[_viewControllers[1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
+                if ([_viewControllers[0] isKindOfClass:SOFirstTutorialViewController.class])
+                {
+                    UIViewController *viewController = _viewControllers[0];
+                    viewController.view.userInteractionEnabled = NO;
+                }
+            }];
         });
     }
 }
@@ -150,6 +158,10 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
+    if ([viewController isKindOfClass:SOFirstTutorialViewController.class])
+    {
+        return nil;
+    }
     int currentViewControllerIndex = [_viewControllers indexOfObject:viewController];
     
     if (currentViewControllerIndex-1 < 0)

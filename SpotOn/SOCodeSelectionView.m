@@ -32,13 +32,24 @@
     {
         _recepticles = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
         _palette = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
+        CGFloat recepticleInterval = 55;
         
-        CGFloat interval = 30;
+        CGRect recepticlesFrame = CGRectMake(0, 0, (numberOfRecepticles-1)*recepticleInterval+50, 50);
+        UIView *recepticlesView = [[UIView alloc] initWithFrame:recepticlesFrame];
+        recepticlesView.center = CGPointMake(frame.size.width/2, 50);
+        recepticlesView.backgroundColor = RED_COLOR;
+        
+        CGFloat colorInterval = 48;
+        
+        CGRect colorsFrame = CGRectMake(0, 0, (numberOfColors-1)*colorInterval+40, 40);
+        UIView *colorsView = [[UIView alloc] initWithFrame:colorsFrame];
+        colorsView.center = CGPointMake(frame.size.width/2, frame.size.height-30);
+        colorsView.backgroundColor = RED_COLOR;
         
         for (int i=0; i<numberOfRecepticles; i++)
         {
             SORecepticle *recepticle = [[SORecepticle alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-            recepticle.center = CGPointMake(i*interval+25, 30);
+            recepticle.center = CGPointMake(i*recepticleInterval+25+recepticlesView.frame.origin.x, 25+recepticlesView.frame.origin.y);
             [self addSubview:recepticle];
             [_recepticles addObject:recepticle];
             [recepticle release];
@@ -48,7 +59,7 @@
         {
             SOCircle *paletteCircle = [[SOCircle alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
             
-            paletteCircle.center = CGPointMake(i*interval+25, self.frame.size.height-30);
+            paletteCircle.center = CGPointMake(i*colorInterval+20+colorsView.frame.origin.x, 20+colorsView.frame.origin.y);
             paletteCircle.startLocation = paletteCircle.center;
             paletteCircle.draggable = YES;
             paletteCircle.delegate = self;
@@ -63,6 +74,8 @@
             
             [paletteCircle release];
         }
+        [recepticlesView release];
+        [colorsView release];
     }
     return self;
 }

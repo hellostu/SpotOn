@@ -53,6 +53,8 @@
 		44BA53C1176EFAA5001CD03A /* SOTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53BD176EF668001CD03A /* SOTutorialViewController.m */; };
 		44BA53C4176EFCF7001CD03A /* SODialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53C3176EFCDC001CD03A /* SODialogViewController.m */; };
 		44BA53C8176F03C0001CD03A /* SOFirstTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53C7176F03B6001CD03A /* SOFirstTutorialViewController.m */; };
+		44BA53CA176F8A76001CD03A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BA53C9176F8A76001CD03A /* GameKit.framework */; };
+		44BA53CC176F8D07001CD03A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BA53CB176F8D07001CD03A /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +135,8 @@
 		44BA53C3176EFCDC001CD03A /* SODialogViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SODialogViewController.m; sourceTree = "<group>"; };
 		44BA53C6176F03B6001CD03A /* SOFirstTutorialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOFirstTutorialViewController.h; sourceTree = "<group>"; };
 		44BA53C7176F03B6001CD03A /* SOFirstTutorialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOFirstTutorialViewController.m; sourceTree = "<group>"; };
+		44BA53C9176F8A76001CD03A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		44BA53CB176F8D07001CD03A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44BA53CC176F8D07001CD03A /* StoreKit.framework in Frameworks */,
+				44BA53CA176F8A76001CD03A /* GameKit.framework in Frameworks */,
 				440353A7176A2A4100FD0DCE /* QuartzCore.framework in Frameworks */,
 				44035366176A29C700FD0DCE /* UIKit.framework in Frameworks */,
 				44035368176A29C700FD0DCE /* Foundation.framework in Frameworks */,
@@ -181,6 +187,8 @@
 		44035364176A29C700FD0DCE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44BA53CB176F8D07001CD03A /* StoreKit.framework */,
+				44BA53C9176F8A76001CD03A /* GameKit.framework */,
 				440353A5176A2A3100FD0DCE /* QuartzCore.framework */,
 				44035365176A29C700FD0DCE /* UIKit.framework */,
 				44035367176A29C700FD0DCE /* Foundation.framework */,
@@ -385,6 +393,19 @@
 				CLASSPREFIX = SO;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = UEA;
+				TargetAttributes = {
+					44035361176A29C700FD0DCE = {
+						DevelopmentTeam = 6SEBEKG39T;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 4403535D176A29C700FD0DCE /* Build configuration list for PBXProject "SpotOn" */;
 			compatibilityVersion = "Xcode 3.2";

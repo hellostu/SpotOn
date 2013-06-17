@@ -78,7 +78,7 @@
     {
         if (self.dashedLine == YES)
         {
-            CGFloat dashArray[] = {4,2,4,2};
+            CGFloat dashArray[] = {4,2.1,4,2.1};
             CGContextSetLineDash(context, 3, dashArray, 4);
         }
         circleRect = CGRectMake(1.5, 1.5, self.frame.size.width-5, self.frame.size.height-5);
