@@ -120,16 +120,20 @@
 #pragma mark SLCodeSelectionViewDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)codeSelectionViewDidChangeRecepticles:(SOCodeSelectionView *)codeSelectionView
+- (void)codeSelectionViewWillChangeRecepticles:(SOCodeSelectionView *)codeSelectionView
 {
     if ([codeSelectionView recepticlesPopulated] == YES)
     {
+        _submitButton.enabled = NO;
         [UIView animateWithDuration:0.2 animations:^() {
             _submitButton.alpha = 1.0f;
+        } completion:^(BOOL finished) {
+            _submitButton.enabled = YES;
         }];
     }
     else
     {
+        _submitButton.enabled = NO;
         [UIView animateWithDuration:0.2 animations:^() {
             _submitButton.alpha = 0.0f;
         }];

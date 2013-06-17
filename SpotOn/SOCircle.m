@@ -175,9 +175,9 @@
             return RED_COLOR;
             break;
         }
-        case SOCircleColorOrange:
+        case SOCircleColorBrown:
         {
-            return ORANGE_COLOR;
+            return BROWN_COLOR;
             break;
         }
         case SOCircleColorBlue:

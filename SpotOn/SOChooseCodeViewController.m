@@ -98,7 +98,7 @@
 #pragma mark SLCodeSelectionViewDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)codeSelectionViewDidChangeRecepticles:(SOCodeSelectionView *)codeSelectionView
+- (void)codeSelectionViewWillChangeRecepticles:(SOCodeSelectionView *)codeSelectionView
 {
     if ([codeSelectionView recepticlesPopulated] == YES)
     {

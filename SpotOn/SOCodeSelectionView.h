@@ -26,6 +26,6 @@
 @protocol SLCodeSelectionViewDelegate <NSObject>
 
 @optional
-- (void)codeSelectionViewDidChangeRecepticles:(SOCodeSelectionView *)codeSelectionView;
+- (void)codeSelectionViewWillChangeRecepticles:(SOCodeSelectionView *)codeSelectionView;
 
 @end

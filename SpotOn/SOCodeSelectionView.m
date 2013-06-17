@@ -240,6 +240,14 @@
         [placeHolderCircle release];
     }
     
+    if (circle.recepticle != recepticle) 
+    {
+        if ([self.delegate respondsToSelector:@selector(codeSelectionViewDidChangeRecepticles:)])
+        {
+            [self.delegate codeSelectionViewWillChangeRecepticles:self];
+        }
+    }
+    
     [UIView animateWithDuration:0.2 animations:^() {
         circle.center = recepticle.center;
     } completion:^(BOOL finished) {
@@ -260,10 +268,6 @@
                 circle.recepticle.circle = nil;
                 recepticle.circle = circle;
                 circle.recepticle = recepticle;
-            }
-            if ([self.delegate respondsToSelector:@selector(codeSelectionViewDidChangeRecepticles:)])
-            {
-                [self.delegate codeSelectionViewDidChangeRecepticles:self];
             }
         }
     }];
@@ -289,9 +293,9 @@
         circle.recepticle.circle = nil;
         circle.recepticle = nil;
         _animating = NO;
-        if ([self.delegate respondsToSelector:@selector(codeSelectionViewDidChangeRecepticles:)])
+        if ([self.delegate respondsToSelector:@selector(codeSelectionViewWillChangeRecepticles:)])
         {
-            [self.delegate codeSelectionViewDidChangeRecepticles:self];
+            [self.delegate codeSelectionViewWillChangeRecepticles:self];
         }
     }];
 }

@@ -13,6 +13,7 @@
 @interface SOSubmitButton : UIView
 
 @property(nonatomic, readwrite, assign) id<SOSubmitButtonDelegate> delegate;
+@property(nonatomic, readwrite, assign) BOOL enabled;
 
 @end
 
