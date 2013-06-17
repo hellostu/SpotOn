@@ -38,6 +38,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CGFloat offset = 0;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+    {
+        offset = 22;
+    }
+    
     switch (self.playerType)
     {
         case SOPlayTypePassAndPlayPlayerOne:
@@ -56,7 +62,7 @@
     
     self.messageView.frame = CGRectMake(0, 70, self.view.frame.size.width,100);
     
-    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.36)
+    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.36-offset)
                                                      numberOfColors:6
                                                 numberOfRecepticles:5];
     _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.65);

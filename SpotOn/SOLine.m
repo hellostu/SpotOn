@@ -44,7 +44,6 @@
     
     CGContextStrokePath(context);
     CGColorSpaceRelease(colorspace);
-    CGColorRelease(color);
 }
 
 @end

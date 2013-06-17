@@ -7,9 +7,10 @@
 //
 
 #import "SOAppDelegate.h"
-#import "SLPassAndPlayViewController.h"
+#import "SOPassAndPlayViewController.h"
 
-#import "SLPassAndPlayTransitionViewController.h"
+#import "SOGameResultViewController.h"
+
 @implementation SOAppDelegate
 
 - (void)dealloc
@@ -24,16 +25,22 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    SLPassAndPlayViewController *passAndPlay = [[SLPassAndPlayViewController alloc] init];
-    self.window.rootViewController = passAndPlay;
     self.window.backgroundColor = [UIColor blackColor];
+    
+    SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
+    self.window.rootViewController = passAndPlay;
     [passAndPlay release];
     
-    //SLPassAndPlayTransitionViewController *passAndPlay = [[SLPassAndPlayTransitionViewController alloc] init];
-    //self.window.rootViewController = passAndPlay;
-    //[passAndPlay release];
+    /*
+    NSArray *player1Code = @[@(SOCircleColorPurple),@(SOCircleColorPurple),@(SOCircleColorRed),@(SOCircleColorPurple),@(SOCircleColorBlue)];
+    NSArray *player2Code = @[@(SOCircleColorGreen),@(SOCircleColorRed),@(SOCircleColorRed),@(SOCircleColorOrange),@(SOCircleColorOrange)];
     
+    SOGameResultViewController *gameResult = [[SOGameResultViewController alloc] initWithWinType:SOGameResultPlayerOneWin
+                                                                                     player1Code:player1Code
+                                                                                     player2Code:player2Code];
+    self.window.rootViewController = gameResult;
+    [gameResult release];
+    */
     return YES;
 }
 

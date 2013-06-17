@@ -34,6 +34,7 @@
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,206+offset)];
     backgroundView.backgroundColor = GREY_COLOR_TOP_BACKGROUND;
+    self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
     
     [self.view addSubview:backgroundView];
     [backgroundView release];

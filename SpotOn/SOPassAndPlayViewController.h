@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SLPassAndPlayViewController : UIViewController
+@interface SOPassAndPlayViewController : UIViewController
 
 @end

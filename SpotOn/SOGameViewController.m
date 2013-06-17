@@ -50,12 +50,10 @@
         offset = 22;
     }
     
+	//UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Mockup.jpeg"]];
+    //imageView.frame = CGRectMake(0, -22, self.view.frame.size.width, self.view.frame.size.height+22);
     
-    
-	UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Mockup.jpeg"]];
-    imageView.frame = CGRectMake(0, -22, self.view.frame.size.width, self.view.frame.size.height+22);
-    
-    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.36)
+    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.36-offset)
                                                      numberOfColors:6
                                                 numberOfRecepticles:5];
     _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.65);
@@ -76,7 +74,6 @@
     NSMutableAttributedString *attributedString;
     attributedString = [[NSMutableAttributedString alloc] initWithString:@"Round 1"];
     [attributedString addAttribute:NSKernAttributeName value:@(-1) range:NSMakeRange(0, attributedString.length)];
-
 
     
     //[self.view addSubview:imageView];
@@ -100,6 +97,7 @@
 {
     [super viewWillDisappear:animated];
     _codeSelectionView.alpha = 1.0f;
+    _submitButton.alpha = 0.0f;
 }
 
 - (void)dealloc

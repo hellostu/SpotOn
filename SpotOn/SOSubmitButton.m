@@ -14,6 +14,7 @@
     SOCircle *_normalState;
     SOCircle *_pressedState;
     SOCircle *_activeState;
+    UIButton *_overlayButton;
 }
 @end
 
@@ -51,11 +52,14 @@
         _pressedState.strokeColor = nil;
         _pressedState.fillColor = GREY_COLOR_BTM_RECEPTICLE;
         
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchEnded:)];
-        [self addGestureRecognizer:tapGesture];
-        [tapGesture release];
+        _overlayButton = [[UIButton alloc] initWithFrame:self.frame];
+        _overlayButton.backgroundColor = [UIColor clearColor];
+        [_overlayButton addTarget:self action:@selector(touchDown) forControlEvents:UIControlEventTouchDown];
+        [_overlayButton addTarget:self action:@selector(touchUpInside) forControlEvents:UIControlEventTouchUpInside];
+        [_overlayButton addTarget:self action:@selector(touchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
         
         [self addSubview:_normalState];
+        [self addSubview:_overlayButton];
         _activeState = _normalState;
     }
     return self;
@@ -66,24 +70,34 @@
 #pragma mark Actions
 //////////////////////////////////////////////////////////////////////////
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+
+- (void)touchDown
 {
-    [super touchesBegan:touches withEvent:event];
     [_activeState removeFromSuperview];
     [self addSubview:_pressedState];
     _activeState = _pressedState;
+    [self bringSubviewToFront:_overlayButton];
 }
 
-- (void)touchEnded:(UITapGestureRecognizer *)tapGesture
+- (void)touchUpInside
 {
     [_activeState removeFromSuperview];
     [self addSubview:_normalState];
     _activeState = _normalState;
+    [self bringSubviewToFront:_overlayButton];
     
     if ([self.delegate respondsToSelector:@selector(submitButtonPressed:)])
     {
         [self.delegate submitButtonPressed:self];
     }
+}
+
+- (void)touchUpOutside
+{
+    [_activeState removeFromSuperview];
+    [self addSubview:_normalState];
+    _activeState = _normalState;
+    [self bringSubviewToFront:_overlayButton];
 }
 
 @end

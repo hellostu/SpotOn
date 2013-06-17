@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 UEA. All rights reserved.
 //
 
-#import "SLPassAndPlayViewController.h"
+#import "SOPassAndPlayViewController.h"
 #import "SOChooseCodeViewController.h"
-#import "SLPassAndPlayTransitionViewController.h"
+#import "SOPassAndPlayTransitionViewController.h"
 #import "SOGameViewController.h"
 
-@interface SLPassAndPlayViewController () <SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, SLPassAndPlayTransitionViewControllerDelegate>
+@interface SOPassAndPlayViewController () <SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, SOPassAndPlayTransitionViewControllerDelegate>
 {
     UIViewController *_activeViewController;
     
@@ -21,7 +21,7 @@
     
 @end
 
-@implementation SLPassAndPlayViewController
+@implementation SOPassAndPlayViewController
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
@@ -83,7 +83,7 @@
 - (void)transitionToViewController:(UIViewController *)viewController
 {
     [_activeViewController willMoveToParentViewController:nil];
-    [viewController willMoveToParentViewController:nil];
+    [viewController willMoveToParentViewController:self];
     [self addChildViewController:viewController];
     
     [self transitionFromViewController:_activeViewController
@@ -92,9 +92,10 @@
                                options:UIViewAnimationOptionTransitionFlipFromLeft
                             animations:nil
                             completion:^(BOOL finished) {
-                                [_activeViewController removeFromParentViewController];
-                                [viewController didMoveToParentViewController:self];
                                 [_activeViewController didMoveToParentViewController:nil];
+                                [viewController didMoveToParentViewController:self];
+                                [_activeViewController.view removeFromSuperview];
+                                [_activeViewController removeFromParentViewController];
                                 _activeViewController = viewController;
                                }];
 }
@@ -104,7 +105,7 @@
 #pragma mark SLPassAndPlayTransitionViewController
 //////////////////////////////////////////////////////////////////////////
 
-- (void)passAndPlayTransitionViewControllerReadyToTransition:(SLPassAndPlayTransitionViewController *)passAndPlay
+- (void)passAndPlayTransitionViewControllerReadyToTransition:(SOPassAndPlayTransitionViewController *)passAndPlay
 {
     switch (passAndPlay.playType)
     {
@@ -150,7 +151,7 @@
         otherPlayer = _playerTwo;
     }
     
-    SLPassAndPlayTransitionViewController *passAndPlayTransition = [[SLPassAndPlayTransitionViewController alloc] initWithPlayType:otherPlayer.playType];
+    SOPassAndPlayTransitionViewController *passAndPlayTransition = [[SOPassAndPlayTransitionViewController alloc] initWithPlayType:otherPlayer.playType];
     passAndPlayTransition.delegate = self;
     [self transitionToViewController:passAndPlayTransition];
     [passAndPlayTransition release];
@@ -173,6 +174,7 @@
             _playerOne = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne code:code];
             _playerOne.delegate = self;
             [self transitionToViewController:player2ChooseCode];
+            [player2ChooseCode release];
             break;
         }
         case SOPlayTypePassAndPlayPlayerTwo:

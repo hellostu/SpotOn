@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 UEA. All rights reserved.
 //
 
-#import "SLPassAndPlayTransitionViewController.h"
+#import "SOPassAndPlayTransitionViewController.h"
 #import "SOSubmitButton.h"
 
-@interface SLPassAndPlayTransitionViewController () <SOSubmitButtonDelegate>
+@interface SOPassAndPlayTransitionViewController () <SOSubmitButtonDelegate>
 
 @end
 
-@implementation SLPassAndPlayTransitionViewController
+@implementation SOPassAndPlayTransitionViewController
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -

@@ -18,6 +18,7 @@
 @property(nonatomic, retain) UIColor                            *strokeColor;
 @property(nonatomic, readwrite, assign) BOOL                    dashedLine;
 @property(nonatomic, readwrite, assign) BOOL                    draggable;
+@property(nonatomic, readwrite, assign) BOOL                    placeholder;
 @property(nonatomic, readwrite, assign) SORecepticle            *recepticle;
 @property(nonatomic, readwrite, assign) CGPoint                 startLocation;
 @property(nonatomic, readwrite, assign) id<SLCircleDelegate>    delegate;

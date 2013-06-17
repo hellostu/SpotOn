@@ -106,20 +106,16 @@
 
 - (void)circleWasTapped:(SOCircle *)circle
 {
-    if (_animating == NO)
+    if (circle.recepticle != nil)
     {
-        
-        if (circle.recepticle != nil)
+        [self removeCircle:circle];
+    }
+    else
+    {
+        SORecepticle *recepticle = [self firstFreeRecepticle];
+        if (recepticle != nil)
         {
-            [self removeCircle:circle];
-        }
-        else
-        {
-            SORecepticle *recepticle = [self firstFreeRecepticle];
-            if (recepticle != nil)
-            {
-                [self moveCircle:circle toRecepticle:recepticle];
-            }
+            [self moveCircle:circle toRecepticle:recepticle];
         }
     }
 }
@@ -189,7 +185,7 @@
 
 - (void)submitAllCirclesWithCompletion:(void (^)(NSArray *circles))completion
 {
-    NSArray *colors = [[self colorsInRecepticles] retain];
+    NSArray *colors = [self colorsInRecepticles];
     
     if ([self recepticlesPopulated] == YES)
     {
@@ -204,7 +200,6 @@
                     {
                         completion(colors);
                     }
-                    [colors release];
                     for (int i=0; i<_recepticles.count; i++)
                     {
                         SOCircle *circle = ((SORecepticle *)_recepticles[i]).circle;
@@ -224,7 +219,7 @@
                 CGFloat y = -38;
                 if(self.window.frame.size.height > 500)
                 {
-                    y = -65;
+                    y = -76;
                 }
                 
                 circle.layer.affineTransform = CGAffineTransformMakeScale(0.5, 0.5);
@@ -236,12 +231,21 @@
 
 - (void)moveCircle:(SOCircle *)circle toRecepticle:(SORecepticle *)recepticle
 {
+    if (recepticle.circle == nil)
+    {
+        SOCircle *placeHolderCircle = [[SOCircle alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        placeHolderCircle.placeholder = YES;
+        recepticle.circle = placeHolderCircle;
+        placeHolderCircle.recepticle = recepticle;
+        [placeHolderCircle release];
+    }
+    
     [UIView animateWithDuration:0.2 animations:^() {
         circle.center = recepticle.center;
     } completion:^(BOOL finished) {
-        if (circle.recepticle != recepticle)
+        if (circle.recepticle != recepticle) //Don't do anything if moving to self
         {
-            if (recepticle.circle != nil)
+            if (recepticle.circle != nil && recepticle.circle.placeholder == NO)
             {
                 [recepticle.circle removeFromSuperview];
                 recepticle.circle = nil;
