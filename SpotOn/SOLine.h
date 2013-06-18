@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum  {
+    SOLineTypeHorizontal,
+    SOLineTypeVertical,
+} SOLineType;
+
 @interface SOLine : UIView
 
-@property(nonatomic, retain) UIColor            *strokeColor;
-@property(nonatomic, readwrite, assign) BOOL    dashedLine;
+@property(nonatomic, retain) UIColor                *strokeColor;
+@property(nonatomic, readwrite, assign) BOOL        dashedLine;
+@property(nonatomic, readwrite, assign) SOLineType  lineType;
 
 @end

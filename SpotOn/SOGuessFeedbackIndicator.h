@@ -12,4 +12,9 @@
 
 - (id)initWithNumberRecepticles:(int)numberOfRecepticles;
 - (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition;
+
+//ANIMATIONS
+- (void)hideDots;
+- (void)animateIn;
+
 @end

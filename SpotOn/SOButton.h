@@ -7,19 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
-@class SOSubmitButton;
+@class SOButton;
 @protocol SOSubmitButtonDelegate;
 
-@interface SOSubmitButton : UIView
+typedef enum  {
+    SOButtonTypeSubmit,
+    SOButtonTypeNext,
+} SOButtonType;
+
+@interface SOButton : UIView
 
 @property(nonatomic, readwrite, assign) id<SOSubmitButtonDelegate> delegate;
 @property(nonatomic, readwrite, assign) BOOL enabled;
+@property(nonatomic, readonly) SOButtonType buttonType;
+
+- (id)initWithType:(SOButtonType)buttonType;
 
 @end
 
 @protocol SOSubmitButtonDelegate <NSObject>
 
 @optional
-- (void)submitButtonPressed:(SOSubmitButton *)submitButton;
+- (void)submitButtonPressed:(SOButton *)submitButton;
 
 @end

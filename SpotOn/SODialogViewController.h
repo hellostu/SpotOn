@@ -13,4 +13,6 @@
 
 @property(nonatomic, readonly) SODialogView *dialogView;
 
+- (void)setupPage:(int)page;
+
 @end

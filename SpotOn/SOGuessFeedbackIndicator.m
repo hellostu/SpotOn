@@ -8,6 +8,7 @@
 
 #import "SOGuessFeedbackIndicator.h"
 #import "SOCircle.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SOGuessFeedbackIndicator ()
 {
@@ -32,12 +33,16 @@
         CGFloat w = 12;
         
         SOCircle *circle1 = [[SOCircle alloc] initWithFrame:CGRectMake(0,  0,  w, w)];
+        circle1.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
         circle1.fillColor = GREY_COLOR_TOP_INCORRECT;
         SOCircle *circle2 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width-w, 0,  w, w)];
+        circle2.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
         circle2.fillColor = GREY_COLOR_TOP_INCORRECT;
         SOCircle *circle3 = [[SOCircle alloc] initWithFrame:CGRectMake(0,  frame.size.width-w, w, w)];
+        circle3.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
         circle3.fillColor = GREY_COLOR_TOP_INCORRECT;
         SOCircle *circle4 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width-w, frame.size.width-w, w, w)];
+        circle4.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
         circle4.fillColor = GREY_COLOR_TOP_INCORRECT;
         
         [_indicators addObject:circle1];
@@ -52,9 +57,9 @@
         
         if (numberOfRecepticles>4)
         {
-            SOCircle *circle5 = [[SOCircle alloc] initWithFrame:CGRectMake(0, 0, w, w)];
+            SOCircle *circle5 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width/2-w/2, frame.size.height/2-w/2, w, w)];
             circle5.fillColor = GREY_COLOR_TOP_INCORRECT;
-            circle5.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+            circle5.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
             
             [_indicators insertObject:circle5 atIndex:2];
             [circle5 release];
@@ -72,6 +77,40 @@
 {
     [_indicators release];
     [super dealloc];
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Animation
+//////////////////////////////////////////////////////////////////////////
+
+- (void)hideDots
+{
+    self.alpha = 0.0f;
+}
+
+- (void)animateIn
+{
+    self.alpha = 1.0f;
+    for (SOCircle *circle in _indicators)
+    {
+        circle.layer.affineTransform = CGAffineTransformMakeScale(0.0, 0.0);
+    }
+    for (SOCircle *circle in _indicators)
+    {
+        CGFloat rand = ((CGFloat)(arc4random()%100))/100.0f;
+        rand = (rand*0.2)+0.2;
+        CGFloat rand2 = ((CGFloat)(arc4random()%100))/100.0f;
+        rand2 = (rand2*0.2);
+        
+        [UIView animateWithDuration:rand delay:rand2 options:0 animations:^(){
+            circle.layer.affineTransform = CGAffineTransformMakeScale(1.2, 1.2);
+        }completion:^(BOOL finished){
+            [UIView animateWithDuration:0.2 animations:^() {
+                circle.layer.affineTransform = CGAffineTransformMakeScale(1.0, 1.0);
+            }];
+        }];
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////

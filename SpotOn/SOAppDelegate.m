@@ -8,10 +8,16 @@
 
 #import "SOAppDelegate.h"
 #import "SOPassAndPlayViewController.h"
+#import "TestFlight.h"
 
 #import "SOTutorialViewController.h"
 
 @implementation SOAppDelegate
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Lifecycle
+//////////////////////////////////////////////////////////////////////////
 
 - (void)dealloc
 {
@@ -21,19 +27,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self setupTestFlight];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor blackColor];
     
-    SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
-    self.window.rootViewController = passAndPlay;
-    [passAndPlay release];
+    //SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
+    //self.window.rootViewController = passAndPlay;
+    //[passAndPlay release];
     
-    //SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
-    //self.window.rootViewController = tutorialVC;
-    //[tutorialVC release];
+    SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
+    self.window.rootViewController = tutorialVC;
+    [tutorialVC release];
     
     return YES;
 }
@@ -63,6 +71,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Methods
+//////////////////////////////////////////////////////////////////////////
+
+- (void)setupTestFlight
+{
+    NSString *uuid = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    [TestFlight setDeviceIdentifier:uuid];
+    [TestFlight takeOff:@"dbb4a13f-8cb8-490d-a36f-b985fd25d454"];
 }
 
 @end

@@ -27,7 +27,7 @@
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = [UIColor whiteColor];
         
-        _messageLabel = [[UITextView alloc] initWithFrame:CGRectMake(5, 60, frame.size.width-10, frame.size.height-70)];
+        _messageLabel = [[UITextView alloc] initWithFrame:CGRectMake(5, 54, frame.size.width-10, frame.size.height-70)];
         _messageLabel.text = messageText;
         _messageLabel.font = [UIFont fontWithName:@"GothamHTF-Medium" size:18.0f];
         _messageLabel.textAlignment = NSTextAlignmentCenter;

@@ -20,9 +20,8 @@
 {
     
     CGFloat inset = 39;
-    CGFloat interval = 55
+    CGFloat interval = 55;
     
-    ;
     CGRect frame = CGRectMake(0,0,interval*5+inset/2,50);
     
     if ( (self = [super initWithFrame:frame]) != nil)

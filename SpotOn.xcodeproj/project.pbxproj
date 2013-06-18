@@ -35,7 +35,7 @@
 		447EC2C4176D0B2E00CBD11C /* SOChooseCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 447EC2C3176D0A6500CBD11C /* SOChooseCodeViewController.m */; };
 		447EC2C7176D2CDF00CBD11C /* SOMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 447EC2C6176D2C7C00CBD11C /* SOMessageViewController.m */; };
 		447EC2CB176D328F00CBD11C /* SOPassAndPlayTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 447EC2C9176D323800CBD11C /* SOPassAndPlayTransitionViewController.m */; };
-		447EC2CE176D33DF00CBD11C /* SOSubmitButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 447EC2CD176D33C700CBD11C /* SOSubmitButton.m */; };
+		447EC2CE176D33DF00CBD11C /* SOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 447EC2CD176D33C700CBD11C /* SOButton.m */; };
 		447EC2F2176D42D300CBD11C /* Mockup2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 447EC2F1176D42D300CBD11C /* Mockup2.jpeg */; };
 		447EC2F7176D49EA00CBD11C /* submit_check_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 447EC2F3176D49EA00CBD11C /* submit_check_active.png */; };
 		447EC2F8176D49EA00CBD11C /* submit_check_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 447EC2F4176D49EA00CBD11C /* submit_check_active@2x.png */; };
@@ -49,6 +49,17 @@
 		44A64CC3176BDCFD00A3ECE6 /* GothamHTF-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A64CBE176BDCFD00A3ECE6 /* GothamHTF-Medium.otf */; };
 		44A64CC4176BDCFD00A3ECE6 /* GothamHTF-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A64CBF176BDCFD00A3ECE6 /* GothamHTF-Thin.otf */; };
 		44A64CC8176BDFE900A3ECE6 /* SOLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A64CC7176BDF7B00A3ECE6 /* SOLine.m */; };
+		44A88AEA176FB15200B1E079 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A88AE7176FB15200B1E079 /* libTestFlight.a */; };
+		44A88AEB176FB15200B1E079 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AE8176FB15200B1E079 /* README.md */; };
+		44A88AED176FB77100B1E079 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A88AEC176FB77100B1E079 /* libz.dylib */; };
+		44A88AF81770277700B1E079 /* next_arrow_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF01770277700B1E079 /* next_arrow_active.png */; };
+		44A88AF91770277700B1E079 /* next_arrow_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF11770277700B1E079 /* next_arrow_active@2x.png */; };
+		44A88AFA1770277700B1E079 /* next_arrow_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF21770277700B1E079 /* next_arrow_hover.png */; };
+		44A88AFB1770277700B1E079 /* next_arrow_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF31770277700B1E079 /* next_arrow_hover@2x.png */; };
+		44A88AFC1770277700B1E079 /* next_arrow_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF41770277700B1E079 /* next_arrow_inactive.png */; };
+		44A88AFD1770277700B1E079 /* next_arrow_inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF51770277700B1E079 /* next_arrow_inactive@2x.png */; };
+		44A88AFE1770277700B1E079 /* next_arrow_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF61770277700B1E079 /* next_arrow_pressed.png */; };
+		44A88AFF1770277700B1E079 /* next_arrow_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF71770277700B1E079 /* next_arrow_pressed@2x.png */; };
 		44BA53C0176EF6B4001CD03A /* SODialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53BF176EF692001CD03A /* SODialogView.m */; };
 		44BA53C1176EFAA5001CD03A /* SOTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53BD176EF668001CD03A /* SOTutorialViewController.m */; };
 		44BA53C4176EFCF7001CD03A /* SODialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53C3176EFCDC001CD03A /* SODialogViewController.m */; };
@@ -109,8 +120,8 @@
 		447EC2C6176D2C7C00CBD11C /* SOMessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOMessageViewController.m; sourceTree = "<group>"; };
 		447EC2C8176D323800CBD11C /* SOPassAndPlayTransitionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOPassAndPlayTransitionViewController.h; sourceTree = "<group>"; };
 		447EC2C9176D323800CBD11C /* SOPassAndPlayTransitionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOPassAndPlayTransitionViewController.m; sourceTree = "<group>"; };
-		447EC2CC176D33C700CBD11C /* SOSubmitButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOSubmitButton.h; sourceTree = "<group>"; };
-		447EC2CD176D33C700CBD11C /* SOSubmitButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOSubmitButton.m; sourceTree = "<group>"; };
+		447EC2CC176D33C700CBD11C /* SOButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOButton.h; sourceTree = "<group>"; };
+		447EC2CD176D33C700CBD11C /* SOButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOButton.m; sourceTree = "<group>"; };
 		447EC2F1176D42D300CBD11C /* Mockup2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Mockup2.jpeg; sourceTree = "<group>"; };
 		447EC2F3176D49EA00CBD11C /* submit_check_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submit_check_active.png; sourceTree = "<group>"; };
 		447EC2F4176D49EA00CBD11C /* submit_check_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "submit_check_active@2x.png"; sourceTree = "<group>"; };
@@ -127,6 +138,18 @@
 		44A64CBF176BDCFD00A3ECE6 /* GothamHTF-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamHTF-Thin.otf"; sourceTree = "<group>"; };
 		44A64CC6176BDF7B00A3ECE6 /* SOLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOLine.h; sourceTree = "<group>"; };
 		44A64CC7176BDF7B00A3ECE6 /* SOLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOLine.m; sourceTree = "<group>"; };
+		44A88AE7176FB15200B1E079 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = SpotOn/libTestFlight.a; sourceTree = "<group>"; };
+		44A88AE8176FB15200B1E079 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		44A88AE9176FB15200B1E079 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		44A88AEC176FB77100B1E079 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		44A88AF01770277700B1E079 /* next_arrow_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_arrow_active.png; sourceTree = "<group>"; };
+		44A88AF11770277700B1E079 /* next_arrow_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next_arrow_active@2x.png"; sourceTree = "<group>"; };
+		44A88AF21770277700B1E079 /* next_arrow_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_arrow_hover.png; sourceTree = "<group>"; };
+		44A88AF31770277700B1E079 /* next_arrow_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next_arrow_hover@2x.png"; sourceTree = "<group>"; };
+		44A88AF41770277700B1E079 /* next_arrow_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_arrow_inactive.png; sourceTree = "<group>"; };
+		44A88AF51770277700B1E079 /* next_arrow_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next_arrow_inactive@2x.png"; sourceTree = "<group>"; };
+		44A88AF61770277700B1E079 /* next_arrow_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_arrow_pressed.png; sourceTree = "<group>"; };
+		44A88AF71770277700B1E079 /* next_arrow_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next_arrow_pressed@2x.png"; sourceTree = "<group>"; };
 		44BA53BC176EF668001CD03A /* SOTutorialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOTutorialViewController.h; sourceTree = "<group>"; };
 		44BA53BD176EF668001CD03A /* SOTutorialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOTutorialViewController.m; sourceTree = "<group>"; };
 		44BA53BE176EF692001CD03A /* SODialogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SODialogView.h; sourceTree = "<group>"; };
@@ -144,7 +167,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44A88AED176FB77100B1E079 /* libz.dylib in Frameworks */,
 				44BA53CC176F8D07001CD03A /* StoreKit.framework in Frameworks */,
+				44A88AEA176FB15200B1E079 /* libTestFlight.a in Frameworks */,
 				44BA53CA176F8A76001CD03A /* GameKit.framework in Frameworks */,
 				440353A7176A2A4100FD0DCE /* QuartzCore.framework in Frameworks */,
 				44035366176A29C700FD0DCE /* UIKit.framework in Frameworks */,
@@ -187,6 +212,8 @@
 		44035364176A29C700FD0DCE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44A88AEC176FB77100B1E079 /* libz.dylib */,
+				44A88AE7176FB15200B1E079 /* libTestFlight.a */,
 				44BA53CB176F8D07001CD03A /* StoreKit.framework */,
 				44BA53C9176F8A76001CD03A /* GameKit.framework */,
 				440353A5176A2A3100FD0DCE /* QuartzCore.framework */,
@@ -201,6 +228,7 @@
 		4403536B176A29C700FD0DCE /* SpotOn */ = {
 			isa = PBXGroup;
 			children = (
+				44A88AE6176FB14400B1E079 /* TestFlight */,
 				447EC2C0176D00A800CBD11C /* UI */,
 				447EC2BF176D009B00CBD11C /* Game Objects */,
 				447EC2BE176D009100CBD11C /* AppDelegate */,
@@ -277,8 +305,8 @@
 				4474C541176B986800FF5D7E /* SOPreviousGuessView.m */,
 				44A64CB7176BD7CE00A3ECE6 /* SOPreviousGuessesView.h */,
 				44A64CB8176BD7CE00A3ECE6 /* SOPreviousGuessesView.m */,
-				447EC2CC176D33C700CBD11C /* SOSubmitButton.h */,
-				447EC2CD176D33C700CBD11C /* SOSubmitButton.m */,
+				447EC2CC176D33C700CBD11C /* SOButton.h */,
+				447EC2CD176D33C700CBD11C /* SOButton.m */,
 				447EC2FE176D877700CBD11C /* SOGuessFeedbackIndicator.h */,
 				447EC2FF176D877700CBD11C /* SOGuessFeedbackIndicator.m */,
 				446540FA176E721E00C6BCA3 /* SOCodeDisplayView.h */,
@@ -303,6 +331,7 @@
 		447EC2CF176D37A200CBD11C /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				44A88AEF1770274400B1E079 /* Next Button */,
 				447EC2D4176D37B400CBD11C /* Submit Button */,
 				44A64CBA176BDC7B00A3ECE6 /* Fonts */,
 			);
@@ -330,6 +359,30 @@
 				44A64CBF176BDCFD00A3ECE6 /* GothamHTF-Thin.otf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		44A88AE6176FB14400B1E079 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				44A88AE8176FB15200B1E079 /* README.md */,
+				44A88AE9176FB15200B1E079 /* TestFlight.h */,
+			);
+			name = TestFlight;
+			sourceTree = "<group>";
+		};
+		44A88AEF1770274400B1E079 /* Next Button */ = {
+			isa = PBXGroup;
+			children = (
+				44A88AF01770277700B1E079 /* next_arrow_active.png */,
+				44A88AF11770277700B1E079 /* next_arrow_active@2x.png */,
+				44A88AF21770277700B1E079 /* next_arrow_hover.png */,
+				44A88AF31770277700B1E079 /* next_arrow_hover@2x.png */,
+				44A88AF41770277700B1E079 /* next_arrow_inactive.png */,
+				44A88AF51770277700B1E079 /* next_arrow_inactive@2x.png */,
+				44A88AF61770277700B1E079 /* next_arrow_pressed.png */,
+				44A88AF71770277700B1E079 /* next_arrow_pressed@2x.png */,
+			);
+			name = "Next Button";
 			sourceTree = "<group>";
 		};
 		44BA53C5176F0398001CD03A /* Tutorial */ = {
@@ -430,19 +483,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44A88AFE1770277700B1E079 /* next_arrow_pressed.png in Resources */,
 				447EC2F9176D49EA00CBD11C /* submit_check.png in Resources */,
 				44A64CC2176BDCFD00A3ECE6 /* GothamHTF-Light.otf in Resources */,
 				447EC2F2176D42D300CBD11C /* Mockup2.jpeg in Resources */,
 				447EC2FA176D49EA00CBD11C /* submit_check@2x.png in Resources */,
 				446540ED176E673800C6BCA3 /* InfoPlist.strings in Resources */,
+				44A88AFA1770277700B1E079 /* next_arrow_hover.png in Resources */,
+				44A88AFC1770277700B1E079 /* next_arrow_inactive.png in Resources */,
 				44035378176A29C700FD0DCE /* Default.png in Resources */,
+				44A88AFD1770277700B1E079 /* next_arrow_inactive@2x.png in Resources */,
+				44A88AEB176FB15200B1E079 /* README.md in Resources */,
 				4403537A176A29C700FD0DCE /* Default@2x.png in Resources */,
+				44A88AFF1770277700B1E079 /* next_arrow_pressed@2x.png in Resources */,
 				447EC2F8176D49EA00CBD11C /* submit_check_active@2x.png in Resources */,
 				44A64CC1176BDCFD00A3ECE6 /* GothamHTF-Book.otf in Resources */,
+				44A88AF81770277700B1E079 /* next_arrow_active.png in Resources */,
+				44A88AFB1770277700B1E079 /* next_arrow_hover@2x.png in Resources */,
 				4403537C176A29C700FD0DCE /* Default-568h@2x.png in Resources */,
 				44A64CC4176BDCFD00A3ECE6 /* GothamHTF-Thin.otf in Resources */,
 				447EC2BA176CD7AB00CBD11C /* Mockup.jpeg in Resources */,
 				44A64CC0176BDCFD00A3ECE6 /* GothamHTF-Bold.otf in Resources */,
+				44A88AF91770277700B1E079 /* next_arrow_active@2x.png in Resources */,
 				447EC2F7176D49EA00CBD11C /* submit_check_active.png in Resources */,
 				44A64CC3176BDCFD00A3ECE6 /* GothamHTF-Medium.otf in Resources */,
 			);
@@ -493,7 +555,7 @@
 				447EC2CB176D328F00CBD11C /* SOPassAndPlayTransitionViewController.m in Sources */,
 				447EC2C7176D2CDF00CBD11C /* SOMessageViewController.m in Sources */,
 				44A64CC8176BDFE900A3ECE6 /* SOLine.m in Sources */,
-				447EC2CE176D33DF00CBD11C /* SOSubmitButton.m in Sources */,
+				447EC2CE176D33DF00CBD11C /* SOButton.m in Sources */,
 				446540FC176E726100C6BCA3 /* SOCodeDisplayView.m in Sources */,
 				446540F6176E6DD800C6BCA3 /* SOGameResultViewController.m in Sources */,
 				44BA53C1176EFAA5001CD03A /* SOTutorialViewController.m in Sources */,
@@ -599,6 +661,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpotOn/SpotOn-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/SpotOn/SpotOn-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/SpotOn",
+				);
 				PRODUCT_NAME = SpotOn;
 				WRAPPER_EXTENSION = app;
 			};
@@ -615,6 +681,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpotOn/SpotOn-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/SpotOn/SpotOn-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/SpotOn",
+				);
 				PRODUCT_NAME = SpotOn;
 				WRAPPER_EXTENSION = app;
 			};

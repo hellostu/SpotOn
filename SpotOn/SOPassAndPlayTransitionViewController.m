@@ -7,7 +7,7 @@
 //
 
 #import "SOPassAndPlayTransitionViewController.h"
-#import "SOSubmitButton.h"
+#import "SOButton.h"
 
 @interface SOPassAndPlayTransitionViewController () <SOSubmitButtonDelegate>
 
@@ -38,7 +38,7 @@
     //[self.view addSubview:mockup];
     mockup.frame = self.view.frame;
     
-    SOSubmitButton *submitButton = [[SOSubmitButton alloc] init];
+    SOButton *submitButton = [[SOButton alloc] initWithType:SOButtonTypeSubmit];
     submitButton.delegate = self;
     submitButton.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height-50);
     [self.view addSubview:submitButton];
@@ -56,7 +56,7 @@
 #pragma mark SLSubmitButtonDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)submitButtonPressed:(SOSubmitButton *)submitButton
+- (void)submitButtonPressed:(SOButton *)submitButton
 {
     if ([self.delegate respondsToSelector:@selector(passAndPlayTransitionViewControllerReadyToTransition:)])
     {

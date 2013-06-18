@@ -11,13 +11,13 @@
 
 #import "SOCodeSelectionView.h"
 #import "SOPreviousGuessesView.h"
-#import "SOSubmitButton.h"
+#import "SOButton.h"
 
 @interface SOGameViewController () <SOCodeSelectionViewDelegate, SOSubmitButtonDelegate>
 {
     SOCodeSelectionView     *_codeSelectionView;
     SOPreviousGuessesView   *_previousGuessesView;
-    SOSubmitButton          *_submitButton;
+    SOButton          *_submitButton;
     NSArray                 *_code;
 }
 @end
@@ -59,7 +59,7 @@
     _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.65);
     _codeSelectionView.delegate = self;
     
-    _submitButton = [[SOSubmitButton alloc] init];
+    _submitButton = [[SOButton alloc] initWithType:SOButtonTypeSubmit];
     _submitButton.delegate = self;
     _submitButton.alpha = 0.0f;
     CGFloat y = (self.view.frame.size.height-(_codeSelectionView.frame.size.height+_codeSelectionView.frame.origin.y))/2;
@@ -145,7 +145,7 @@
 #pragma mark SLSubmitButtonDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)submitButtonPressed:(SOSubmitButton *)submitButton
+- (void)submitButtonPressed:(SOButton *)submitButton
 {
     switch (self.gameState)
     {

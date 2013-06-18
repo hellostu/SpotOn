@@ -34,6 +34,7 @@
 	self.view.backgroundColor = GREY_COLOR_TOP_BACKGROUND;
     
     _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    _codeSelectionView.regrowCircles = NO;
     [self.view addSubview:_codeSelectionView];
     [_codeSelectionView release];
     

@@ -8,14 +8,14 @@
 
 #import "SOChooseCodeViewController.h"
 #import "SOCodeSelectionView.h"
-#import "SOSubmitButton.h"
+#import "SOButton.h"
 #import "SOGuessFeedbackIndicator.h"
 #import "SODialogView.h"
 
 @interface SOChooseCodeViewController () <SOSubmitButtonDelegate, SOCodeSelectionViewDelegate>
 {
     SOCodeSelectionView *_codeSelectionView;
-    SOSubmitButton      *_submitButton;
+    SOButton      *_submitButton;
 }
 
 @end
@@ -70,7 +70,7 @@
     _codeSelectionView.delegate = self;
 
     
-    _submitButton = [[SOSubmitButton alloc] init];
+    _submitButton = [[SOButton alloc] initWithType:SOButtonTypeSubmit];
     _submitButton.delegate = self;
     CGFloat y = (self.view.frame.size.height-(_codeSelectionView.frame.size.height+_codeSelectionView.frame.origin.y))/2;
     y = self.view.frame.size.height-y;
@@ -120,7 +120,7 @@
 #pragma mark SLSubmitButtonDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)submitButtonPressed:(SOSubmitButton *)submitButton
+- (void)submitButtonPressed:(SOButton *)submitButton
 {
     if ([self.delegate respondsToSelector:@selector(chooseCodeViewController:didReturnCode:)])
     {

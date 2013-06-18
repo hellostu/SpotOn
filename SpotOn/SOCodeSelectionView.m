@@ -30,6 +30,8 @@
 {
     if ((self = [super initWithFrame:frame]) != nil)
     {
+        _regrowCircles = YES;
+        
         _recepticles = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
         _palette = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
         CGFloat recepticleInterval = 55;
@@ -270,8 +272,17 @@
             }
             if (circle.recepticle == nil)
             {
-                [self regrowCircle:circle];
-                [self copyCircle:circle intoRecepticle:recepticle];
+                if (self.regrowCircles == YES)
+                {
+                    [self regrowCircle:circle];
+                    [self copyCircle:circle intoRecepticle:recepticle];
+                }
+                else
+                {
+                    circle.recepticle.circle = nil;
+                    recepticle.circle = circle;
+                    circle.recepticle = recepticle;
+                }
             }
             else
             {
