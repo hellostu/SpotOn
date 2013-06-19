@@ -187,6 +187,11 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
+- (NSArray *)guessHistory
+{
+    return [_previousGuessesView guessesList];
+}
+
 - (NSArray *)mapFromColors:(NSArray *)colors
 {
     NSMutableArray *map = [[NSMutableArray alloc] initWithCapacity:6];

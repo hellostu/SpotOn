@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 UEA. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SOTransitionContainer.h"
 
-@interface SOPassAndPlayViewController : UIViewController
+@interface SOPassAndPlayViewController : SOTransitionContainer
 
 @end

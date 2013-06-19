@@ -10,6 +10,7 @@
 #import "SOPassAndPlayViewController.h"
 #import "TestFlight.h"
 #import "SOGameCenterHelper.h"
+#import "SOGameCenterViewController.h"
 
 #import "SOTutorialViewController.h"
 
@@ -36,12 +37,11 @@
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor blackColor];
     
-    
-    
     //SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
     //self.window.rootViewController = tutorialVC;
     //[tutorialVC release];
     
+    /*
     SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
     self.window.rootViewController = passAndPlay;
     [[SOGameCenterHelper sharedInstance] authenticateLocalUserWithHandler:^(UIViewController *viewController, NSError *error) {
@@ -53,8 +53,33 @@
         }
     }];
     [passAndPlay release];
+     */
+
+    SOGameCenterViewController *gameCenterVC = [[SOGameCenterViewController alloc] init];
     
-    return YES;
+    [[SOGameCenterHelper sharedInstance] authenticateLocalUserWithHandler:^(UIViewController *viewController, NSError *error) {
+        [GKTurnBasedMatch loadMatchesWithCompletionHandler:^(NSArray *matches, NSError *error){
+            for (GKTurnBasedMatch *match in matches)
+            {
+                NSLog(@"%@", match.matchID);
+                [match removeWithCompletionHandler:^(NSError *error){
+                    NSLog(@"%@", error);
+                }];
+            }
+        }];
+        
+        if (viewController != nil)
+        {
+            [gameCenterVC presentViewController:viewController
+                                   animated:YES
+                                 completion:nil];
+        }
+    }];
+    self.window.rootViewController = gameCenterVC;
+    [gameCenterVC release];
+    
+
+return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

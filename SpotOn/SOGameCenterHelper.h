@@ -11,13 +11,13 @@
 @class SOGameCenterHelper;
 @protocol SOGamerCenterHelperDelegate;
 
-@interface SOGameCenterHelper : NSObject <GKTurnBasedMatchmakerViewControllerDelegate>
+@interface SOGameCenterHelper : NSObject <GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate>
 
 @property(nonatomic, readonly) BOOL gameCenterAvailable;
 @property(nonatomic, readonly) BOOL userAuthenticated;
 
 @property (nonatomic, retain) UIViewController *presentingViewController;
-@property (nonatomic, retain) GKTurnBasedMatch *match;
+@property (nonatomic, retain) GKTurnBasedMatch *currentMatch;
 
 @property(nonatomic, readwrite, assign) id<SOGamerCenterHelperDelegate> delegate;
 
@@ -29,8 +29,10 @@
 
 @protocol SOGamerCenterHelperDelegate <NSObject>
 
-- (void)matchStarted;
-- (void)matchEnded;
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
+- (void)enterNewGame:(GKTurnBasedMatch *)match;
+- (void)layoutMatch:(GKTurnBasedMatch *)match;
+- (void)enterExistingGame:(GKTurnBasedMatch *)match;
+- (void)recieveEndGame:(GKTurnBasedMatch *)match;
+- (void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match;
 
 @end

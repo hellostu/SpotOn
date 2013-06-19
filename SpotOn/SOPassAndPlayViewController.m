@@ -14,8 +14,6 @@
 
 @interface SOPassAndPlayViewController () <SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, SOPassAndPlayTransitionViewControllerDelegate>
 {
-    UIViewController *_activeViewController;
-    
     SOGameViewController *_playerOne;
     SOGameViewController *_playerTwo;
 }
@@ -31,36 +29,21 @@
 
 - (id)init
 {
-    if ( (self = [super init]) != nil)
+    SOChooseCodeViewController *player1ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne];
+    player1ChooseCode.delegate = self;
+    player1ChooseCode.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [player1ChooseCode autorelease];
+    if ( (self = [super initWithViewController:player1ChooseCode]) != nil)
     {
         //SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
     }
     return self;
 }
 
-- (void)loadView
-{
-    self.wantsFullScreenLayout = YES;
-    CGRect frame = [UIScreen mainScreen].applicationFrame;
-    frame.size.height-=20;
-    UIView *view = [[UIView alloc] initWithFrame:frame];
-    view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    self.view = view;
-    [view release];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    SOChooseCodeViewController *player1ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne];
-    player1ChooseCode.delegate = self;
-    player1ChooseCode.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    _activeViewController = player1ChooseCode;
-    
-    [self addChildViewController:player1ChooseCode];
-    [self.view addSubview:player1ChooseCode.view];
-    
-    [player1ChooseCode release];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,31 +57,6 @@
     [_playerOne release];
     [_playerTwo release];
     [super dealloc];
-}
-
-//////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Methods
-//////////////////////////////////////////////////////////////////////////
-
-- (void)transitionToViewController:(UIViewController *)viewController
-{
-    [_activeViewController willMoveToParentViewController:nil];
-    [viewController willMoveToParentViewController:self];
-    [self addChildViewController:viewController];
-    
-    [self transitionFromViewController:_activeViewController
-                      toViewController:viewController
-                              duration:0.4
-                               options:UIViewAnimationOptionTransitionFlipFromLeft
-                            animations:nil
-                            completion:^(BOOL finished) {
-                                [_activeViewController didMoveToParentViewController:nil];
-                                [viewController didMoveToParentViewController:self];
-                                [_activeViewController.view removeFromSuperview];
-                                [_activeViewController removeFromParentViewController];
-                                _activeViewController = viewController;
-                               }];
 }
 
 //////////////////////////////////////////////////////////////////////////

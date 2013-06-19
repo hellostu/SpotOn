@@ -44,12 +44,15 @@
         _guessFeedbackIndicator.center = CGPointMake(frame.size.width-30, frame.size.height/2);
         [self addSubview:_guessFeedbackIndicator];
         
+        _colors = nil;
+        
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [_colors release];
     [_guess release];
     [_guessFeedbackIndicator release];
     [super dealloc];
@@ -86,6 +89,7 @@
 
 - (void)updateWithColors:(NSArray *)colors
 {
+    _colors = [colors retain];
     for (int i=0; i<_guess.count; i++)
     {
         SOCircle *circle = _guess[i];

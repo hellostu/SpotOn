@@ -57,6 +57,10 @@
             self.messageView.text = @"PLAYER 2\n SELECT A CODE FOR YOUR OPPONENT:";
             break;
         }
+        case SOPlayTypeGameCenter:
+        {
+            self.messageView.text = @"SELECT A CODE FOR YOUR OPPONENT";
+        }
         default:
             break;
     }

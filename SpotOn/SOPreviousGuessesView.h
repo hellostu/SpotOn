@@ -16,4 +16,6 @@
 - (void)scrollToEndAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
 - (void)forLastTurnSetRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition;
 - (void)addNewRow;
+
+- (NSArray *)guessesList;
 @end

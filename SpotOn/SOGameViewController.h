@@ -26,6 +26,7 @@ typedef enum  {
 - (NSDictionary *)provideFeedbackForCode:(NSArray *)code;
 - (void)setFeedbackWithRightColorsRightPosition:(int)rightColorsRightPosition
                        rightColorsWrongPosition:(int)rightColorsWrongPosition;
+- (NSArray *)guessHistory;
 
 @end
 

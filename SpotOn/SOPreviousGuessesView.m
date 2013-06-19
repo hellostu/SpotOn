@@ -55,6 +55,19 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
+- (NSArray *)guessesList
+{
+    NSMutableArray *guessesList = [[NSMutableArray alloc] initWithCapacity:_guesses.count];
+    for (SOPreviousGuessView *previousGuess in _guesses)
+    {
+        if (previousGuess.colors != nil)
+        {
+            [guessesList addObject:previousGuess.colors];
+        }
+    }
+    return [guessesList autorelease];
+}
+
 - (void)forLastTurnSetRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition
 {
     SOPreviousGuessView *previousGuess = _guesses[_turnsTaken];

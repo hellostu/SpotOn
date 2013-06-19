@@ -7,6 +7,7 @@
 //
 
 #import "SOMenuViewController.h"
+#import "SOGameCenterHelper.h"
 
 @interface SOMenuViewController ()
 {
@@ -35,9 +36,19 @@
     [super viewDidLoad];
 	_gamesTable = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.3, self.view.frame.size.width, self.view.frame.size.height*0.7)];
     
-
+    UIButton *newGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    newGameButton.frame = CGRectMake(0, 0, 90, 30);
+    newGameButton.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.2);
+    [newGameButton setTitle:@"New Game" forState:UIControlStateNormal];
+    [newGameButton addTarget:self action:@selector(newGamePressed) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_gamesTable];
+    [self.view addSubview:newGameButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,8 +59,19 @@
 
 - (void)dealloc
 {
-    [super dealloc];
     [_gamesTable release];
+    [super dealloc];
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Actions
+//////////////////////////////////////////////////////////////////////////
+
+- (void)newGamePressed
+{
+    SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
+    [gameCenterHelper findMatchWithPresentingViewController:self];
 }
 
 @end
