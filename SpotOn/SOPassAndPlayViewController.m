@@ -10,6 +10,7 @@
 #import "SOChooseCodeViewController.h"
 #import "SOPassAndPlayTransitionViewController.h"
 #import "SOGameViewController.h"
+#import "SOGameCenterHelper.h"
 
 @interface SOPassAndPlayViewController () <SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, SOPassAndPlayTransitionViewControllerDelegate>
 {
@@ -32,7 +33,7 @@
 {
     if ( (self = [super init]) != nil)
     {
-        
+        //SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
     }
     return self;
 }

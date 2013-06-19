@@ -9,6 +9,7 @@
 #import "SOAppDelegate.h"
 #import "SOPassAndPlayViewController.h"
 #import "TestFlight.h"
+#import "SOGameCenterHelper.h"
 
 #import "SOTutorialViewController.h"
 
@@ -35,13 +36,23 @@
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor blackColor];
     
-    //SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
-    //self.window.rootViewController = passAndPlay;
-    //[passAndPlay release];
     
-    SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
-    self.window.rootViewController = tutorialVC;
-    [tutorialVC release];
+    
+    //SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
+    //self.window.rootViewController = tutorialVC;
+    //[tutorialVC release];
+    
+    SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
+    self.window.rootViewController = passAndPlay;
+    [[SOGameCenterHelper sharedInstance] authenticateLocalUserWithHandler:^(UIViewController *viewController, NSError *error) {
+        if (viewController != nil)
+        {
+            [passAndPlay presentViewController:viewController
+                                                    animated:YES
+                                                  completion:nil];
+        }
+    }];
+    [passAndPlay release];
     
     return YES;
 }

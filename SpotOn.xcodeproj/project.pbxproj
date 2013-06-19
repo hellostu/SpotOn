@@ -66,6 +66,9 @@
 		44BA53C8176F03C0001CD03A /* SOFirstTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53C7176F03B6001CD03A /* SOFirstTutorialViewController.m */; };
 		44BA53CA176F8A76001CD03A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BA53C9176F8A76001CD03A /* GameKit.framework */; };
 		44BA53CC176F8D07001CD03A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BA53CB176F8D07001CD03A /* StoreKit.framework */; };
+		44CC2D1F177123A80001091C /* SOGameCenterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D1D177121140001091C /* SOGameCenterHelper.m */; };
+		44CC2D23177162370001091C /* SOMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D22177162370001091C /* SOMenuViewController.m */; };
+		44CC2D26177163820001091C /* SOLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D25177162EB0001091C /* SOLandingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +163,12 @@
 		44BA53C7176F03B6001CD03A /* SOFirstTutorialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOFirstTutorialViewController.m; sourceTree = "<group>"; };
 		44BA53C9176F8A76001CD03A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		44BA53CB176F8D07001CD03A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		44CC2D1C177121140001091C /* SOGameCenterHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOGameCenterHelper.h; sourceTree = "<group>"; };
+		44CC2D1D177121140001091C /* SOGameCenterHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGameCenterHelper.m; sourceTree = "<group>"; };
+		44CC2D21177162370001091C /* SOMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMenuViewController.h; sourceTree = "<group>"; };
+		44CC2D22177162370001091C /* SOMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMenuViewController.m; sourceTree = "<group>"; };
+		44CC2D24177162EB0001091C /* SOLandingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOLandingViewController.h; sourceTree = "<group>"; };
+		44CC2D25177162EB0001091C /* SOLandingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOLandingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +237,7 @@
 		4403536B176A29C700FD0DCE /* SpotOn */ = {
 			isa = PBXGroup;
 			children = (
+				44CC2D1B177120930001091C /* Game Center */,
 				44A88AE6176FB14400B1E079 /* TestFlight */,
 				447EC2C0176D00A800CBD11C /* UI */,
 				447EC2BF176D009B00CBD11C /* Game Objects */,
@@ -258,6 +268,7 @@
 		447EC2BD176D008700CBD11C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				44CC2D20177161A90001091C /* Menu */,
 				44BA53C5176F0398001CD03A /* Tutorial */,
 				447EC2CA176D323A00CBD11C /* Pass And Play */,
 				447EC2C2176D0A6500CBD11C /* SOChooseCodeViewController.h */,
@@ -396,6 +407,26 @@
 				44BA53C7176F03B6001CD03A /* SOFirstTutorialViewController.m */,
 			);
 			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		44CC2D1B177120930001091C /* Game Center */ = {
+			isa = PBXGroup;
+			children = (
+				44CC2D1C177121140001091C /* SOGameCenterHelper.h */,
+				44CC2D1D177121140001091C /* SOGameCenterHelper.m */,
+			);
+			name = "Game Center";
+			sourceTree = "<group>";
+		};
+		44CC2D20177161A90001091C /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				44CC2D21177162370001091C /* SOMenuViewController.h */,
+				44CC2D22177162370001091C /* SOMenuViewController.m */,
+				44CC2D24177162EB0001091C /* SOLandingViewController.h */,
+				44CC2D25177162EB0001091C /* SOLandingViewController.m */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -540,6 +571,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44CC2D26177163820001091C /* SOLandingViewController.m in Sources */,
+				44CC2D23177162370001091C /* SOMenuViewController.m in Sources */,
+				44CC2D1F177123A80001091C /* SOGameCenterHelper.m in Sources */,
 				447EC300176D87EA00CBD11C /* SOGuessFeedbackIndicator.m in Sources */,
 				44035372176A29C700FD0DCE /* main.m in Sources */,
 				44035376176A29C700FD0DCE /* SOAppDelegate.m in Sources */,
