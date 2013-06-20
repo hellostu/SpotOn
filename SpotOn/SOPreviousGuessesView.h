@@ -14,8 +14,9 @@
 - (void)takeTurnWithColors:(NSArray *)colors;
 - (void)scrollToTurnWithCompleition:(void (^)(void))completion;
 - (void)scrollToEndAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
-- (void)forLastTurnSetRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition;
-- (void)addNewRow;
+- (void)addNewRowAnimated:(BOOL)animated;
+- (void)updateWithGuesses:(NSArray *)guesses;
+- (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated;
 
 - (NSArray *)guessesList;
 @end

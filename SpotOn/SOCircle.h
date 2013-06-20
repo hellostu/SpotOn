@@ -25,6 +25,7 @@
 
 - (int)indexOfRecepticleWithCollisionFromRecepticles:(NSArray *)recepticles;
 + (UIColor *)colorForTag:(SOCircleColor)tag;
++ (NSArray *)mapFromColors:(NSArray *)colors;
 
 @end
 

@@ -163,8 +163,22 @@
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Methods
+#pragma mark Static Methods
 //////////////////////////////////////////////////////////////////////////
+
++ (NSArray *)mapFromColors:(NSArray *)colors
+{
+    NSMutableArray *map = [[NSMutableArray alloc] initWithCapacity:6];
+    for (int i=0; i<6; i++)
+    {
+        map[i] = @(0);
+    }
+    for (NSNumber *color in colors)
+    {
+        map[color.intValue] = @(((NSNumber*) map[color.intValue]).intValue+1);
+    }
+    return [map autorelease];
+}
 
 + (UIColor *)colorForTag:(SOCircleColor)tag
 {
@@ -207,6 +221,11 @@
         }
     }
 }
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Methods
+//////////////////////////////////////////////////////////////////////////
 
 - (int)indexOfRecepticleWithCollisionFromRecepticles:(NSArray *)recepticles
 {

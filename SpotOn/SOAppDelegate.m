@@ -41,19 +41,9 @@
     //self.window.rootViewController = tutorialVC;
     //[tutorialVC release];
     
-    /*
-    SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
-    self.window.rootViewController = passAndPlay;
-    [[SOGameCenterHelper sharedInstance] authenticateLocalUserWithHandler:^(UIViewController *viewController, NSError *error) {
-        if (viewController != nil)
-        {
-            [passAndPlay presentViewController:viewController
-                                                    animated:YES
-                                                  completion:nil];
-        }
-    }];
-    [passAndPlay release];
-     */
+    //SOPassAndPlayViewController *passAndPlay = [[SOPassAndPlayViewController alloc] init];
+    //self.window.rootViewController = passAndPlay;
+    //[passAndPlay release];
 
     SOGameCenterViewController *gameCenterVC = [[SOGameCenterViewController alloc] init];
     

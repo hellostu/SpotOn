@@ -31,12 +31,11 @@
 {
     SOChooseCodeViewController *player1ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne];
     player1ChooseCode.delegate = self;
-    player1ChooseCode.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    [player1ChooseCode autorelease];
     if ( (self = [super initWithViewController:player1ChooseCode]) != nil)
     {
-        //SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
+        
     }
+    [player1ChooseCode autorelease];
     return self;
 }
 
@@ -95,11 +94,7 @@
     {
         otherPlayer = _playerTwo;
     }
-    NSDictionary *feedback = [otherPlayer provideFeedbackForCode:code];
-    int rightColorWrongPosition = ((NSNumber *)feedback[@"Right Color Wrong Position"]).intValue;
-    int rightColorRightPosition = ((NSNumber *)feedback[@"Right Color Right Position"]).intValue;
-    [gameViewController setFeedbackWithRightColorsRightPosition:rightColorRightPosition
-                                       rightColorsWrongPosition:rightColorWrongPosition];
+    [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:otherPlayer.code animated:YES];
 }
 
 - (void)gameViewControllerReadyToTransition:(SOGameViewController *)gameViewController

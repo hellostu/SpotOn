@@ -10,6 +10,8 @@
 
 @interface SOGuessFeedbackIndicator : UIView
 
+@property(nonatomic, readonly) BOOL upToDate;
+
 - (id)initWithNumberRecepticles:(int)numberOfRecepticles;
 - (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition;
 

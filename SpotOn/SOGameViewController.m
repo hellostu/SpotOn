@@ -10,15 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "SOCodeSelectionView.h"
-#import "SOPreviousGuessesView.h"
-#import "SOButton.h"
+#import "SOGameCenterHelper.h"
 
 @interface SOGameViewController () <SOCodeSelectionViewDelegate, SOSubmitButtonDelegate>
 {
     SOCodeSelectionView     *_codeSelectionView;
-    SOPreviousGuessesView   *_previousGuessesView;
-    SOButton          *_submitButton;
-    NSArray                 *_code;
 }
 @end
 
@@ -47,7 +43,7 @@
     CGFloat offset = 0;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        offset = 22;
+        offset = 20;
     }
     
 	//UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Mockup.jpeg"]];
@@ -70,11 +66,11 @@
     
     _previousGuessesView = [[SOPreviousGuessesView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,206+offset)];
     [_previousGuessesView scrollToEndAnimated:NO withCompletion:nil];
+    if ([self.delegate respondsToSelector:@selector(gameViewControllerDidLoadViews:)])
+    {
+        [self.delegate gameViewControllerDidLoadViews:self];
+    }
     
-    NSMutableAttributedString *attributedString;
-    attributedString = [[NSMutableAttributedString alloc] initWithString:@"Round 1"];
-    [attributedString addAttribute:NSKernAttributeName value:@(-1) range:NSMakeRange(0, attributedString.length)];
-
     
     //[self.view addSubview:imageView];
     [self.view addSubview:_submitButton];
@@ -85,12 +81,19 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn] == NO)
+    {
+        _submitButton.alpha = 0.0f;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [_previousGuessesView addNewRow];
+    if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn])
+    {
+        [_previousGuessesView addNewRowAnimated:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -122,7 +125,9 @@
 
 - (void)codeSelectionViewWillChangeRecepticles:(SOCodeSelectionView *)codeSelectionView
 {
-    if ([codeSelectionView recepticlesPopulated] == YES)
+    BOOL isMyTurn = self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn];
+    
+    if ([codeSelectionView recepticlesPopulated] == YES && isMyTurn == YES)
     {
         _submitButton.enabled = NO;
         [UIView animateWithDuration:0.2 animations:^() {
@@ -147,38 +152,47 @@
 
 - (void)submitButtonPressed:(SOButton *)submitButton
 {
-    switch (self.gameState)
+    if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
     {
-        case SLGameStateWaitingForGuess:
+        [UIView animateWithDuration:0.2 animations:^() {
+            submitButton.alpha = 0.0;
+        }];
+        switch (self.gameState)
         {
-            if([_codeSelectionView recepticlesPopulated] == YES)
+            case SLGameStateWaitingForGuess:
             {
-                [_previousGuessesView scrollToEndAnimated:YES withCompletion:^() {
-                    [_codeSelectionView submitAllCirclesWithCompletion:^(NSArray *colors){
-                        if ([self.delegate respondsToSelector:@selector(gameViewController:didTakeTurnWithCode:)])
-                        {
-                            [self.delegate gameViewController:self didTakeTurnWithCode:colors];
-                        }
-                        [_previousGuessesView takeTurnWithColors:colors];
-                        
-                        [UIView animateWithDuration:0.2 animations:^() {
-                            _codeSelectionView.alpha = 0.0f;
+                if([_codeSelectionView recepticlesPopulated] == YES)
+                {
+                    [_previousGuessesView scrollToEndAnimated:YES withCompletion:^() {
+                        [_codeSelectionView submitAllCirclesWithCompletion:^(NSArray *colors){
+                            [_previousGuessesView takeTurnWithColors:colors];
+                            if ([self.delegate respondsToSelector:@selector(gameViewController:didTakeTurnWithCode:)])
+                            {
+                                [self.delegate gameViewController:self didTakeTurnWithCode:colors];
+                            }
+                            
+                            if (self.playType != SOPlayTypeGameCenter)
+                            {
+                                [UIView animateWithDuration:0.2 animations:^() {
+                                    _codeSelectionView.alpha = 0.0f;
+                                }];
+                            }
                         }];
                     }];
-                }];
+                }
+                _gameState = SLGameStateGuessInput;
+                
+                break;
             }
-            _gameState = SLGameStateGuessInput;
-            
-            break;
+            case SLGameStateGuessInput:
+            {
+                [self.delegate gameViewControllerReadyToTransition:self];
+                _gameState = SLGameStateWaitingForGuess;
+                break;
+            }
+            default:
+                break;
         }
-        case SLGameStateGuessInput:
-        {
-            [self.delegate gameViewControllerReadyToTransition:self];
-            _gameState = SLGameStateWaitingForGuess;
-            break;
-        }
-        default:
-            break;
     }
 }
 
@@ -190,55 +204,6 @@
 - (NSArray *)guessHistory
 {
     return [_previousGuessesView guessesList];
-}
-
-- (NSArray *)mapFromColors:(NSArray *)colors
-{
-    NSMutableArray *map = [[NSMutableArray alloc] initWithCapacity:6];
-    for (int i=0; i<6; i++)
-    {
-        map[i] = @(0);
-    }
-    for (NSNumber *color in colors)
-    {
-        map[color.intValue] = @(((NSNumber*) map[color.intValue]).intValue+1);
-    }
-    return [map autorelease];
-}
-
-- (NSDictionary *)provideFeedbackForCode:(NSArray *)code
-{
-    int rightColorRightPosition = 0;
-    int rightColorWrongPosition = 0;
-    for (int i=0; i<code.count; i++)
-    {
-        SOCircleColor thisColor = (SOCircleColor)((NSNumber *)_code[i]).intValue;
-        SOCircleColor thatColor = (SOCircleColor)((NSNumber *)code[i]).intValue;
-        
-        if (thisColor == thatColor)
-        {
-            rightColorRightPosition++;
-        }
-        
-    }
-    
-    NSArray *thisMap = [self mapFromColors:_code];
-    NSArray *thatMap = [self mapFromColors:code];
-    
-    for (int i=0; i<thisMap.count; i++)
-    {
-        rightColorWrongPosition += MIN(((NSNumber *)thisMap[i]).intValue,((NSNumber *)thatMap[i]).intValue);
-    }
-    rightColorWrongPosition-=rightColorRightPosition;
-    
-    return @{@"Right Color Wrong Position" : @(rightColorWrongPosition), @"Right Color Right Position" : @(rightColorRightPosition)};
-}
-
-- (void)setFeedbackWithRightColorsRightPosition:(int)rightColorsRightPosition
-                       rightColorsWrongPosition:(int)rightColorsWrongPosition
-{
-    [_previousGuessesView forLastTurnSetRightColorRightPosition:rightColorsRightPosition
-                                     andRightColorWrongPosition:rightColorsWrongPosition];
 }
 
 @end

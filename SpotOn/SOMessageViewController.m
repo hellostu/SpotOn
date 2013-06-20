@@ -33,12 +33,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
     
-	CGFloat offset = 0;
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-    {
-        offset = 22;
-    }
-    
     _messageView = [[UITextView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width,100)];
     _messageView.font = [UIFont fontWithName:@"GothamHTF-Medium" size:24.0f];
     _messageView.textAlignment = NSTextAlignmentCenter;

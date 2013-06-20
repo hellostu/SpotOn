@@ -8,6 +8,7 @@
 
 #import "SOPreviousGuessesView.h"
 #import "SOPreviousGuessView.h"
+#import "SOCircle.h"
 
 @interface SOPreviousGuessesView ()
 {
@@ -55,6 +56,64 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
+- (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated
+{
+    for (SOPreviousGuessView *guessView in _guesses)
+    {
+        if(guessView.guessFeedbackIndicator.upToDate == NO)
+        {
+            NSDictionary *result = [self provideFeedbackForGuess:guessView.colors withOpponentsCode:opponentsCode];
+            int rightColorWrongPosition = ((NSNumber *)result[@"Right Color Wrong Position"]).intValue;
+            int rightColorRightPosition = ((NSNumber *)result[@"Right Color Right Position"]).intValue;
+            
+            [guessView setRightColorRightPosition:rightColorRightPosition andRightColorWrongPosition:rightColorWrongPosition animated:animated];
+        }
+    }
+}
+
+- (NSDictionary *)provideFeedbackForGuess:(NSArray *)guess withOpponentsCode:(NSArray *)opponentsCode
+{
+    int rightColorRightPosition = 0;
+    int rightColorWrongPosition = 0;
+    for (int i=0; i<guess.count; i++)
+    {
+        SOCircleColor thisColor = (SOCircleColor)((NSNumber *)opponentsCode[i]).intValue;
+        SOCircleColor thatColor = (SOCircleColor)((NSNumber *)guess[i]).intValue;
+        
+        if (thisColor == thatColor)
+        {
+            rightColorRightPosition++;
+        }
+        
+    }
+    
+    NSArray *thisMap = [SOCircle mapFromColors:opponentsCode];
+    NSArray *thatMap = [SOCircle mapFromColors:guess];
+    
+    for (int i=0; i<thisMap.count; i++)
+    {
+        rightColorWrongPosition += MIN(((NSNumber *)thisMap[i]).intValue,((NSNumber *)thatMap[i]).intValue);
+    }
+    rightColorWrongPosition-=rightColorRightPosition;
+    
+    return @{@"Right Color Wrong Position" : @(rightColorWrongPosition), @"Right Color Right Position" : @(rightColorRightPosition)};
+}
+
+- (void)updateWithGuesses:(NSArray *)guesses
+{
+    if (_guesses.count == 0)
+    {
+        for (NSArray *colorCode in guesses)
+        {
+            [self addNewRowAnimated:NO];
+            SOPreviousGuessView *guessView = [_guesses lastObject];
+            [guessView updateWithColors:colorCode];
+        }
+        _turnsTaken = _guesses.count;
+        [self addNewRowAnimated:YES];
+    }
+}
+
 - (NSArray *)guessesList
 {
     NSMutableArray *guessesList = [[NSMutableArray alloc] initWithCapacity:_guesses.count];
@@ -66,12 +125,6 @@
         }
     }
     return [guessesList autorelease];
-}
-
-- (void)forLastTurnSetRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition
-{
-    SOPreviousGuessView *previousGuess = _guesses[_turnsTaken];
-    [previousGuess setRightColorRightPosition:rightColorRightPosition andRightColorWrongPosition:rightColorWrongPosition];
 }
 
 - (void)updateGuessWrapperViewLocationAndSize
@@ -130,22 +183,32 @@
     _turnsTaken++;
 }
 
-- (void)addNewRow
+- (void)addNewRowAnimated:(BOOL)animated
 {
-    if (self.turnsTaken <= _guesses.count)
+    if (self.turnsTaken == _guesses.count)
     {
         CGFloat y = GUESS_VIEW_HEIGHT*(self.turnsTaken)+15;
         SOPreviousGuessView *previousGuess = [[SOPreviousGuessView alloc] initWithFrame:CGRectMake(0, y, self.frame.size.width, 20) numberOfColors:5 index:0];
         [_guessWrapperView addSubview:previousGuess];
         [_guesses addObject:previousGuess];
         
-        previousGuess.alpha = 0.0f;
-        [UIView animateWithDuration:0.2 animations:^() {
-            previousGuess.alpha = 1.0f;
+        if (animated == YES)
+        {
+            previousGuess.alpha = 0.0f;
+            [UIView animateWithDuration:0.2 animations:^() {
+                previousGuess.alpha = 1.0f;
+                [self updateGuessWrapperViewLocationAndSize];
+                [self updateContentSize];
+                [self scrollToEndAnimated:NO withCompletion:nil];
+            }];
+        }
+        else
+        {
             [self updateGuessWrapperViewLocationAndSize];
             [self updateContentSize];
             [self scrollToEndAnimated:NO withCompletion:nil];
-        }];
+        }
+            
     }
 }
 

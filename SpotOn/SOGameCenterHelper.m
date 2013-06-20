@@ -113,7 +113,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
     NSLog(@"Turn has happened");
     if ([match.matchID isEqualToString:self.currentMatch.matchID])
     {
-        if ([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID])
+        if ([self isMyTurn] == YES)
         {
             // it's the current match and it's our turn now
             self.currentMatch = match;
@@ -128,7 +128,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
     }
     else
     {
-        if ([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID])
+        if ([self isMyTurn] == YES)
         {
             [self.delegate sendNotice:@"It's your turn for another match" forMatch:match];
         }
@@ -227,6 +227,11 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
+- (BOOL)isMyTurn
+{
+    return [_currentMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == YES;
+}
+
 - (void)findMatchWithPresentingViewController:(UIViewController *)presentingViewConroller
 {
     if (self.gameCenterAvailable == YES)
@@ -243,6 +248,8 @@ static SOGameCenterHelper *gameCenterHelper = nil;
         mmvc.showExistingMatches = YES;
         
         [presentingViewConroller presentViewController:mmvc animated:YES completion:nil];
+        [mmvc release];
+        [request release];
     }
 }
 

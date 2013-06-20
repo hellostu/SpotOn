@@ -28,6 +28,7 @@
     CGRect frame = CGRectMake(0,0,28,28);
     if ( (self = [super initWithFrame:frame]) != nil)
     {
+        _upToDate = NO;
         _indicators = [[NSMutableArray alloc] initWithCapacity:numberOfRecepticles];
         
         CGFloat w = 12;
@@ -141,6 +142,7 @@
         circle.strokeColor = nil;
         [circle setNeedsDisplay];
     }
+    _upToDate = YES;
 }
 
 /*

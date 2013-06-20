@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOButton.h"
+#import "SOPreviousGuessesView.h"
+
 @class SOGameViewController;
 @protocol SOGameViewControllerDelegate;
 
@@ -17,15 +20,14 @@ typedef enum  {
 
 @interface SOGameViewController : UIViewController
 
-@property(nonatomic, readonly) SLGameState gameState;
-@property(nonatomic, readonly) SOPlayType playType;
+@property(nonatomic, readonly) SLGameState              gameState;
+@property(nonatomic, readonly) SOPlayType               playType;
+@property(nonatomic, readonly) SOButton                 *submitButton;
+@property(nonatomic, readonly) SOPreviousGuessesView    *previousGuessesView;
+@property(nonatomic, readonly) NSArray                  *code;
 @property(nonatomic, readwrite, assign) id<SOGameViewControllerDelegate> delegate;
 
 - (id)initWithPlayType:(SOPlayType)playType code:(NSArray *)code;
-
-- (NSDictionary *)provideFeedbackForCode:(NSArray *)code;
-- (void)setFeedbackWithRightColorsRightPosition:(int)rightColorsRightPosition
-                       rightColorsWrongPosition:(int)rightColorsWrongPosition;
 - (NSArray *)guessHistory;
 
 @end
@@ -35,4 +37,5 @@ typedef enum  {
 @optional
 - (void)gameViewController:(SOGameViewController *)gameViewController didTakeTurnWithCode:(NSArray *)code;
 - (void)gameViewControllerReadyToTransition:(SOGameViewController *)gameViewController;
+- (void)gameViewControllerDidLoadViews:(SOGameViewController *)gameViewController;
 @end

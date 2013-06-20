@@ -7,13 +7,11 @@
 //
 
 #import "SOPreviousGuessView.h"
-#import "SOGuessFeedbackIndicator.h"
 #import "SOCircle.h"
 
 @interface SOPreviousGuessView ()
 {
     NSMutableArray  *_guess;
-    SOGuessFeedbackIndicator *_guessFeedbackIndicator;
 }
 @end
 
@@ -63,16 +61,18 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
-- (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition
+- (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition animated:(BOOL)animated
 {
-    [UIView animateWithDuration:0.4 animations:^(){
-        _guessFeedbackIndicator.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        [_guessFeedbackIndicator setRightColorRightPosition:0
-                                 andRightColorWrongPosition:rightColorWrongPosition];
+    if (animated == YES)
+    {
         [UIView animateWithDuration:0.4 animations:^(){
-            _guessFeedbackIndicator.alpha = 1.0f;
+            _guessFeedbackIndicator.alpha = 0.0f;
         } completion:^(BOOL finished) {
+            [_guessFeedbackIndicator setRightColorRightPosition:0
+                                     andRightColorWrongPosition:rightColorWrongPosition];
+            [UIView animateWithDuration:0.4 animations:^(){
+                _guessFeedbackIndicator.alpha = 1.0f;
+            } completion:^(BOOL finished) {
                 [UIView animateWithDuration:0.4 animations:^() {
                     _guessFeedbackIndicator.alpha = 0.0f;
                 } completion:^(BOOL finished) {
@@ -82,8 +82,14 @@
                         _guessFeedbackIndicator.alpha = 1.0f;
                     }];
                 }];
+            }];
         }];
-    }];
+    }
+    else
+    {
+        [_guessFeedbackIndicator setRightColorRightPosition:rightColorRightPosition
+                                 andRightColorWrongPosition:rightColorWrongPosition];
+    }
     
 }
 

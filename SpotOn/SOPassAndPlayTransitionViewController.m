@@ -34,10 +34,6 @@
     [super viewDidLoad];
 	self.messageView.text = @"PASS THE DEVICE TO YOUR OPPONENT";
     
-    UIImageView *mockup = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Mockup2.jpeg"]];
-    //[self.view addSubview:mockup];
-    mockup.frame = self.view.frame;
-    
     SOButton *submitButton = [[SOButton alloc] initWithType:SOButtonTypeSubmit];
     submitButton.delegate = self;
     submitButton.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height-50);

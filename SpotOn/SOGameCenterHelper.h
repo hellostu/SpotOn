@@ -24,7 +24,7 @@
 + (SOGameCenterHelper *)sharedInstance;
 - (void)authenticateLocalUserWithHandler:(void (^)(UIViewController* viewController, NSError *error))handler;
 - (void)findMatchWithPresentingViewController:(UIViewController *)presentingViewConroller;
-
+- (BOOL)isMyTurn;
 @end
 
 @protocol SOGamerCenterHelperDelegate <NSObject>
