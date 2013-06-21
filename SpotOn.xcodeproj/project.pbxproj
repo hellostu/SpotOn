@@ -537,11 +537,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44A88AFE1770277700B1E079 /* next_arrow_pressed.png in Resources */,
+				447EC2F7176D49EA00CBD11C /* submit_check_active.png in Resources */,
+				447EC2F8176D49EA00CBD11C /* submit_check_active@2x.png in Resources */,
 				447EC2F9176D49EA00CBD11C /* submit_check.png in Resources */,
+				447EC2FA176D49EA00CBD11C /* submit_check@2x.png in Resources */,
+				44A88AFE1770277700B1E079 /* next_arrow_pressed.png in Resources */,
 				44A64CC2176BDCFD00A3ECE6 /* GothamHTF-Light.otf in Resources */,
 				447EC2F2176D42D300CBD11C /* Mockup2.jpeg in Resources */,
-				447EC2FA176D49EA00CBD11C /* submit_check@2x.png in Resources */,
 				446540ED176E673800C6BCA3 /* InfoPlist.strings in Resources */,
 				44A88AFA1770277700B1E079 /* next_arrow_hover.png in Resources */,
 				44A88AFC1770277700B1E079 /* next_arrow_inactive.png in Resources */,
@@ -550,7 +552,6 @@
 				44A88AEB176FB15200B1E079 /* README.md in Resources */,
 				4403537A176A29C700FD0DCE /* Default@2x.png in Resources */,
 				44A88AFF1770277700B1E079 /* next_arrow_pressed@2x.png in Resources */,
-				447EC2F8176D49EA00CBD11C /* submit_check_active@2x.png in Resources */,
 				44A64CC1176BDCFD00A3ECE6 /* GothamHTF-Book.otf in Resources */,
 				44A88AF81770277700B1E079 /* next_arrow_active.png in Resources */,
 				44A88AFB1770277700B1E079 /* next_arrow_hover@2x.png in Resources */,
@@ -559,7 +560,6 @@
 				447EC2BA176CD7AB00CBD11C /* Mockup.jpeg in Resources */,
 				44A64CC0176BDCFD00A3ECE6 /* GothamHTF-Bold.otf in Resources */,
 				44A88AF91770277700B1E079 /* next_arrow_active@2x.png in Resources */,
-				447EC2F7176D49EA00CBD11C /* submit_check_active.png in Resources */,
 				44A64CC3176BDCFD00A3ECE6 /* GothamHTF-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

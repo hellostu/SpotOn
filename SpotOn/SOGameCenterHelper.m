@@ -166,18 +166,10 @@ static SOGameCenterHelper *gameCenterHelper = nil;
     GKTurnBasedParticipant *firstParticipant = [match.participants objectAtIndex:0];
     if (firstParticipant.lastTurnDate != nil)
     {
-        if ([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) {
-            if ([self.delegate respondsToSelector:@selector(enterExistingGame:)])
-            {
-                [self.delegate enterExistingGame:match];
-            }
-        } else {
-            if ([self.delegate respondsToSelector:@selector(layoutMatch:)])
-            {
-                [self.delegate layoutMatch:match];
-            }
+        if ([self.delegate respondsToSelector:@selector(enterExistingGame:)])
+        {
+            [self.delegate enterExistingGame:match];
         }
-        
     }
     else
     {

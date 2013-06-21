@@ -16,6 +16,8 @@
 - (void)scrollToEndAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
 - (void)addNewRowAnimated:(BOOL)animated;
 - (void)updateWithGuesses:(NSArray *)guesses;
+
+- (NSDictionary *)provideFeedbackForGuess:(NSArray *)guess withOpponentsCode:(NSArray *)opponentsCode;
 - (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated;
 
 - (NSArray *)guessesList;

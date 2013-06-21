@@ -60,7 +60,7 @@
 {
     for (SOPreviousGuessView *guessView in _guesses)
     {
-        if(guessView.guessFeedbackIndicator.upToDate == NO)
+        if(guessView.guessFeedbackIndicator.upToDate == NO && guessView.colors != nil)
         {
             NSDictionary *result = [self provideFeedbackForGuess:guessView.colors withOpponentsCode:opponentsCode];
             int rightColorWrongPosition = ((NSNumber *)result[@"Right Color Wrong Position"]).intValue;
@@ -108,9 +108,9 @@
             [self addNewRowAnimated:NO];
             SOPreviousGuessView *guessView = [_guesses lastObject];
             [guessView updateWithColors:colorCode];
+            _turnsTaken++;
         }
         _turnsTaken = _guesses.count;
-        [self addNewRowAnimated:YES];
     }
 }
 
@@ -185,6 +185,7 @@
 
 - (void)addNewRowAnimated:(BOOL)animated
 {
+    
     if (self.turnsTaken == _guesses.count)
     {
         CGFloat y = GUESS_VIEW_HEIGHT*(self.turnsTaken)+15;

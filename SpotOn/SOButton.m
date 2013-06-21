@@ -46,16 +46,23 @@
                 normalImage.center = CGPointMake(26, 27);
                 UIImageView *pressedImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"submit_check_active.png"]];
                 pressedImage.center = CGPointMake(26, 27);
+                UIImageView *hoverImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"submit_check.png"]];
+                hoverImage.center = CGPointMake(26, 27);
                 
                 [_normalState addSubview:normalImage];
                 [_pressedState addSubview:pressedImage];
-                [_hoverState addSubview:normalImage];
+                [_hoverState addSubview:hoverImage];
                 [normalImage release];
                 [pressedImage release];
+                [hoverImage release];
                 
                 _normalState.fillColor = nil;
                 _normalState.dashedLine = YES;
                 _normalState.strokeColor = GREY_COLOR_BTM_RECEPTICLE;
+                
+                _hoverState.fillColor = nil;
+                _hoverState.dashedLine = YES;
+                _hoverState.strokeColor = GREY_COLOR_BTM_RECEPTICLE;
                 
                 _pressedState.strokeColor = nil;
                 _pressedState.fillColor = GREY_COLOR_BTM_RECEPTICLE;

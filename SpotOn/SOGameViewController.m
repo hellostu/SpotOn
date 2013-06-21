@@ -8,13 +8,11 @@
 
 #import "SOGameViewController.h"
 #import <QuartzCore/QuartzCore.h>
-
-#import "SOCodeSelectionView.h"
 #import "SOGameCenterHelper.h"
 
 @interface SOGameViewController () <SOCodeSelectionViewDelegate, SOSubmitButtonDelegate>
 {
-    SOCodeSelectionView     *_codeSelectionView;
+    BOOL _submitButtonAnimating;
 }
 @end
 
@@ -81,7 +79,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn] == NO)
+    
+    if([_codeSelectionView recepticlesPopulated] == NO)
     {
         _submitButton.alpha = 0.0f;
     }
@@ -152,46 +151,43 @@
 
 - (void)submitButtonPressed:(SOButton *)submitButton
 {
-    if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+    if (_submitButtonAnimating == NO)
     {
-        [UIView animateWithDuration:0.2 animations:^() {
-            submitButton.alpha = 0.0;
-        }];
-        switch (self.gameState)
+        if (self.playType != SOPlayTypeGameCenter)
         {
-            case SLGameStateWaitingForGuess:
+            _submitButtonAnimating = YES;
+            [UIView animateWithDuration:0.2 animations:^() {
+                submitButton.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                _submitButtonAnimating = NO;
+            }];
+            switch (self.gameState)
             {
-                if([_codeSelectionView recepticlesPopulated] == YES)
+                case SLGameStateWaitingForGuess:
                 {
-                    [_previousGuessesView scrollToEndAnimated:YES withCompletion:^() {
-                        [_codeSelectionView submitAllCirclesWithCompletion:^(NSArray *colors){
-                            [_previousGuessesView takeTurnWithColors:colors];
-                            if ([self.delegate respondsToSelector:@selector(gameViewController:didTakeTurnWithCode:)])
-                            {
-                                [self.delegate gameViewController:self didTakeTurnWithCode:colors];
-                            }
-                            
-                            if (self.playType != SOPlayTypeGameCenter)
-                            {
-                                [UIView animateWithDuration:0.2 animations:^() {
-                                    _codeSelectionView.alpha = 0.0f;
-                                }];
-                            }
-                        }];
-                    }];
+                    [self submitTurn];
+                    
+                    break;
                 }
-                _gameState = SLGameStateGuessInput;
-                
-                break;
+                case SLGameStateGuessInput:
+                {
+                    [self.delegate gameViewControllerReadyToTransition:self];
+                    _gameState = SLGameStateWaitingForGuess;
+                    break;
+                }
+                default:
+                    break;
             }
-            case SLGameStateGuessInput:
-            {
-                [self.delegate gameViewControllerReadyToTransition:self];
-                _gameState = SLGameStateWaitingForGuess;
-                break;
-            }
-            default:
-                break;
+        }
+        else if([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+        {
+            [self submitTurn];
+            _submitButtonAnimating = YES;
+            [UIView animateWithDuration:0.2 animations:^() {
+                submitButton.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                _submitButtonAnimating = NO;
+            }];
         }
     }
 }
@@ -200,6 +196,58 @@
 #pragma mark -
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
+
+- (void)updateSubmitButton
+{
+    if ([_codeSelectionView recepticlesPopulated] == YES)
+    {
+        if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+        {
+            _submitButtonAnimating = YES;
+            [UIView animateWithDuration:0.2 animations:^() {
+                _submitButton.alpha = 1.0f;
+            } completion:^(BOOL finished) {
+                _submitButtonAnimating = NO;
+            }];
+        }
+    }
+    else
+    {
+        if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+        {
+            _submitButtonAnimating = YES;
+            [UIView animateWithDuration:0.2 animations:^() {
+                _submitButton.alpha = 0.0f;
+            } completion:^(BOOL finished) {
+                _submitButtonAnimating = NO;
+            }];
+        }
+    }
+}
+
+- (void)submitTurn
+{
+    if([_codeSelectionView recepticlesPopulated] == YES)
+    {
+        [_previousGuessesView scrollToEndAnimated:YES withCompletion:^() {
+            [_codeSelectionView submitAllCirclesWithCompletion:^(NSArray *colors){
+                [_previousGuessesView takeTurnWithColors:colors];
+                if ([self.delegate respondsToSelector:@selector(gameViewController:didTakeTurnWithCode:)])
+                {
+                    [self.delegate gameViewController:self didTakeTurnWithCode:colors];
+                }
+                
+                if (self.playType != SOPlayTypeGameCenter)
+                {
+                    [UIView animateWithDuration:0.2 animations:^() {
+                        _codeSelectionView.alpha = 0.0f;
+                    }];
+                }
+            }];
+        }];
+    }
+    _gameState = SLGameStateGuessInput;
+}
 
 - (NSArray *)guessHistory
 {

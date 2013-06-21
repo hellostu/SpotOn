@@ -37,9 +37,9 @@
 	_gamesTable = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.3, self.view.frame.size.width, self.view.frame.size.height*0.7)];
     
     UIButton *newGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    newGameButton.frame = CGRectMake(0, 0, 90, 30);
+    newGameButton.frame = CGRectMake(0, 0, 130, 30);
     newGameButton.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.2);
-    [newGameButton setTitle:@"New Game" forState:UIControlStateNormal];
+    [newGameButton setTitle:@"Game Center" forState:UIControlStateNormal];
     [newGameButton addTarget:self action:@selector(newGamePressed) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_gamesTable];

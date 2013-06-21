@@ -12,6 +12,7 @@
 #import "SOChooseCodeViewController.h"
 #import "SOMenuViewController.h"
 #import "SOWaitingForCodeViewController.h"
+#import "SOGuessFeedbackIndicator.h"
 
 @interface SOGameCenterViewController () <SOGamerCenterHelperDelegate, SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate>
 {
@@ -99,26 +100,21 @@
         [self transitionToViewController:chooseCodeViewController];
         [chooseCodeViewController release];
     }
-    else
+    else if(self.activeViewController != _currentGame)
     {
         [self transitionToViewController:_currentGame];
+    }
+    if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+    {
+        [_currentGame.previousGuessesView addNewRowAnimated:YES];
+        [_currentGame updateSubmitButton];
+        [self displayOpponentsTurn];
     }
 }
 
 - (void)enterExistingGame:(GKTurnBasedMatch *)match
 {
-    [self updateFromMatch:match];
-    if (_opponentsCode == nil || _ownCode == nil)
-    {
-        SOChooseCodeViewController *chooseCodeViewController = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypeGameCenter];
-        chooseCodeViewController.delegate = self;
-        [self transitionToViewController:chooseCodeViewController];
-        [chooseCodeViewController release];
-    }
-    else
-    {
-        [self transitionToViewController:_currentGame];
-    }
+    [self layoutMatch:match];
 }
 
 - (void)recieveEndGame:(GKTurnBasedMatch *)match
@@ -128,12 +124,14 @@
 
 -(void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match
 {
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:
-                       @"Another game needs your attention!" message:notice
-                                                delegate:self cancelButtonTitle:@"Sweet!"
-                                       otherButtonTitles:nil];
-    [av show];
-    [av release];
+    if (match == [SOGameCenterHelper sharedInstance].currentMatch)
+    {
+        [self updateFromMatch:match];
+        if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+        {
+            [_currentGame.previousGuessesView addNewRowAnimated:YES];
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -170,6 +168,10 @@
         [gameViewController.previousGuessesView updateWithGuesses:_ownGuessHistory];
         [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:_opponentsCode
                                                                                  animated:NO];
+        if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+        {
+            [gameViewController.previousGuessesView addNewRowAnimated:YES];
+        }
     }
 }
 
@@ -189,6 +191,38 @@
 #pragma mark -
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
+
+- (void)displayOpponentsTurn
+{
+    if (_opponentsGuessHistory != nil && self.activeViewController == _currentGame)
+    {
+        NSArray *guess = [_opponentsGuessHistory lastObject];
+        
+        NSDictionary *feedback = [_currentGame.previousGuessesView provideFeedbackForGuess:guess withOpponentsCode:_ownCode];
+        SOGuessFeedbackIndicator *guessFeedbackIndicator = [[SOGuessFeedbackIndicator alloc] initWithNumberRecepticles:guess.count];
+        
+        int rightColorWrongPosition = ((NSNumber *)feedback[@"Right Color Wrong Position"]).intValue;
+        int rightColorRightPosition = ((NSNumber *)feedback[@"Right Color Right Position"]).intValue;
+        
+        [guessFeedbackIndicator setRightColorRightPosition:rightColorRightPosition
+                                andRightColorWrongPosition:rightColorWrongPosition];
+        
+        guessFeedbackIndicator.frame = CGRectMake(0, 0, 50, 50);
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"It's your turn!"
+                                                            message:@"This is how your opponent did:\n\n\n\n"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        guessFeedbackIndicator.center = CGPointMake(145, 100);
+        
+        [alertView addSubview:guessFeedbackIndicator];
+        [guessFeedbackIndicator release];
+        [alertView show];
+        [guessFeedbackIndicator release];
+    }
+    
+}
 
 - (void)updateFromMatch:(GKTurnBasedMatch *)match
 {
@@ -229,7 +263,7 @@
         _opponentsGuessHistory = [opponentGuessHistory retain];
     }
     
-    
+    [_currentGame updateSubmitButton];
 }
 
 - (NSDictionary *)gameStateWithMatch:(GKTurnBasedMatch *)match
