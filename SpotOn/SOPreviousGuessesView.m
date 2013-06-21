@@ -56,6 +56,24 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
+- (int)numberOfGuesses
+{
+    return _guesses.count;
+}
+
+- (BOOL)hasWon
+{
+    if (_guesses.count > 0)
+    {
+        SOPreviousGuessView *previousGuessView = [_guesses lastObject];
+        if (previousGuessView.guessFeedbackIndicator.rightColorRightPosition == previousGuessView.colors.count)
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated
 {
     for (SOPreviousGuessView *guessView in _guesses)

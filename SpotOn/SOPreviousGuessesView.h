@@ -21,4 +21,7 @@
 - (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated;
 
 - (NSArray *)guessesList;
+
+- (BOOL)hasWon;
+- (int)numberOfGuesses;
 @end

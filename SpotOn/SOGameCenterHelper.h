@@ -25,6 +25,7 @@
 - (void)authenticateLocalUserWithHandler:(void (^)(UIViewController* viewController, NSError *error))handler;
 - (void)findMatchWithPresentingViewController:(UIViewController *)presentingViewConroller;
 - (BOOL)isMyTurn;
+- (void)loadMatchesWithCompletionHandler:(void (^)(NSArray *matches, NSError*error))completionHandler;
 @end
 
 @protocol SOGamerCenterHelperDelegate <NSObject>

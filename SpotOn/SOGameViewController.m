@@ -13,6 +13,7 @@
 @interface SOGameViewController () <SOCodeSelectionViewDelegate, SOSubmitButtonDelegate>
 {
     BOOL _submitButtonAnimating;
+    BOOL _animatingTakingTurn;
 }
 @end
 
@@ -155,12 +156,7 @@
     {
         if (self.playType != SOPlayTypeGameCenter)
         {
-            _submitButtonAnimating = YES;
-            [UIView animateWithDuration:0.2 animations:^() {
-                submitButton.alpha = 0.0;
-            } completion:^(BOOL finished) {
-                _submitButtonAnimating = NO;
-            }];
+            [self hideSubmitButton];
             switch (self.gameState)
             {
                 case SLGameStateWaitingForGuess:
@@ -190,6 +186,15 @@
             }];
         }
     }
+    if (self.playType == SOPlayTypeGameCenter)
+    {
+        _submitButtonAnimating = YES;
+        [UIView animateWithDuration:0.2 animations:^(){
+            _submitButton.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            _submitButtonAnimating = NO;
+        }];
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -201,34 +206,46 @@
 {
     if ([_codeSelectionView recepticlesPopulated] == YES)
     {
-        if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+        if (self.playType != SOPlayTypeGameCenter || ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES && _submitButtonAnimating == NO))
         {
-            _submitButtonAnimating = YES;
-            [UIView animateWithDuration:0.2 animations:^() {
-                _submitButton.alpha = 1.0f;
-            } completion:^(BOOL finished) {
-                _submitButtonAnimating = NO;
-            }];
+            [self showSubmitButton];
+        }
+        else
+        {
+            [self hideSubmitButton];
         }
     }
     else
     {
-        if (self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
-        {
-            _submitButtonAnimating = YES;
-            [UIView animateWithDuration:0.2 animations:^() {
-                _submitButton.alpha = 0.0f;
-            } completion:^(BOOL finished) {
-                _submitButtonAnimating = NO;
-            }];
-        }
+        [self hideSubmitButton];
     }
+}
+
+- (void)showSubmitButton
+{
+    _submitButtonAnimating = YES;
+    [UIView animateWithDuration:0.2 animations:^() {
+        _submitButton.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        _submitButtonAnimating = NO;
+    }];
+}
+
+- (void)hideSubmitButton
+{
+    _submitButtonAnimating = YES;
+    [UIView animateWithDuration:0.2 animations:^() {
+        _submitButton.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        _submitButtonAnimating = NO;
+    }];
 }
 
 - (void)submitTurn
 {
     if([_codeSelectionView recepticlesPopulated] == YES)
     {
+        _submitButtonAnimating = YES;
         [_previousGuessesView scrollToEndAnimated:YES withCompletion:^() {
             [_codeSelectionView submitAllCirclesWithCompletion:^(NSArray *colors){
                 [_previousGuessesView takeTurnWithColors:colors];
@@ -243,6 +260,8 @@
                         _codeSelectionView.alpha = 0.0f;
                     }];
                 }
+                //[self updateSubmitButton];
+                _submitButtonAnimating = NO;
             }];
         }];
     }

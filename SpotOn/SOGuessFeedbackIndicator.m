@@ -121,6 +121,9 @@
 
 - (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition
 {
+    _rightColorRightPosition = rightColorRightPosition;
+    _rightColorWrongPosition = rightColorWrongPosition;
+    
     for (SOCircle *circle in _indicators)
     {
         circle.fillColor = GREY_COLOR_TOP_INCORRECT;

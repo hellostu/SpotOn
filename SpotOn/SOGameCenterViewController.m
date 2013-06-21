@@ -14,7 +14,7 @@
 #import "SOWaitingForCodeViewController.h"
 #import "SOGuessFeedbackIndicator.h"
 
-@interface SOGameCenterViewController () <SOGamerCenterHelperDelegate, SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate>
+@interface SOGameCenterViewController () <SOGamerCenterHelperDelegate, SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, UIAlertViewDelegate>
 {
     SOGameViewController    *_currentGame;
     
@@ -23,6 +23,8 @@
     
     NSArray                 *_opponentsCode;
     NSArray                 *_ownCode;
+    
+    GKTurnBasedMatchOutcome _outcome;
 }
 
 @end
@@ -42,10 +44,8 @@
     {
         _opponentsCode = nil;
         _ownCode = nil;
-        _opponentsGuessHistory = nil;
-        
-        _currentGame = [[SOGameViewController alloc] initWithPlayType:SOPlayTypeGameCenter code:_ownCode];
-        _currentGame.delegate = self;
+        _opponentsGuessHistory = [@[] retain];
+        _ownGuessHistory = [@[] retain];
         
         SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
         gameCenterHelper.delegate = self;
@@ -102,12 +102,16 @@
     }
     else if(self.activeViewController != _currentGame)
     {
+        [_currentGame release];
+        _currentGame = nil;
+        _currentGame = [[SOGameViewController alloc] initWithPlayType:SOPlayTypeGameCenter code:_ownCode];
+        _currentGame.delegate = self;
+        [self updateFromMatch:match];
         [self transitionToViewController:_currentGame];
     }
     if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
     {
         [_currentGame.previousGuessesView addNewRowAnimated:YES];
-        [_currentGame updateSubmitButton];
         [self displayOpponentsTurn];
     }
 }
@@ -119,7 +123,32 @@
 
 - (void)recieveEndGame:(GKTurnBasedMatch *)match
 {
+    [self endMatch];
     
+    NSString *title = @"";
+    NSString *message = @"";
+    if (_outcome == GKTurnBasedMatchOutcomeWon)
+    {
+        title = @"Congratulations!";
+        message = @"You Won!";
+    }
+    else if(_outcome == GKTurnBasedMatchOutcomeLost)
+    {
+        title = @"Aww Shucks!";
+        message = @"You Lost!";
+    }
+    else
+    {
+        title = @"Nice going!";
+        message = @"You tied with your opponent.";
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
+    [alertView release];
 }
 
 -(void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match
@@ -141,6 +170,7 @@
 
 - (void)chooseCodeViewController:(SOChooseCodeViewController *)chooseCodeViewController didReturnCode:(NSArray *)code
 {
+    [self updateFromMatch:[SOGameCenterHelper sharedInstance].currentMatch];
     _ownCode = [code retain];
     [self sendTurn];
     
@@ -152,6 +182,10 @@
     }
     else
     {
+        [_currentGame release];
+        _currentGame = nil;
+        _currentGame = [[SOGameViewController alloc] initWithPlayType:SOPlayTypeGameCenter code:_ownCode];
+        _currentGame.delegate = self;
         [self transitionToViewController:_currentGame];
     }
 }
@@ -179,6 +213,7 @@
 {
     [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:_opponentsCode
                                                                              animated:YES];
+    [self updateFromMatch:[SOGameCenterHelper sharedInstance].currentMatch];
     [self sendTurn];
 }
 
@@ -189,8 +224,65 @@
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
+#pragma mark UIAlertViewDelegate
+//////////////////////////////////////////////////////////////////////////
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    SOMenuViewController *menu = [[SOMenuViewController alloc] init];
+    [self transitionToViewController:menu];
+    [menu release];
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
+
+- (BOOL)guessedOpponentsCode
+{
+    if (_ownGuessHistory.count > 0)
+    {
+        
+        NSDictionary *feedback = [_currentGame.previousGuessesView provideFeedbackForGuess:[_ownGuessHistory lastObject] withOpponentsCode:_opponentsCode];
+        
+        int rightColorRightPosition = ((NSNumber *)feedback[@"Right Color Right Position"]).intValue;
+        if (rightColorRightPosition==_ownCode.count)
+        {
+            return YES;
+        }
+        else
+        {
+            return NO;
+        }
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+- (BOOL)opponentGuessedOurCode
+{
+    if (_ownGuessHistory.count > 0)
+    {
+        NSDictionary *feedback = [_currentGame.previousGuessesView provideFeedbackForGuess:[_opponentsGuessHistory lastObject] withOpponentsCode:_ownCode];
+        
+        int rightColorRightPosition = ((NSNumber *)feedback[@"Right Color Right Position"]).intValue;
+        if (rightColorRightPosition==_ownCode.count)
+        {
+            return YES;
+        }
+        else
+        {
+            return NO;
+        }
+    }
+    else
+    {
+        return NO;
+    }
+}
 
 - (void)displayOpponentsTurn
 {
@@ -209,8 +301,30 @@
         
         guessFeedbackIndicator.frame = CGRectMake(0, 0, 50, 50);
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"It's your turn!"
-                                                            message:@"This is how your opponent did:\n\n\n\n"
+        NSString *message = @"";
+        NSString *title = @"";
+        
+        if (rightColorRightPosition == _ownCode.count)
+        {
+            if (_opponentsGuessHistory.count == _ownGuessHistory.count)
+            {
+                title = @"Oh bloody 'ell!";
+                message = @"Alas you just lost.\n\n\n\n";
+            }
+            else
+            {
+                title = @"Your Code is Cracked!";
+                message = @"Take one more go to try and draw!u\n\n\n\n";
+            }
+        }
+        else
+        {
+            title = @"It's your turn!";
+            message = @"This is how your opponent did:\n\n\n\n";
+        }
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK" otherButtonTitles:nil];
         
@@ -220,8 +334,9 @@
         [guessFeedbackIndicator release];
         [alertView show];
         [guessFeedbackIndicator release];
+        
+        [_currentGame updateSubmitButton];
     }
-    
 }
 
 - (void)updateFromMatch:(GKTurnBasedMatch *)match
@@ -242,8 +357,17 @@
         _ownCode = [ownCode retain];
     }
     
-    NSArray *ownGuessHistory = ownState[@"guess_history"];
-    if (ownGuessHistory != nil)
+    NSArray *ownGuessHistory = [_currentGame.previousGuessesView guessesList];
+    if (ownGuessHistory.count == 0)
+    {
+        ownGuessHistory = ownState[@"guess_history"];
+        if (ownGuessHistory !=nil)
+        {
+            [_ownGuessHistory release];
+            _ownGuessHistory = [ownGuessHistory retain];
+        }
+    }
+    else
     {
         [_ownGuessHistory release];
         _ownGuessHistory = [ownGuessHistory retain];
@@ -262,8 +386,6 @@
         [_opponentsGuessHistory release];
         _opponentsGuessHistory = [opponentGuessHistory retain];
     }
-    
-    [_currentGame updateSubmitButton];
 }
 
 - (NSDictionary *)gameStateWithMatch:(GKTurnBasedMatch *)match
@@ -326,10 +448,23 @@
 
 - (void)sendTurn
 {
+    if (([self guessedOpponentsCode] == YES || [self opponentGuessedOurCode] == YES) &&
+        _opponentsGuessHistory.count == _ownGuessHistory.count)
+    {
+        [self recieveEndGame:[SOGameCenterHelper sharedInstance].currentMatch];
+    }
+    else
+    {
+        [self takeTurn];
+    }
+    
+}
+
+- (void)takeTurn
+{
     GKTurnBasedMatch *currentMatch = [SOGameCenterHelper sharedInstance].currentMatch;
     NSDictionary *gameDict = [self gameStateWithMatch:currentMatch];
     NSData *data = [NSJSONSerialization dataWithJSONObject:gameDict options:0 error:nil];
-    
     
     NSUInteger currentIndex = [currentMatch.participants
                                indexOfObject:currentMatch.currentParticipant];
@@ -345,6 +480,60 @@
                                             NSLog(@"%@", error);
                                         }
                                     }];
+}
+
+- (void)endMatch
+{
+    GKTurnBasedMatch *currentMatch = [SOGameCenterHelper sharedInstance].currentMatch;
+    NSDictionary *gameDict = [self gameStateWithMatch:currentMatch];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:gameDict options:0 error:nil];
+    
+    if ([self guessedOpponentsCode] == YES && [self opponentGuessedOurCode] == YES)
+    {
+        for (GKTurnBasedParticipant *part in currentMatch.participants)
+        {
+            part.matchOutcome = GKTurnBasedMatchOutcomeTied;
+        }
+        _outcome = GKTurnBasedMatchOutcomeTied;
+    }
+    else if([self guessedOpponentsCode] == YES)
+    {
+        for (GKTurnBasedParticipant *part in currentMatch.participants)
+        {
+            if ([part.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == YES)
+            {
+                part.matchOutcome = GKTurnBasedMatchOutcomeWon;
+                _outcome = GKTurnBasedMatchOutcomeWon;
+            }
+            else
+            {
+                part.matchOutcome = GKTurnBasedMatchOutcomeLost;
+            }
+            
+        }
+    }
+    else if([self opponentGuessedOurCode] == YES)
+    {
+        for (GKTurnBasedParticipant *part in currentMatch.participants)
+        {
+            if ([part.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == YES)
+            {
+                part.matchOutcome = GKTurnBasedMatchOutcomeLost;
+                _outcome = GKTurnBasedMatchOutcomeLost;
+            }
+            else
+            {
+                part.matchOutcome = GKTurnBasedMatchOutcomeWon;
+            }
+            
+        }
+    }
+    [currentMatch endMatchInTurnWithMatchData:data
+                            completionHandler:^(NSError *error) {
+                                if (error) {
+                                    NSLog(@"%@", error);
+                                }
+                            }];
 }
 
 @end

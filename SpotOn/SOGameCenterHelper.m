@@ -95,7 +95,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 #pragma mark GKTurnBasedEventHandlerDelegate
 //////////////////////////////////////////////////////////////////////////
 
--(void)handleInviteFromGameCenter:(NSArray *)playersToInvite
+- (void)handleInviteFromGameCenter:(NSArray *)playersToInvite
 {
     [_presentingViewController dismissViewControllerAnimated:YES completion:nil];
     GKMatchRequest *request = [[[GKMatchRequest alloc] init] autorelease];
@@ -178,8 +178,6 @@ static SOGameCenterHelper *gameCenterHelper = nil;
             [self.delegate enterNewGame:match];
         }
     }
-    
-    
 }
 
 -(void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController
@@ -218,6 +216,31 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 #pragma mark -
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
+
+- (void)initiateWithMatch:(GKTurnBasedMatch *)match
+{
+    self.currentMatch = match;
+    GKTurnBasedParticipant *firstParticipant = [match.participants objectAtIndex:0];
+    if (firstParticipant.lastTurnDate != nil)
+    {
+        if ([self.delegate respondsToSelector:@selector(enterExistingGame:)])
+        {
+            [self.delegate enterExistingGame:match];
+        }
+    }
+    else
+    {
+        if ([self.delegate respondsToSelector:@selector(enterNewGame:)])
+        {
+            [self.delegate enterNewGame:match];
+        }
+    }
+}
+
+- (void)loadMatchesWithCompletionHandler:(void (^)(NSArray *matches, NSError*error))completionHandler
+{
+    [GKTurnBasedMatch loadMatchesWithCompletionHandler:completionHandler];
+}
 
 - (BOOL)isMyTurn
 {
