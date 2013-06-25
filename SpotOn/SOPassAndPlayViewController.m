@@ -29,7 +29,7 @@
 
 - (id)init
 {
-    SOChooseCodeViewController *player1ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne];
+    SOChooseCodeViewController *player1ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne difficulty:SODifficultyHard];
     player1ChooseCode.delegate = self;
     if ( (self = [super initWithViewController:player1ChooseCode]) != nil)
     {
@@ -69,12 +69,12 @@
     {
         case SOPlayTypePassAndPlayPlayerOne:
         {
-            [self transitionToViewController:_playerOne];
+            [self transitionToViewController:_playerOne withTransitionAnimation:SOTransitionAnimationFlip];
             break;
         }
         case SOPlayTypePassAndPlayPlayerTwo:
         {
-            [self transitionToViewController:_playerTwo];
+            [self transitionToViewController:_playerTwo withTransitionAnimation:SOTransitionAnimationFlip];
             break;
         }
         default:
@@ -107,7 +107,7 @@
     
     SOPassAndPlayTransitionViewController *passAndPlayTransition = [[SOPassAndPlayTransitionViewController alloc] initWithPlayType:otherPlayer.playType];
     passAndPlayTransition.delegate = self;
-    [self transitionToViewController:passAndPlayTransition];
+    [self transitionToViewController:passAndPlayTransition withTransitionAnimation:SOTransitionAnimationFlip];
     [passAndPlayTransition release];
 }
 
@@ -122,20 +122,20 @@
     {
         case SOPlayTypePassAndPlayPlayerOne:
         {
-            SOChooseCodeViewController *player2ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo];
+            SOChooseCodeViewController *player2ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo difficulty:SODifficultyHard];
             player2ChooseCode.delegate = self;
             player2ChooseCode.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-            _playerOne = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne code:code];
+            _playerOne = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne difficulty:SODifficultyHard code:code];
             _playerOne.delegate = self;
-            [self transitionToViewController:player2ChooseCode];
+            [self transitionToViewController:player2ChooseCode withTransitionAnimation:SOTransitionAnimationFlip];
             [player2ChooseCode release];
             break;
         }
         case SOPlayTypePassAndPlayPlayerTwo:
         {
-            _playerTwo = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo code:code];
+            _playerTwo = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo difficulty:SODifficultyHard code:code];
             _playerTwo.delegate = self;
-            [self transitionToViewController:_playerOne];
+            [self transitionToViewController:_playerOne withTransitionAnimation:SOTransitionAnimationFlip];
             break;
         }
         default:

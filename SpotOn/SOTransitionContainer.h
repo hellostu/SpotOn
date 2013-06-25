@@ -8,11 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum  {
+    SOTransitionAnimationSlideInFromLeft,
+    SOTransitionAnimationSlideInFromRight,
+    SOTransitionAnimationFlip,
+    SOTransitionAnimationCrossFade,
+    SOTransitionAnimationNone
+} SOTransitionAnimation;
+
 @interface SOTransitionContainer : UIViewController
 
 @property(nonatomic, readonly) UIViewController *activeViewController;
 
-- (void)transitionToViewController:(UIViewController *)viewController;
+- (void)transitionToViewController:(UIViewController *)viewController withTransitionAnimation:(SOTransitionAnimation) transitionAnimation;
 - (id)initWithViewController:(UIViewController *)viewController;
 
 @end

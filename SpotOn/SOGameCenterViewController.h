@@ -8,6 +8,15 @@
 
 #import "SOTransitionContainer.h"
 
+@class SOGameCenterViewController;
+
+typedef enum  {
+    SOGameTypeNewGame,
+    SOGameTypeExistingGame
+} SOGameType;
+
 @interface SOGameCenterViewController : SOTransitionContainer
+
+- (id)initWithGameType:(SOGameType)gameType;
 
 @end

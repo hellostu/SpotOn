@@ -17,7 +17,7 @@
 @property(nonatomic, readwrite, assign) id<SOChooseCodeViewControllerDelegate> delegate;
 @property(nonatomic, readonly) SOPlayType playerType;
 
-- (id)initWithPlayType:(SOPlayType)mode;
+- (id)initWithPlayType:(SOPlayType)playType difficulty:(SODifficulty)difficulty;
 
 @end
 

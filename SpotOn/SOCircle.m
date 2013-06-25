@@ -15,6 +15,8 @@
 {
     UIPanGestureRecognizer *_panGesture;
     UITapGestureRecognizer *_tapGesture;
+    
+    BOOL _expandTouchArea;
 }
 
 @end
@@ -28,7 +30,19 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    SOCircle *circle = [[SOCircle alloc] initWithFrame:self.frame];
+    CGFloat touchAreaIncrease = 0;
+    if (_expandTouchArea == YES)
+    {
+        touchAreaIncrease = SO_TOUCH_AREA_INCREASE;
+    }
+    
+    CGRect frame = self.frame;
+    frame.origin.x+=touchAreaIncrease;
+    frame.origin.y+=touchAreaIncrease;
+    frame.size.width-= touchAreaIncrease*2;
+    frame.size.height-= touchAreaIncrease*2;
+    
+    SOCircle *circle = [[SOCircle allocWithZone:zone] initWithFrame:frame expandTouchArea:_expandTouchArea];
     circle.fillColor = self.fillColor;
     circle.strokeColor = self.strokeColor;
     circle.startLocation = self.startLocation;
@@ -40,7 +54,24 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if ( (self = self = [super initWithFrame:frame]) != nil)
+    return [self initWithFrame:frame expandTouchArea:YES];
+}
+
+- (id)initWithFrame:(CGRect)frame expandTouchArea:(BOOL)expandTouchArea
+{
+    _expandTouchArea = expandTouchArea;
+    CGFloat touchAreaIncrease = 0;
+    if (_expandTouchArea == YES)
+    {
+        touchAreaIncrease = SO_TOUCH_AREA_INCREASE;
+    }
+    
+    frame.origin.x-=touchAreaIncrease;
+    frame.origin.y-=touchAreaIncrease;
+    frame.size.width+=touchAreaIncrease*2;
+    frame.size.height+=touchAreaIncrease*2;
+    
+    if ( (self = [super initWithFrame:frame]) != nil)
     {
         self.fillColor = [UIColor blueColor];
         self.backgroundColor = [UIColor clearColor];
@@ -66,8 +97,14 @@
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
+    CGFloat touchAreaIncrease = 0;
+    if (_expandTouchArea == YES)
+    {
+        touchAreaIncrease = SO_TOUCH_AREA_INCREASE;
+    }
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGRect circleRect = CGRectMake(1, 1, self.frame.size.width-4, self.frame.size.height-4);
+    CGRect circleRect = CGRectMake(touchAreaIncrease+1, touchAreaIncrease+1, self.frame.size.width-4-touchAreaIncrease*2, self.frame.size.height-4-touchAreaIncrease*2);
     CGContextAddEllipseInRect(context, circleRect);
     if (self.fillColor != nil)
     {
@@ -81,7 +118,7 @@
             CGFloat dashArray[] = {4,2.1,4,2.1};
             CGContextSetLineDash(context, 3, dashArray, 4);
         }
-        circleRect = CGRectMake(1.5, 1.5, self.frame.size.width-5, self.frame.size.height-5);
+        circleRect = CGRectMake(touchAreaIncrease+1.5, touchAreaIncrease+1.5, self.frame.size.width-5-touchAreaIncrease*2, self.frame.size.height-5-touchAreaIncrease*2);
         CGContextSetStrokeColorWithColor(context, self.strokeColor.CGColor);
         CGContextSetLineWidth(context, 1.0);
         CGContextStrokeEllipseInRect(context, circleRect);
@@ -199,9 +236,9 @@
             return BLUE_COLOR;
             break;
         }
-        case SOCircleColorYellow:
+        case SOCircleColorOrange:
         {
-            return YELLOW_COLOR;
+            return ORANGE_COLOR;
             break;
         }
         case SOCircleColorGreen:

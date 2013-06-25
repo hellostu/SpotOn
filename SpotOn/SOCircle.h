@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define SO_TOUCH_AREA_INCREASE 5
+
 @class SOCircle;
 @class SORecepticle;
 @protocol SLCircleDelegate;
@@ -23,6 +25,7 @@
 @property(nonatomic, readwrite, assign) CGPoint                 startLocation;
 @property(nonatomic, readwrite, assign) id<SLCircleDelegate>    delegate;
 
+- (id)initWithFrame:(CGRect)frame expandTouchArea:(BOOL)expandTouchArea;
 - (int)indexOfRecepticleWithCollisionFromRecepticles:(NSArray *)recepticles;
 + (UIColor *)colorForTag:(SOCircleColor)tag;
 + (NSArray *)mapFromColors:(NSArray *)colors;

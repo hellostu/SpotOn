@@ -8,26 +8,28 @@
 
 #import <UIKit/UIKit.h>
 @class SOButton;
-@protocol SOSubmitButtonDelegate;
+@protocol SOButtonDelegate;
 
 typedef enum  {
     SOButtonTypeSubmit,
     SOButtonTypeNext,
+    SOButtonTypeDefault,
 } SOButtonType;
 
 @interface SOButton : UIView
 
-@property(nonatomic, readwrite, assign) id<SOSubmitButtonDelegate> delegate;
-@property(nonatomic, readwrite, assign) BOOL enabled;
-@property(nonatomic, readonly) SOButtonType buttonType;
+@property(nonatomic, readwrite, assign) id<SOButtonDelegate> delegate;
+@property(nonatomic, readwrite, assign) BOOL    enabled;
+@property(nonatomic, readonly) SOButtonType     buttonType;
+@property(nonatomic, readonly) UIColor          *fillColor;
 
 - (id)initWithType:(SOButtonType)buttonType;
 
 @end
 
-@protocol SOSubmitButtonDelegate <NSObject>
+@protocol SOButtonDelegate <NSObject>
 
 @optional
-- (void)submitButtonPressed:(SOButton *)submitButton;
+- (void)buttonPressed:(SOButton *)submitButton;
 
 @end

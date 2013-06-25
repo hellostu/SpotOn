@@ -2,20 +2,28 @@
 //  SOGameResultViewController.h
 //  SpotOn
 //
-//  Created by Stuart Lynch on 16/06/2013.
+//  Created by Stuart Lynch on 22/06/2013.
 //  Copyright (c) 2013 UEA. All rights reserved.
 //
+
 #import "SOMessageViewController.h"
+#import "SOProfilePicture.h"
 
 typedef enum  {
-    SOGameResultPlayerOneWin,
-    SOGameResultPlayerTwoWin,
-    SOGameResultDraw
+    SOGameResultWin,
+    SOGameResultLose,
+    SOGameResultTie
 } SOGameResult;
-
 
 @interface SOGameResultViewController : SOMessageViewController
 
-- (id)initWithWinType:(SOGameResult)winType player1Code:(NSArray *)player1Code player2Code:(NSArray *)player2Code;
+@property(nonatomic, readonly) SOProfilePicture *ownProfilePicture;
+@property(nonatomic, readonly) SOProfilePicture *opponentsProfilePicture;
+
+- (id)initWithResult:(SOGameResult)gameResult
+             ownCode:(NSArray *)ownCode
+       opponentsCode:(NSArray *)opponentsCode
+        ownBestGuess:(NSArray *)ownBestGuess
+  opponentsBestGuess:(NSArray *)opponentsBestGuess;
 
 @end

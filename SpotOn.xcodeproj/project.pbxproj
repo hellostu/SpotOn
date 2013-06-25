@@ -15,18 +15,17 @@
 		44035378176A29C700FD0DCE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 44035377176A29C700FD0DCE /* Default.png */; };
 		4403537A176A29C700FD0DCE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44035379176A29C700FD0DCE /* Default@2x.png */; };
 		4403537C176A29C700FD0DCE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4403537B176A29C700FD0DCE /* Default-568h@2x.png */; };
-		44035384176A29C700FD0DCE /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035383176A29C700FD0DCE /* SenTestingKit.framework */; };
-		44035385176A29C700FD0DCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035365176A29C700FD0DCE /* UIKit.framework */; };
-		44035386176A29C700FD0DCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035367176A29C700FD0DCE /* Foundation.framework */; };
 		4403539F176A29EE00FD0DCE /* SOGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4403539B176A29EE00FD0DCE /* SOGameViewController.m */; };
-		440353A0176A29EE00FD0DCE /* SOGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4403539B176A29EE00FD0DCE /* SOGameViewController.m */; };
 		440353A1176A29EE00FD0DCE /* SOCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4403539D176A29EE00FD0DCE /* SOCircle.m */; };
-		440353A2176A29EE00FD0DCE /* SOCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4403539D176A29EE00FD0DCE /* SOCircle.m */; };
 		440353A7176A2A4100FD0DCE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440353A5176A2A3100FD0DCE /* QuartzCore.framework */; };
+		44291CC8177900AA00B08AFC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035383176A29C700FD0DCE /* SenTestingKit.framework */; };
+		44291CC9177900AA00B08AFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035367176A29C700FD0DCE /* Foundation.framework */; };
+		44291CCA177900AA00B08AFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44035365176A29C700FD0DCE /* UIKit.framework */; };
+		44291CD0177900AA00B08AFC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44291CCE177900AA00B08AFC /* InfoPlist.strings */; };
+		44291CD2177900AA00B08AFC /* SpotOn_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44291CD1177900AA00B08AFC /* SpotOn_Tests.m */; };
+		44291CDC177969BE00B08AFC /* SOLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44291CDA1779688100B08AFC /* SOLoadingViewController.m */; };
 		446540ED176E673800C6BCA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446540EF176E673800C6BCA3 /* InfoPlist.strings */; };
-		446540F6176E6DD800C6BCA3 /* SOGameResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446540F5176E6DD800C6BCA3 /* SOGameResultViewController.m */; };
 		446540F9176E6E4C00C6BCA3 /* SOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446540F8176E6E4C00C6BCA3 /* SOViewController.m */; };
-		446540FC176E726100C6BCA3 /* SOCodeDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 446540FB176E721E00C6BCA3 /* SOCodeDisplayView.m */; };
 		4474C53B176AF2BB00FF5D7E /* SORecepticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474C53A176AF2BB00FF5D7E /* SORecepticle.m */; };
 		4474C53F176B756F00FF5D7E /* SOCodeSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474C53E176B756F00FF5D7E /* SOCodeSelectionView.m */; };
 		4474C542176B986800FF5D7E /* SOPreviousGuessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474C541176B986800FF5D7E /* SOPreviousGuessView.m */; };
@@ -43,6 +42,28 @@
 		447EC2FA176D49EA00CBD11C /* submit_check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 447EC2F6176D49EA00CBD11C /* submit_check@2x.png */; };
 		447EC300176D87EA00CBD11C /* SOGuessFeedbackIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 447EC2FF176D877700CBD11C /* SOGuessFeedbackIndicator.m */; };
 		44960AB71771AB5800FEDA9A /* SOWaitingForCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44960AB51771AB3800FEDA9A /* SOWaitingForCodeViewController.m */; };
+		449A1C0717767F5500C2438D /* SOGameResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C0617767D1500C2438D /* SOGameResultViewController.m */; };
+		449A1C0C177686B000C2438D /* back_arrow_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C08177686B000C2438D /* back_arrow_active.png */; };
+		449A1C0D177686B000C2438D /* back_arrow_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C09177686B000C2438D /* back_arrow_active@2x.png */; };
+		449A1C0E177686B000C2438D /* back_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C0A177686B000C2438D /* back_arrow.png */; };
+		449A1C0F177686B000C2438D /* back_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C0B177686B000C2438D /* back_arrow@2x.png */; };
+		449A1C1217768E0200C2438D /* SOProfilePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C1117768DF100C2438D /* SOProfilePicture.m */; };
+		449A1C171776904100C2438D /* avatar_head_set.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C151776904100C2438D /* avatar_head_set.png */; };
+		449A1C181776904100C2438D /* avatar_head_set@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C161776904100C2438D /* avatar_head_set@2x.png */; };
+		449A1C1A177697E100C2438D /* gameover_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C19177697E100C2438D /* gameover_avatar.png */; };
+		449A1C1C177697F800C2438D /* gameover_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C1B177697F800C2438D /* gameover_avatar@2x.png */; };
+		449A1C1F1776A3A200C2438D /* SOChooseDifficultyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C1E1776A12B00C2438D /* SOChooseDifficultyViewController.m */; };
+		449A1C221776E25300C2438D /* GKTurnBasedMatch+otherParticipant.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C211776E25300C2438D /* GKTurnBasedMatch+otherParticipant.m */; };
+		449A1C25177799EE00C2438D /* SOGameListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C241777999F00C2438D /* SOGameListCell.m */; };
+		449A1C281777A39100C2438D /* SOGameListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C271777A36800C2438D /* SOGameListHeader.m */; };
+		449A1C2E1777BB4E00C2438D /* check_newgame_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C2A1777BB4E00C2438D /* check_newgame_active.png */; };
+		449A1C2F1777BB4E00C2438D /* check_newgame_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C2B1777BB4E00C2438D /* check_newgame_active@2x.png */; };
+		449A1C301777BB4E00C2438D /* check_newgame.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C2C1777BB4E00C2438D /* check_newgame.png */; };
+		449A1C311777BB4E00C2438D /* check_newgame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C2D1777BB4E00C2438D /* check_newgame@2x.png */; };
+		449A1C361777BB5700C2438D /* x_newgame_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C321777BB5700C2438D /* x_newgame_active.png */; };
+		449A1C371777BB5700C2438D /* x_newgame_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C331777BB5700C2438D /* x_newgame_active@2x.png */; };
+		449A1C381777BB5700C2438D /* x_newgame.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C341777BB5700C2438D /* x_newgame.png */; };
+		449A1C391777BB5700C2438D /* x_newgame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C351777BB5700C2438D /* x_newgame@2x.png */; };
 		44A64CB9176BD98300A3ECE6 /* SOPreviousGuessesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A64CB8176BD7CE00A3ECE6 /* SOPreviousGuessesView.m */; };
 		44A64CC0176BDCFD00A3ECE6 /* GothamHTF-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A64CBB176BDCFD00A3ECE6 /* GothamHTF-Bold.otf */; };
 		44A64CC1176BDCFD00A3ECE6 /* GothamHTF-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A64CBC176BDCFD00A3ECE6 /* GothamHTF-Book.otf */; };
@@ -61,6 +82,7 @@
 		44A88AFD1770277700B1E079 /* next_arrow_inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF51770277700B1E079 /* next_arrow_inactive@2x.png */; };
 		44A88AFE1770277700B1E079 /* next_arrow_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF61770277700B1E079 /* next_arrow_pressed.png */; };
 		44A88AFF1770277700B1E079 /* next_arrow_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A88AF71770277700B1E079 /* next_arrow_pressed@2x.png */; };
+		44B6545A1774F4A4006C97D4 /* SOMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44B654591774F493006C97D4 /* SOMenuController.m */; };
 		44BA53C0176EF6B4001CD03A /* SODialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53BF176EF692001CD03A /* SODialogView.m */; };
 		44BA53C1176EFAA5001CD03A /* SOTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53BD176EF668001CD03A /* SOTutorialViewController.m */; };
 		44BA53C4176EFCF7001CD03A /* SODialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BA53C3176EFCDC001CD03A /* SODialogViewController.m */; };
@@ -68,19 +90,19 @@
 		44BA53CA176F8A76001CD03A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BA53C9176F8A76001CD03A /* GameKit.framework */; };
 		44BA53CC176F8D07001CD03A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BA53CB176F8D07001CD03A /* StoreKit.framework */; };
 		44CC2D1F177123A80001091C /* SOGameCenterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D1D177121140001091C /* SOGameCenterHelper.m */; };
-		44CC2D23177162370001091C /* SOMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D22177162370001091C /* SOMenuViewController.m */; };
+		44CC2D23177162370001091C /* SOGameListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D22177162370001091C /* SOGameListViewController.m */; };
 		44CC2D26177163820001091C /* SOLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D25177162EB0001091C /* SOLandingViewController.m */; };
 		44CC2D2A17716E960001091C /* SOGameCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D2917716E730001091C /* SOGameCenterViewController.m */; };
 		44CC2D2E177172B70001091C /* SOTransitionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D2C177172530001091C /* SOTransitionContainer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		44035387176A29C700FD0DCE /* PBXContainerItemProxy */ = {
+		44291CD4177900AA00B08AFC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4403535A176A29C700FD0DCE /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 44035361176A29C700FD0DCE;
-			remoteInfo = DotGame;
+			remoteInfo = SpotOn;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -96,21 +118,24 @@
 		44035377176A29C700FD0DCE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		44035379176A29C700FD0DCE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4403537B176A29C700FD0DCE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		44035382176A29C700FD0DCE /* SpotOnTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotOnTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44035383176A29C700FD0DCE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		4403539A176A29EE00FD0DCE /* SOGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOGameViewController.h; sourceTree = "<group>"; };
 		4403539B176A29EE00FD0DCE /* SOGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOGameViewController.m; sourceTree = "<group>"; };
 		4403539C176A29EE00FD0DCE /* SOCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCircle.h; sourceTree = "<group>"; };
 		4403539D176A29EE00FD0DCE /* SOCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCircle.m; sourceTree = "<group>"; };
 		440353A5176A2A3100FD0DCE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		44291CB11778FF8A00B08AFC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		44291CC7177900AA00B08AFC /* SpotOn Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SpotOn Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		44291CCD177900AA00B08AFC /* SpotOn Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpotOn Tests-Info.plist"; sourceTree = "<group>"; };
+		44291CCF177900AA00B08AFC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		44291CD1177900AA00B08AFC /* SpotOn_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpotOn_Tests.m; sourceTree = "<group>"; };
+		44291CD3177900AA00B08AFC /* SpotOn Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpotOn Tests-Prefix.pch"; sourceTree = "<group>"; };
+		44291CD91779688100B08AFC /* SOLoadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOLoadingViewController.h; sourceTree = "<group>"; };
+		44291CDA1779688100B08AFC /* SOLoadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOLoadingViewController.m; sourceTree = "<group>"; };
 		446540EE176E673800C6BCA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		446540F1176E679300C6BCA3 /* SpotOn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SpotOn-Info.plist"; sourceTree = "<group>"; };
-		446540F4176E6DD800C6BCA3 /* SOGameResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOGameResultViewController.h; sourceTree = "<group>"; };
-		446540F5176E6DD800C6BCA3 /* SOGameResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOGameResultViewController.m; sourceTree = "<group>"; };
 		446540F7176E6E4C00C6BCA3 /* SOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOViewController.h; sourceTree = "<group>"; };
 		446540F8176E6E4C00C6BCA3 /* SOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOViewController.m; sourceTree = "<group>"; };
-		446540FA176E721E00C6BCA3 /* SOCodeDisplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOCodeDisplayView.h; sourceTree = "<group>"; };
-		446540FB176E721E00C6BCA3 /* SOCodeDisplayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOCodeDisplayView.m; sourceTree = "<group>"; };
 		4474C539176AF2BB00FF5D7E /* SORecepticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SORecepticle.h; sourceTree = "<group>"; };
 		4474C53A176AF2BB00FF5D7E /* SORecepticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SORecepticle.m; sourceTree = "<group>"; };
 		4474C53D176B756F00FF5D7E /* SOCodeSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCodeSelectionView.h; sourceTree = "<group>"; };
@@ -137,6 +162,34 @@
 		447EC2FF176D877700CBD11C /* SOGuessFeedbackIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGuessFeedbackIndicator.m; sourceTree = "<group>"; };
 		44960AB41771AB3800FEDA9A /* SOWaitingForCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOWaitingForCodeViewController.h; sourceTree = "<group>"; };
 		44960AB51771AB3800FEDA9A /* SOWaitingForCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOWaitingForCodeViewController.m; sourceTree = "<group>"; };
+		449A1C0517767D1500C2438D /* SOGameResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOGameResultViewController.h; sourceTree = "<group>"; };
+		449A1C0617767D1500C2438D /* SOGameResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGameResultViewController.m; sourceTree = "<group>"; };
+		449A1C08177686B000C2438D /* back_arrow_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow_active.png; sourceTree = "<group>"; };
+		449A1C09177686B000C2438D /* back_arrow_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_arrow_active@2x.png"; sourceTree = "<group>"; };
+		449A1C0A177686B000C2438D /* back_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow.png; sourceTree = "<group>"; };
+		449A1C0B177686B000C2438D /* back_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_arrow@2x.png"; sourceTree = "<group>"; };
+		449A1C1017768DF100C2438D /* SOProfilePicture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOProfilePicture.h; sourceTree = "<group>"; };
+		449A1C1117768DF100C2438D /* SOProfilePicture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOProfilePicture.m; sourceTree = "<group>"; };
+		449A1C151776904100C2438D /* avatar_head_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar_head_set.png; sourceTree = "<group>"; };
+		449A1C161776904100C2438D /* avatar_head_set@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_head_set@2x.png"; sourceTree = "<group>"; };
+		449A1C19177697E100C2438D /* gameover_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameover_avatar.png; sourceTree = "<group>"; };
+		449A1C1B177697F800C2438D /* gameover_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gameover_avatar@2x.png"; sourceTree = "<group>"; };
+		449A1C1D1776A12B00C2438D /* SOChooseDifficultyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOChooseDifficultyViewController.h; sourceTree = "<group>"; };
+		449A1C1E1776A12B00C2438D /* SOChooseDifficultyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOChooseDifficultyViewController.m; sourceTree = "<group>"; };
+		449A1C201776E25300C2438D /* GKTurnBasedMatch+otherParticipant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GKTurnBasedMatch+otherParticipant.h"; sourceTree = "<group>"; };
+		449A1C211776E25300C2438D /* GKTurnBasedMatch+otherParticipant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GKTurnBasedMatch+otherParticipant.m"; sourceTree = "<group>"; };
+		449A1C231777999F00C2438D /* SOGameListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOGameListCell.h; sourceTree = "<group>"; };
+		449A1C241777999F00C2438D /* SOGameListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGameListCell.m; sourceTree = "<group>"; };
+		449A1C261777A36800C2438D /* SOGameListHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOGameListHeader.h; sourceTree = "<group>"; };
+		449A1C271777A36800C2438D /* SOGameListHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGameListHeader.m; sourceTree = "<group>"; };
+		449A1C2A1777BB4E00C2438D /* check_newgame_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_newgame_active.png; sourceTree = "<group>"; };
+		449A1C2B1777BB4E00C2438D /* check_newgame_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_newgame_active@2x.png"; sourceTree = "<group>"; };
+		449A1C2C1777BB4E00C2438D /* check_newgame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_newgame.png; sourceTree = "<group>"; };
+		449A1C2D1777BB4E00C2438D /* check_newgame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_newgame@2x.png"; sourceTree = "<group>"; };
+		449A1C321777BB5700C2438D /* x_newgame_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x_newgame_active.png; sourceTree = "<group>"; };
+		449A1C331777BB5700C2438D /* x_newgame_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x_newgame_active@2x.png"; sourceTree = "<group>"; };
+		449A1C341777BB5700C2438D /* x_newgame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x_newgame.png; sourceTree = "<group>"; };
+		449A1C351777BB5700C2438D /* x_newgame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x_newgame@2x.png"; sourceTree = "<group>"; };
 		44A64CB7176BD7CE00A3ECE6 /* SOPreviousGuessesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOPreviousGuessesView.h; sourceTree = "<group>"; };
 		44A64CB8176BD7CE00A3ECE6 /* SOPreviousGuessesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOPreviousGuessesView.m; sourceTree = "<group>"; };
 		44A64CBB176BDCFD00A3ECE6 /* GothamHTF-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamHTF-Bold.otf"; sourceTree = "<group>"; };
@@ -158,6 +211,8 @@
 		44A88AF51770277700B1E079 /* next_arrow_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next_arrow_inactive@2x.png"; sourceTree = "<group>"; };
 		44A88AF61770277700B1E079 /* next_arrow_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_arrow_pressed.png; sourceTree = "<group>"; };
 		44A88AF71770277700B1E079 /* next_arrow_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next_arrow_pressed@2x.png"; sourceTree = "<group>"; };
+		44B654581774F493006C97D4 /* SOMenuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOMenuController.h; sourceTree = "<group>"; };
+		44B654591774F493006C97D4 /* SOMenuController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOMenuController.m; sourceTree = "<group>"; };
 		44BA53BC176EF668001CD03A /* SOTutorialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOTutorialViewController.h; sourceTree = "<group>"; };
 		44BA53BD176EF668001CD03A /* SOTutorialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOTutorialViewController.m; sourceTree = "<group>"; };
 		44BA53BE176EF692001CD03A /* SODialogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SODialogView.h; sourceTree = "<group>"; };
@@ -170,8 +225,8 @@
 		44BA53CB176F8D07001CD03A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		44CC2D1C177121140001091C /* SOGameCenterHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOGameCenterHelper.h; sourceTree = "<group>"; };
 		44CC2D1D177121140001091C /* SOGameCenterHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGameCenterHelper.m; sourceTree = "<group>"; };
-		44CC2D21177162370001091C /* SOMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMenuViewController.h; sourceTree = "<group>"; };
-		44CC2D22177162370001091C /* SOMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMenuViewController.m; sourceTree = "<group>"; };
+		44CC2D21177162370001091C /* SOGameListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOGameListViewController.h; sourceTree = "<group>"; };
+		44CC2D22177162370001091C /* SOGameListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOGameListViewController.m; sourceTree = "<group>"; };
 		44CC2D24177162EB0001091C /* SOLandingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOLandingViewController.h; sourceTree = "<group>"; };
 		44CC2D25177162EB0001091C /* SOLandingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOLandingViewController.m; sourceTree = "<group>"; };
 		44CC2D2817716E730001091C /* SOGameCenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOGameCenterViewController.h; sourceTree = "<group>"; };
@@ -196,13 +251,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4403537E176A29C700FD0DCE /* Frameworks */ = {
+		44291CC4177900AA00B08AFC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44035384176A29C700FD0DCE /* SenTestingKit.framework in Frameworks */,
-				44035385176A29C700FD0DCE /* UIKit.framework in Frameworks */,
-				44035386176A29C700FD0DCE /* Foundation.framework in Frameworks */,
+				44291CC8177900AA00B08AFC /* SenTestingKit.framework in Frameworks */,
+				44291CCA177900AA00B08AFC /* UIKit.framework in Frameworks */,
+				44291CC9177900AA00B08AFC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				4403536B176A29C700FD0DCE /* SpotOn */,
+				44291CCB177900AA00B08AFC /* SpotOn Tests */,
 				44035364176A29C700FD0DCE /* Frameworks */,
 				44035363176A29C700FD0DCE /* Products */,
 			);
@@ -222,7 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				44035362176A29C700FD0DCE /* SpotOn.app */,
-				44035382176A29C700FD0DCE /* SpotOnTests.octest */,
+				44291CC7177900AA00B08AFC /* SpotOn Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,6 +295,7 @@
 				44035367176A29C700FD0DCE /* Foundation.framework */,
 				44035369176A29C700FD0DCE /* CoreGraphics.framework */,
 				44035383176A29C700FD0DCE /* SenTestingKit.framework */,
+				44291CB11778FF8A00B08AFC /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,11 +331,28 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		44291CCB177900AA00B08AFC /* SpotOn Tests */ = {
+			isa = PBXGroup;
+			children = (
+				44291CD1177900AA00B08AFC /* SpotOn_Tests.m */,
+				44291CCC177900AA00B08AFC /* Supporting Files */,
+			);
+			path = "SpotOn Tests";
+			sourceTree = "<group>";
+		};
+		44291CCC177900AA00B08AFC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				44291CCD177900AA00B08AFC /* SpotOn Tests-Info.plist */,
+				44291CCE177900AA00B08AFC /* InfoPlist.strings */,
+				44291CD3177900AA00B08AFC /* SpotOn Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		447EC2BD176D008700CBD11C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				44CC2D2B177172530001091C /* SOTransitionContainer.h */,
-				44CC2D2C177172530001091C /* SOTransitionContainer.m */,
 				44CC2D20177161A90001091C /* Menu */,
 				44BA53C5176F0398001CD03A /* Tutorial */,
 				447EC2CA176D323A00CBD11C /* Pass And Play */,
@@ -289,10 +363,12 @@
 				4403539B176A29EE00FD0DCE /* SOGameViewController.m */,
 				447EC2C5176D2C7C00CBD11C /* SOMessageViewController.h */,
 				447EC2C6176D2C7C00CBD11C /* SOMessageViewController.m */,
-				446540F4176E6DD800C6BCA3 /* SOGameResultViewController.h */,
-				446540F5176E6DD800C6BCA3 /* SOGameResultViewController.m */,
 				446540F7176E6E4C00C6BCA3 /* SOViewController.h */,
 				446540F8176E6E4C00C6BCA3 /* SOViewController.m */,
+				449A1C0517767D1500C2438D /* SOGameResultViewController.h */,
+				449A1C0617767D1500C2438D /* SOGameResultViewController.m */,
+				449A1C1D1776A12B00C2438D /* SOChooseDifficultyViewController.h */,
+				449A1C1E1776A12B00C2438D /* SOChooseDifficultyViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -332,10 +408,10 @@
 				447EC2CD176D33C700CBD11C /* SOButton.m */,
 				447EC2FE176D877700CBD11C /* SOGuessFeedbackIndicator.h */,
 				447EC2FF176D877700CBD11C /* SOGuessFeedbackIndicator.m */,
-				446540FA176E721E00C6BCA3 /* SOCodeDisplayView.h */,
-				446540FB176E721E00C6BCA3 /* SOCodeDisplayView.m */,
 				44BA53BE176EF692001CD03A /* SODialogView.h */,
 				44BA53BF176EF692001CD03A /* SODialogView.m */,
+				449A1C1017768DF100C2438D /* SOProfilePicture.h */,
+				449A1C1117768DF100C2438D /* SOProfilePicture.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -354,8 +430,8 @@
 		447EC2CF176D37A200CBD11C /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				44A88AEF1770274400B1E079 /* Next Button */,
-				447EC2D4176D37B400CBD11C /* Submit Button */,
+				449A1C141776902800C2438D /* Profile Picture */,
+				449A1C131776901F00C2438D /* Buttons */,
 				44A64CBA176BDC7B00A3ECE6 /* Fonts */,
 			);
 			name = Assets;
@@ -370,6 +446,54 @@
 				447EC2F6176D49EA00CBD11C /* submit_check@2x.png */,
 			);
 			name = "Submit Button";
+			sourceTree = "<group>";
+		};
+		449A1BFC17765A8300C2438D /* Back Button */ = {
+			isa = PBXGroup;
+			children = (
+				449A1C08177686B000C2438D /* back_arrow_active.png */,
+				449A1C09177686B000C2438D /* back_arrow_active@2x.png */,
+				449A1C0A177686B000C2438D /* back_arrow.png */,
+				449A1C0B177686B000C2438D /* back_arrow@2x.png */,
+			);
+			name = "Back Button";
+			sourceTree = "<group>";
+		};
+		449A1C131776901F00C2438D /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				449A1C291777BB4400C2438D /* YesNo */,
+				449A1BFC17765A8300C2438D /* Back Button */,
+				44A88AEF1770274400B1E079 /* Next Button */,
+				447EC2D4176D37B400CBD11C /* Submit Button */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
+		449A1C141776902800C2438D /* Profile Picture */ = {
+			isa = PBXGroup;
+			children = (
+				449A1C151776904100C2438D /* avatar_head_set.png */,
+				449A1C161776904100C2438D /* avatar_head_set@2x.png */,
+				449A1C19177697E100C2438D /* gameover_avatar.png */,
+				449A1C1B177697F800C2438D /* gameover_avatar@2x.png */,
+			);
+			name = "Profile Picture";
+			sourceTree = "<group>";
+		};
+		449A1C291777BB4400C2438D /* YesNo */ = {
+			isa = PBXGroup;
+			children = (
+				449A1C321777BB5700C2438D /* x_newgame_active.png */,
+				449A1C331777BB5700C2438D /* x_newgame_active@2x.png */,
+				449A1C341777BB5700C2438D /* x_newgame.png */,
+				449A1C351777BB5700C2438D /* x_newgame@2x.png */,
+				449A1C2A1777BB4E00C2438D /* check_newgame_active.png */,
+				449A1C2B1777BB4E00C2438D /* check_newgame_active@2x.png */,
+				449A1C2C1777BB4E00C2438D /* check_newgame.png */,
+				449A1C2D1777BB4E00C2438D /* check_newgame@2x.png */,
+			);
+			name = YesNo;
 			sourceTree = "<group>";
 		};
 		44A64CBA176BDC7B00A3ECE6 /* Fonts */ = {
@@ -433,10 +557,18 @@
 		44CC2D20177161A90001091C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				44CC2D21177162370001091C /* SOMenuViewController.h */,
-				44CC2D22177162370001091C /* SOMenuViewController.m */,
+				449A1C231777999F00C2438D /* SOGameListCell.h */,
+				449A1C241777999F00C2438D /* SOGameListCell.m */,
+				449A1C261777A36800C2438D /* SOGameListHeader.h */,
+				449A1C271777A36800C2438D /* SOGameListHeader.m */,
+				44CC2D21177162370001091C /* SOGameListViewController.h */,
+				44CC2D22177162370001091C /* SOGameListViewController.m */,
+				449A1C201776E25300C2438D /* GKTurnBasedMatch+otherParticipant.h */,
+				449A1C211776E25300C2438D /* GKTurnBasedMatch+otherParticipant.m */,
 				44CC2D24177162EB0001091C /* SOLandingViewController.h */,
 				44CC2D25177162EB0001091C /* SOLandingViewController.m */,
+				44B654581774F493006C97D4 /* SOMenuController.h */,
+				44B654591774F493006C97D4 /* SOMenuController.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -444,10 +576,14 @@
 		44CC2D2717716E580001091C /* Game Center */ = {
 			isa = PBXGroup;
 			children = (
+				44CC2D2B177172530001091C /* SOTransitionContainer.h */,
+				44CC2D2C177172530001091C /* SOTransitionContainer.m */,
 				44CC2D2817716E730001091C /* SOGameCenterViewController.h */,
 				44CC2D2917716E730001091C /* SOGameCenterViewController.m */,
 				44960AB41771AB3800FEDA9A /* SOWaitingForCodeViewController.h */,
 				44960AB51771AB3800FEDA9A /* SOWaitingForCodeViewController.m */,
+				44291CD91779688100B08AFC /* SOLoadingViewController.h */,
+				44291CDA1779688100B08AFC /* SOLoadingViewController.m */,
 			);
 			name = "Game Center";
 			sourceTree = "<group>";
@@ -472,23 +608,22 @@
 			productReference = 44035362176A29C700FD0DCE /* SpotOn.app */;
 			productType = "com.apple.product-type.application";
 		};
-		44035381176A29C700FD0DCE /* SpotOnTests */ = {
+		44291CC6177900AA00B08AFC /* SpotOn Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 44035397176A29C700FD0DCE /* Build configuration list for PBXNativeTarget "SpotOnTests" */;
+			buildConfigurationList = 44291CD6177900AA00B08AFC /* Build configuration list for PBXNativeTarget "SpotOn Tests" */;
 			buildPhases = (
-				4403537D176A29C700FD0DCE /* Sources */,
-				4403537E176A29C700FD0DCE /* Frameworks */,
-				4403537F176A29C700FD0DCE /* Resources */,
-				44035380176A29C700FD0DCE /* ShellScript */,
+				44291CC3177900AA00B08AFC /* Sources */,
+				44291CC4177900AA00B08AFC /* Frameworks */,
+				44291CC5177900AA00B08AFC /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				44035388176A29C700FD0DCE /* PBXTargetDependency */,
+				44291CD5177900AA00B08AFC /* PBXTargetDependency */,
 			);
-			name = SpotOnTests;
-			productName = DotGameTests;
-			productReference = 44035382176A29C700FD0DCE /* SpotOnTests.octest */;
+			name = "SpotOn Tests";
+			productName = "SpotOn Tests";
+			productReference = 44291CC7177900AA00B08AFC /* SpotOn Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -512,6 +647,9 @@
 							};
 						};
 					};
+					44291CC6177900AA00B08AFC = {
+						TestTargetID = 44035361176A29C700FD0DCE;
+					};
 				};
 			};
 			buildConfigurationList = 4403535D176A29C700FD0DCE /* Build configuration list for PBXProject "SpotOn" */;
@@ -527,7 +665,7 @@
 			projectRoot = "";
 			targets = (
 				44035361176A29C700FD0DCE /* SpotOn */,
-				44035381176A29C700FD0DCE /* SpotOnTests */,
+				44291CC6177900AA00B08AFC /* SpotOn Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -537,65 +675,72 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				449A1C301777BB4E00C2438D /* check_newgame.png in Resources */,
+				449A1C2F1777BB4E00C2438D /* check_newgame_active@2x.png in Resources */,
+				449A1C311777BB4E00C2438D /* check_newgame@2x.png in Resources */,
 				447EC2F7176D49EA00CBD11C /* submit_check_active.png in Resources */,
 				447EC2F8176D49EA00CBD11C /* submit_check_active@2x.png in Resources */,
 				447EC2F9176D49EA00CBD11C /* submit_check.png in Resources */,
 				447EC2FA176D49EA00CBD11C /* submit_check@2x.png in Resources */,
 				44A88AFE1770277700B1E079 /* next_arrow_pressed.png in Resources */,
+				449A1C391777BB5700C2438D /* x_newgame@2x.png in Resources */,
+				449A1C171776904100C2438D /* avatar_head_set.png in Resources */,
 				44A64CC2176BDCFD00A3ECE6 /* GothamHTF-Light.otf in Resources */,
+				449A1C1C177697F800C2438D /* gameover_avatar@2x.png in Resources */,
 				447EC2F2176D42D300CBD11C /* Mockup2.jpeg in Resources */,
 				446540ED176E673800C6BCA3 /* InfoPlist.strings in Resources */,
+				449A1C0F177686B000C2438D /* back_arrow@2x.png in Resources */,
 				44A88AFA1770277700B1E079 /* next_arrow_hover.png in Resources */,
 				44A88AFC1770277700B1E079 /* next_arrow_inactive.png in Resources */,
+				449A1C371777BB5700C2438D /* x_newgame_active@2x.png in Resources */,
 				44035378176A29C700FD0DCE /* Default.png in Resources */,
+				449A1C1A177697E100C2438D /* gameover_avatar.png in Resources */,
+				449A1C0D177686B000C2438D /* back_arrow_active@2x.png in Resources */,
 				44A88AFD1770277700B1E079 /* next_arrow_inactive@2x.png in Resources */,
 				44A88AEB176FB15200B1E079 /* README.md in Resources */,
 				4403537A176A29C700FD0DCE /* Default@2x.png in Resources */,
 				44A88AFF1770277700B1E079 /* next_arrow_pressed@2x.png in Resources */,
 				44A64CC1176BDCFD00A3ECE6 /* GothamHTF-Book.otf in Resources */,
+				449A1C0E177686B000C2438D /* back_arrow.png in Resources */,
 				44A88AF81770277700B1E079 /* next_arrow_active.png in Resources */,
 				44A88AFB1770277700B1E079 /* next_arrow_hover@2x.png in Resources */,
 				4403537C176A29C700FD0DCE /* Default-568h@2x.png in Resources */,
+				449A1C0C177686B000C2438D /* back_arrow_active.png in Resources */,
+				449A1C181776904100C2438D /* avatar_head_set@2x.png in Resources */,
 				44A64CC4176BDCFD00A3ECE6 /* GothamHTF-Thin.otf in Resources */,
 				447EC2BA176CD7AB00CBD11C /* Mockup.jpeg in Resources */,
 				44A64CC0176BDCFD00A3ECE6 /* GothamHTF-Bold.otf in Resources */,
+				449A1C2E1777BB4E00C2438D /* check_newgame_active.png in Resources */,
 				44A88AF91770277700B1E079 /* next_arrow_active@2x.png in Resources */,
 				44A64CC3176BDCFD00A3ECE6 /* GothamHTF-Medium.otf in Resources */,
+				449A1C381777BB5700C2438D /* x_newgame.png in Resources */,
+				449A1C361777BB5700C2438D /* x_newgame_active.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4403537F176A29C700FD0DCE /* Resources */ = {
+		44291CC5177900AA00B08AFC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44291CD0177900AA00B08AFC /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		44035380176A29C700FD0DCE /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4403535E176A29C700FD0DCE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44291CDC177969BE00B08AFC /* SOLoadingViewController.m in Sources */,
+				449A1C281777A39100C2438D /* SOGameListHeader.m in Sources */,
+				449A1C25177799EE00C2438D /* SOGameListCell.m in Sources */,
+				449A1C1F1776A3A200C2438D /* SOChooseDifficultyViewController.m in Sources */,
+				449A1C1217768E0200C2438D /* SOProfilePicture.m in Sources */,
+				449A1C0717767F5500C2438D /* SOGameResultViewController.m in Sources */,
 				44CC2D26177163820001091C /* SOLandingViewController.m in Sources */,
-				44CC2D23177162370001091C /* SOMenuViewController.m in Sources */,
+				44CC2D23177162370001091C /* SOGameListViewController.m in Sources */,
 				44CC2D2E177172B70001091C /* SOTransitionContainer.m in Sources */,
 				44CC2D1F177123A80001091C /* SOGameCenterHelper.m in Sources */,
 				447EC300176D87EA00CBD11C /* SOGuessFeedbackIndicator.m in Sources */,
@@ -616,35 +761,42 @@
 				447EC2C7176D2CDF00CBD11C /* SOMessageViewController.m in Sources */,
 				44A64CC8176BDFE900A3ECE6 /* SOLine.m in Sources */,
 				447EC2CE176D33DF00CBD11C /* SOButton.m in Sources */,
-				446540FC176E726100C6BCA3 /* SOCodeDisplayView.m in Sources */,
-				446540F6176E6DD800C6BCA3 /* SOGameResultViewController.m in Sources */,
+				449A1C221776E25300C2438D /* GKTurnBasedMatch+otherParticipant.m in Sources */,
 				44BA53C1176EFAA5001CD03A /* SOTutorialViewController.m in Sources */,
+				44B6545A1774F4A4006C97D4 /* SOMenuController.m in Sources */,
 				44BA53C4176EFCF7001CD03A /* SODialogViewController.m in Sources */,
 				44BA53C0176EF6B4001CD03A /* SODialogView.m in Sources */,
 				44BA53C8176F03C0001CD03A /* SOFirstTutorialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4403537D176A29C700FD0DCE /* Sources */ = {
+		44291CC3177900AA00B08AFC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				440353A0176A29EE00FD0DCE /* SOGameViewController.m in Sources */,
-				440353A2176A29EE00FD0DCE /* SOCircle.m in Sources */,
+				44291CD2177900AA00B08AFC /* SpotOn_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		44035388176A29C700FD0DCE /* PBXTargetDependency */ = {
+		44291CD5177900AA00B08AFC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 44035361176A29C700FD0DCE /* SpotOn */;
-			targetProxy = 44035387176A29C700FD0DCE /* PBXContainerItemProxy */;
+			targetProxy = 44291CD4177900AA00B08AFC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		44291CCE177900AA00B08AFC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44291CCF177900AA00B08AFC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		446540EF176E673800C6BCA3 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -726,6 +878,7 @@
 					"$(SRCROOT)/SpotOn",
 				);
 				PRODUCT_NAME = SpotOn;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -746,39 +899,65 @@
 					"$(SRCROOT)/SpotOn",
 				);
 				PRODUCT_NAME = SpotOn;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
-		44035398176A29C700FD0DCE /* Debug */ = {
+		44291CD7177900AA00B08AFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DotGame.app/DotGame";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SpotOn.app/SpotOn";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP2.app/Contents/Developer/Library/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DotGame/DotGame-Prefix.pch";
-				INFOPLIST_FILE = "DotGameTests/SpotOnTests-Info.plist";
-				PRODUCT_NAME = SpotOnTests;
+				GCC_PREFIX_HEADER = "SpotOn Tests/SpotOn Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "SpotOn Tests/SpotOn Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
-		44035399176A29C700FD0DCE /* Release */ = {
+		44291CD8177900AA00B08AFC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DotGame.app/DotGame";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SpotOn.app/SpotOn";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP2.app/Contents/Developer/Library/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DotGame/DotGame-Prefix.pch";
-				INFOPLIST_FILE = "DotGameTests/SpotOnTests-Info.plist";
-				PRODUCT_NAME = SpotOnTests;
+				GCC_PREFIX_HEADER = "SpotOn Tests/SpotOn Tests-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "SpotOn Tests/SpotOn Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -805,14 +984,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		44035397176A29C700FD0DCE /* Build configuration list for PBXNativeTarget "SpotOnTests" */ = {
+		44291CD6177900AA00B08AFC /* Build configuration list for PBXNativeTarget "SpotOn Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				44035398176A29C700FD0DCE /* Debug */,
-				44035399176A29C700FD0DCE /* Release */,
+				44291CD7177900AA00B08AFC /* Debug */,
+				44291CD8177900AA00B08AFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

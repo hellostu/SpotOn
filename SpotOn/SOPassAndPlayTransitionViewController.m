@@ -9,7 +9,7 @@
 #import "SOPassAndPlayTransitionViewController.h"
 #import "SOButton.h"
 
-@interface SOPassAndPlayTransitionViewController () <SOSubmitButtonDelegate>
+@interface SOPassAndPlayTransitionViewController () <SOButtonDelegate>
 
 @end
 
@@ -52,7 +52,7 @@
 #pragma mark SLSubmitButtonDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)submitButtonPressed:(SOButton *)submitButton
+- (void)buttonPressed:(SOButton *)submitButton
 {
     if ([self.delegate respondsToSelector:@selector(passAndPlayTransitionViewControllerReadyToTransition:)])
     {

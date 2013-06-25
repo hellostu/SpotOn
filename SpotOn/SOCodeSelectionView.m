@@ -34,14 +34,14 @@
         
         _recepticles = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
         _palette = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
-        CGFloat recepticleInterval = 55;
+        CGFloat recepticleInterval = 60;
         
         CGRect recepticlesFrame = CGRectMake(0, 0, (numberOfRecepticles-1)*recepticleInterval+50, 50);
         UIView *recepticlesView = [[UIView alloc] initWithFrame:recepticlesFrame];
         recepticlesView.center = CGPointMake(frame.size.width/2, 50);
         recepticlesView.backgroundColor = RED_COLOR;
         
-        CGFloat colorInterval = 48;
+        CGFloat colorInterval = 50;
         
         CGRect colorsFrame = CGRectMake(0, 0, (numberOfColors-1)*colorInterval+40, 40);
         UIView *colorsView = [[UIView alloc] initWithFrame:colorsFrame];
@@ -80,6 +80,13 @@
         [colorsView release];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [_recepticles release];
+    [_palette release];
+    [super dealloc];
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -137,6 +144,18 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
+- (void)populateRecepticlesWithCode:(NSArray *)code
+{
+    for (int i=0; i<code.count; i++)
+    {
+        int tag = ((NSNumber *)code[i]).intValue;
+        if (tag >= 0 )
+        {
+            [self copyCircle:_palette[tag] intoRecepticle:_recepticles[i]];
+        }
+    }
+}
+
 - (BOOL)recepticlesPopulated
 {
     for (SORecepticle *recepticle in _recepticles)
@@ -154,7 +173,15 @@
     NSMutableArray *colors = [[NSMutableArray alloc] initWithCapacity:_recepticles.count];
     for (SORecepticle *recepticle in _recepticles)
     {
-        [colors addObject:@(recepticle.circle.tag)];
+        if (recepticle.circle != nil && recepticle.circle.placeholder == NO)
+        {
+            [colors addObject:@(recepticle.circle.tag)];
+        }
+        else
+        {
+            [colors addObject:@(-1)];
+        }
+        
     }
     return [colors autorelease];
 }
@@ -228,14 +255,10 @@
             
             
             [UIView animateWithDuration:0.5-index delay:index options:0 animations:^(){
-                CGFloat y = -38;
-                if(self.window.frame.size.height > 500)
-                {
-                    y = -76;
-                }
+                CGFloat y = -44;
                 
                 circle.layer.affineTransform = CGAffineTransformMakeScale(0.5, 0.5);
-                circle.center = CGPointMake(i*30+30, y);
+                circle.center = CGPointMake(i*30+54, y);
             }completion:completionHandler];
         }
     }
@@ -290,6 +313,10 @@
                 recepticle.circle = circle;
                 circle.recepticle = recepticle;
             }
+            if ([self.delegate respondsToSelector:@selector(codeSelectionViewDidChangeRecepticles:)])
+            {
+                [self.delegate codeSelectionViewDidChangeRecepticles:self];
+            }
         }
     }];
 }
@@ -307,6 +334,10 @@
 - (void)removeCircle:(SOCircle *)circle
 {
     _animating = YES;
+    if ([self.delegate respondsToSelector:@selector(codeSelectionViewWillChangeRecepticles:)] == YES)
+    {
+        [self.delegate codeSelectionViewWillChangeRecepticles:self];
+    }
     [UIView animateWithDuration:0.2 animations:^() {
         circle.layer.affineTransform = CGAffineTransformMakeScale(0, 0);
     } completion:^(BOOL finished) {
@@ -314,9 +345,9 @@
         circle.recepticle.circle = nil;
         circle.recepticle = nil;
         _animating = NO;
-        if ([self.delegate respondsToSelector:@selector(codeSelectionViewWillChangeRecepticles:)] == YES)
+        if ([self.delegate respondsToSelector:@selector(codeSelectionViewDidChangeRecepticles:)])
         {
-            [self.delegate codeSelectionViewWillChangeRecepticles:self];
+            [self.delegate codeSelectionViewDidChangeRecepticles:self];
         }
     }];
 }

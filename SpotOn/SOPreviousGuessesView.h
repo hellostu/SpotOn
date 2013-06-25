@@ -11,6 +11,7 @@
 @interface SOPreviousGuessesView : UIScrollView
 
 @property(readonly) int turnsTaken;
+- (id)initWithFrame:(CGRect)frame numberOfRecepticles:(int)numberOfRecepticles;
 - (void)takeTurnWithColors:(NSArray *)colors;
 - (void)scrollToTurnWithCompleition:(void (^)(void))completion;
 - (void)scrollToEndAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;

@@ -10,11 +10,15 @@
 #import "SOGameCenterHelper.h"
 #import "SOGameViewController.h"
 #import "SOChooseCodeViewController.h"
-#import "SOMenuViewController.h"
 #import "SOWaitingForCodeViewController.h"
 #import "SOGuessFeedbackIndicator.h"
+#import "SOGameResultViewController.h"
+#import "SOChooseDifficultyViewController.h"
+#import "SOLoadingViewController.h"
 
-@interface SOGameCenterViewController () <SOGamerCenterHelperDelegate, SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, UIAlertViewDelegate>
+#import "GKTurnBasedMatch+otherParticipant.h"
+
+@interface SOGameCenterViewController () <SOGamerCenterHelperDelegate, SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, SOChooseDifficultyViewControllerDelegate, SOLoadingViewControllerDelegate, UIAlertViewDelegate>
 {
     SOGameViewController    *_currentGame;
     
@@ -25,6 +29,12 @@
     NSArray                 *_ownCode;
     
     GKTurnBasedMatchOutcome _outcome;
+    
+    SOGameType              _gameType;
+    SODifficulty            _difficulty;
+    
+    UIImage                 *_ownImage;
+    UIImage                 *_opponentsImage;
 }
 
 @end
@@ -36,28 +46,55 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)init
+- (id)initWithGameType:(SOGameType)gameType
 {
-    SOMenuViewController *menu = [[SOMenuViewController alloc] init];
-    
-    if ( (self = [super initWithViewController:menu]) != nil)
+    if ( (self = [super init]) != nil)
     {
+        SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
+        gameCenterHelper.delegate = self;
+        
         _opponentsCode = nil;
         _ownCode = nil;
         _opponentsGuessHistory = [@[] retain];
         _ownGuessHistory = [@[] retain];
         
-        SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
-        gameCenterHelper.delegate = self;
+        _gameType = gameType;
+        _difficulty = SODifficultyUnassigned;
+        
+        [self loadPhotos];
     }
-    [menu autorelease];
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [SOGameCenterHelper sharedInstance].delegate = self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[SOGameCenterHelper sharedInstance].delegate = self;
+	SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
+    gameCenterHelper.delegate = self;
+    SOLoadingViewController *loadingViewController = [[SOLoadingViewController alloc] init];
+    loadingViewController.delegate = self;
+    [self transitionToViewController:loadingViewController withTransitionAnimation:SOTransitionAnimationNone];
+}
+
+
+
+- (void)gotoWinScreen
+{
+    SOGameResultViewController *resultVC = [[SOGameResultViewController alloc] initWithResult:SOGameResultWin
+                                                                                      ownCode:_ownCode
+                                                                                opponentsCode:_opponentsCode
+                                                                                 ownBestGuess:nil
+                                                                           opponentsBestGuess:nil];
+    resultVC.ownProfilePicture.imageView.image = _ownImage;
+    resultVC.opponentsProfilePicture.imageView.image = _opponentsImage;
+    [self.navigationController pushViewController:resultVC animated:YES];
+    [resultVC release];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,6 +113,57 @@
     [super dealloc];
 }
 
+- (void)loadingViewControllerStartedLoading:(SOLoadingViewController *)loadingViewController
+{
+    SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
+    
+    switch (_gameType)
+    {
+        case SOGameTypeExistingGame:
+        {
+            [self updateFromMatch:gameCenterHelper.currentMatch withCompletionHandler:^(NSError *error) {
+                if (_difficulty == SODifficultyUnassigned)
+                {
+                    SOChooseDifficultyViewController *chooseDifficultyViewController = [[SOChooseDifficultyViewController alloc] init];
+                    chooseDifficultyViewController.delegate = self;
+                    [self transitionToViewController:chooseDifficultyViewController withTransitionAnimation:SOTransitionAnimationCrossFade];
+                    [chooseDifficultyViewController release];
+                }
+                else if (_ownCode == nil)
+                {
+                    SOChooseCodeViewController *chooseCodeViewController = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypeGameCenter difficulty:_difficulty];
+                    chooseCodeViewController.delegate = self;
+                    [self transitionToViewController:chooseCodeViewController withTransitionAnimation:SOTransitionAnimationCrossFade];
+                    [chooseCodeViewController release];
+                }
+                else if(_opponentsCode == nil && _ownCode != nil)
+                {
+                    SOWaitingForCodeViewController *waitingViewController = [[SOWaitingForCodeViewController alloc] init];
+                    [self transitionToViewController:waitingViewController withTransitionAnimation:SOTransitionAnimationCrossFade];
+                    [waitingViewController release];
+                }
+                else
+                {
+                    [_currentGame release];
+                    _currentGame = nil;
+                    _currentGame = [[SOGameViewController alloc] initWithPlayType:SOPlayTypeGameCenter difficulty:_difficulty code:_ownCode];
+                    _currentGame.delegate = self;
+                    [self transitionToViewController:_currentGame withTransitionAnimation:SOTransitionAnimationCrossFade];
+                }
+            }];
+            break;
+        }
+        default:
+        {
+            SOChooseDifficultyViewController *chooseDifficultyViewController = [[SOChooseDifficultyViewController alloc] init];
+            chooseDifficultyViewController.delegate = self;
+            [self transitionToViewController:chooseDifficultyViewController withTransitionAnimation:SOTransitionAnimationCrossFade];
+            [chooseDifficultyViewController release];
+            break;
+        }
+    }
+}
+
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark SOGameCenterHelperDelegate
@@ -83,37 +171,40 @@
 
 - (void)enterNewGame:(GKTurnBasedMatch *)match
 {
-    SOChooseCodeViewController *chooseCodeViewController = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypeGameCenter];
+    SOChooseCodeViewController *chooseCodeViewController = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypeGameCenter difficulty:_difficulty];
     chooseCodeViewController.delegate = self;
-    [self transitionToViewController:chooseCodeViewController];
+    [self transitionToViewController:chooseCodeViewController withTransitionAnimation:SOTransitionAnimationFlip];
     [chooseCodeViewController release];
     
 }
 
 - (void)layoutMatch:(GKTurnBasedMatch *)match
 {
-    [self updateFromMatch:match];
-    if (_opponentsCode == nil || _ownCode == nil)
-    {
-        SOChooseCodeViewController *chooseCodeViewController = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypeGameCenter];
-        chooseCodeViewController.delegate = self;
-        [self transitionToViewController:chooseCodeViewController];
-        [chooseCodeViewController release];
-    }
-    else if(self.activeViewController != _currentGame)
-    {
-        [_currentGame release];
-        _currentGame = nil;
-        _currentGame = [[SOGameViewController alloc] initWithPlayType:SOPlayTypeGameCenter code:_ownCode];
-        _currentGame.delegate = self;
-        [self updateFromMatch:match];
-        [self transitionToViewController:_currentGame];
-    }
-    if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
-    {
-        [_currentGame.previousGuessesView addNewRowAnimated:YES];
-        [self displayOpponentsTurn];
-    }
+    [self updateFromMatch:match withCompletionHandler:^(NSError *error) {
+        if (_opponentsCode == nil || _ownCode == nil)
+        {
+            SOChooseCodeViewController *chooseCodeViewController = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypeGameCenter difficulty:_difficulty];
+            chooseCodeViewController.delegate = self;
+            [self transitionToViewController:chooseCodeViewController withTransitionAnimation:SOTransitionAnimationFlip];
+            [chooseCodeViewController release];
+        }
+        else if(self.activeViewController != _currentGame)
+        {
+            [_currentGame release];
+            _currentGame = nil;
+            _currentGame = [[SOGameViewController alloc] initWithPlayType:SOPlayTypeGameCenter difficulty:_difficulty code:_ownCode];
+            _currentGame.delegate = self;
+            [self updateFromMatch:match withCompletionHandler:^(NSError *error){
+                [self transitionToViewController:_currentGame withTransitionAnimation:SOTransitionAnimationFlip];
+            }];
+            
+        }
+        if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+        {
+            [_currentGame.previousGuessesView addNewRowAnimated:YES];
+            [self displayOpponentsTurn];
+        }
+    }];
 }
 
 - (void)enterExistingGame:(GKTurnBasedMatch *)match
@@ -151,16 +242,42 @@
     [alertView release];
 }
 
+- (void)opponentQuit:(GKTurnBasedMatch *)match
+{
+    match.localParticipant.matchOutcome = GKTurnBasedMatchOutcomeWon;
+    [match endMatchInTurnWithMatchData:match.matchData completionHandler:^(NSError *error) {
+        NSLog(@"Opponent Quit");
+    }];
+    #warning TODO: handle opponent quita
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 -(void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match
 {
     if (match == [SOGameCenterHelper sharedInstance].currentMatch)
     {
-        [self updateFromMatch:match];
-        if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
-        {
-            [_currentGame.previousGuessesView addNewRowAnimated:YES];
-        }
+        [self updateFromMatch:match withCompletionHandler:^(NSError *error){
+            if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
+            {
+                [_currentGame.previousGuessesView addNewRowAnimated:YES];
+            }
+        }];
     }
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark SOChooseDifficultyDelegate
+//////////////////////////////////////////////////////////////////////////
+
+- (void)chooseDifficultyViewController:(SOChooseDifficultyViewController *)chooseDifficultyVC selectedDifficulty:(SODifficulty)difficulty
+{
+    _difficulty = difficulty;
+    
+    SOChooseCodeViewController *chooseCodeViewController = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypeGameCenter difficulty:difficulty];
+    chooseCodeViewController.delegate = self;
+    [self transitionToViewController:chooseCodeViewController withTransitionAnimation:SOTransitionAnimationFlip];
+    [chooseCodeViewController release];
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -170,24 +287,25 @@
 
 - (void)chooseCodeViewController:(SOChooseCodeViewController *)chooseCodeViewController didReturnCode:(NSArray *)code
 {
-    [self updateFromMatch:[SOGameCenterHelper sharedInstance].currentMatch];
-    _ownCode = [code retain];
-    [self sendTurn];
-    
-    if (_opponentsCode == nil)
-    {
-        SOWaitingForCodeViewController *waitingForCode = [[SOWaitingForCodeViewController alloc] init];
-        [self transitionToViewController:waitingForCode];
-        [waitingForCode release];
-    }
-    else
-    {
-        [_currentGame release];
-        _currentGame = nil;
-        _currentGame = [[SOGameViewController alloc] initWithPlayType:SOPlayTypeGameCenter code:_ownCode];
-        _currentGame.delegate = self;
-        [self transitionToViewController:_currentGame];
-    }
+    [self updateFromMatch:[SOGameCenterHelper sharedInstance].currentMatch withCompletionHandler:^(NSError *error) {
+        _ownCode = [code retain];
+        [self sendTurn];
+        
+        if (_opponentsCode == nil)
+        {
+            SOWaitingForCodeViewController *waitingForCode = [[SOWaitingForCodeViewController alloc] init];
+            [self transitionToViewController:waitingForCode withTransitionAnimation:SOTransitionAnimationFlip];
+            [waitingForCode release];
+        }
+        else
+        {
+            [_currentGame release];
+            _currentGame = nil;
+            _currentGame = [[SOGameViewController alloc] initWithPlayType:SOPlayTypeGameCenter difficulty:_difficulty code:_ownCode];
+            _currentGame.delegate = self;
+            [self transitionToViewController:_currentGame withTransitionAnimation:SOTransitionAnimationFlip];
+        }
+    }];
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -202,6 +320,13 @@
         [gameViewController.previousGuessesView updateWithGuesses:_ownGuessHistory];
         [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:_opponentsCode
                                                                                  animated:NO];
+        
+        NSArray *colorCode = [[SOGameCenterHelper sharedInstance] recoverColorsInRecepticles];
+        if (colorCode != nil)
+        {
+            [gameViewController.codeSelectionView populateRecepticlesWithCode:colorCode];
+        }
+        
         if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
         {
             [gameViewController.previousGuessesView addNewRowAnimated:YES];
@@ -211,10 +336,12 @@
 
 - (void)gameViewController:(SOGameViewController *)gameViewController didTakeTurnWithCode:(NSArray *)code
 {
-    [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:_opponentsCode
-                                                                             animated:YES];
-    [self updateFromMatch:[SOGameCenterHelper sharedInstance].currentMatch];
-    [self sendTurn];
+    [self updateFromMatch:[SOGameCenterHelper sharedInstance].currentMatch withCompletionHandler:^(NSError *error) {
+        [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:_opponentsCode
+                                                                                 animated:YES];
+        [self sendTurn];
+    }];
+    
 }
 
 - (void)gameViewControllerReadyToTransition:(SOGameViewController *)gameViewController
@@ -229,15 +356,55 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    SOMenuViewController *menu = [[SOMenuViewController alloc] init];
-    [self transitionToViewController:menu];
-    [menu release];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
+
+- (void)loadPhotos
+{
+    GKTurnBasedMatch *match = [SOGameCenterHelper sharedInstance].currentMatch;
+    for (GKTurnBasedParticipant *participant in match.participants)
+    {
+        if ([participant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID])
+        {
+            [GKPlayer loadPlayersForIdentifiers:@[participant.playerID] withCompletionHandler:^(NSArray *players, NSError *error) {
+                [players[0] loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
+                    if (photo != nil)
+                    {
+                        _ownImage = [photo retain];
+                    }
+                    else
+                    {
+                        _ownImage = [[UIImage imageNamed:@"gameover_avatar.png"] retain];
+                    }
+                }];
+            }];
+        }
+        else if(participant.playerID != nil)
+        {
+            [GKPlayer loadPlayersForIdentifiers:@[participant.playerID] withCompletionHandler:^(NSArray *players, NSError *error) {
+                [players[0] loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
+                    if (photo != nil)
+                    {
+                        _opponentsImage = [photo retain];
+                    }
+                    else
+                    {
+                        _opponentsImage = [[UIImage imageNamed:@"gameover_avatar.png"] retain];
+                    }
+                }];
+            }];
+        }
+    }
+    
+    
+    
+    
+}
 
 - (BOOL)guessedOpponentsCode
 {
@@ -300,6 +467,7 @@
                                 andRightColorWrongPosition:rightColorWrongPosition];
         
         guessFeedbackIndicator.frame = CGRectMake(0, 0, 50, 50);
+        guessFeedbackIndicator.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
         
         NSString *message = @"";
         NSString *title = @"";
@@ -333,59 +501,71 @@
         [alertView addSubview:guessFeedbackIndicator];
         [guessFeedbackIndicator release];
         [alertView show];
-        [guessFeedbackIndicator release];
-        
         [_currentGame updateSubmitButton];
     }
 }
 
-- (void)updateFromMatch:(GKTurnBasedMatch *)match
+- (void)updateFromMatch:(GKTurnBasedMatch *)match withCompletionHandler:(void(^)(NSError *error))completionHandler
 {
-    NSData *matchData = match.matchData;
-    NSDictionary *gameDict = [NSJSONSerialization JSONObjectWithData:matchData options:0 error:0];
-    
-    NSString *ourID = [GKLocalPlayer localPlayer].playerID;
-    NSString *theirID = [self opponentIDFromMatch:match];
-    
-    NSDictionary *ownState = gameDict[ourID];
-    NSDictionary *opponentState = gameDict[theirID];
-    
-    NSArray *ownCode = ownState[@"code"];
-    if (ownCode != nil)
-    {
-        [_ownCode release];
-        _ownCode = [ownCode retain];
-    }
-    
-    NSArray *ownGuessHistory = [_currentGame.previousGuessesView guessesList];
-    if (ownGuessHistory.count == 0)
-    {
-        ownGuessHistory = ownState[@"guess_history"];
-        if (ownGuessHistory !=nil)
+    [match loadMatchDataWithCompletionHandler:^(NSData *matchData, NSError *error) {
+        if (matchData != nil)
         {
-            [_ownGuessHistory release];
-            _ownGuessHistory = [ownGuessHistory retain];
+            NSDictionary *gameDict = [NSJSONSerialization JSONObjectWithData:matchData options:0 error:0];
+            
+            if (gameDict[@"difficulty"] != nil)
+            {
+                _difficulty = ((NSNumber *)gameDict[@"difficulty"]).intValue;
+            }
+            
+            NSString *ourID = [GKLocalPlayer localPlayer].playerID;
+            NSString *theirID = [self opponentIDFromMatch:match];
+            
+            NSDictionary *ownState = gameDict[ourID];
+            NSDictionary *opponentState = gameDict[theirID];
+            
+            NSArray *ownCode = ownState[@"code"];
+            if (ownCode != nil)
+            {
+                [_ownCode release];
+                _ownCode = [ownCode retain];
+            }
+            
+            NSArray *ownGuessHistory = [_currentGame.previousGuessesView guessesList];
+            if (ownGuessHistory.count == 0)
+            {
+                ownGuessHistory = ownState[@"guess_history"];
+                if (ownGuessHistory !=nil)
+                {
+                    [_ownGuessHistory release];
+                    _ownGuessHistory = [ownGuessHistory retain];
+                }
+            }
+            else
+            {
+                [_ownGuessHistory release];
+                _ownGuessHistory = [ownGuessHistory retain];
+            }
+            
+            NSArray *opponentCode = opponentState[@"code"];
+            if (opponentState != nil)
+            {
+                [_opponentsCode release];
+                _opponentsCode = [opponentCode retain];
+            }
+            
+            NSArray *opponentGuessHistory = opponentState[@"guess_history"];
+            if (opponentGuessHistory != nil)
+            {
+                [_opponentsGuessHistory release];
+                _opponentsGuessHistory = [opponentGuessHistory retain];
+            }
         }
-    }
-    else
-    {
-        [_ownGuessHistory release];
-        _ownGuessHistory = [ownGuessHistory retain];
-    }
+        if (completionHandler != nil)
+        {
+            completionHandler(error);
+        }
+    }];
     
-    NSArray *opponentCode = opponentState[@"code"];
-    if (opponentState != nil)
-    {
-        [_opponentsCode release];
-        _opponentsCode = [opponentCode retain];
-    }
-    
-    NSArray *opponentGuessHistory = opponentState[@"guess_history"];
-    if (opponentGuessHistory != nil)
-    {
-        [_opponentsGuessHistory release];
-        _opponentsGuessHistory = [opponentGuessHistory retain];
-    }
 }
 
 - (NSDictionary *)gameStateWithMatch:(GKTurnBasedMatch *)match
@@ -403,6 +583,10 @@
             if (guessHistory != nil)
             {
                 [ownState setValue:guessHistory forKey:@"guess_history"];
+            }
+            else
+            {
+                [ownState setValue:@[] forKey:@"guess_history"];
             }
         }
     }
@@ -426,6 +610,8 @@
     {
         [stateDict setValue:opponentsState forKey:theirID];
     }
+    
+    [stateDict setValue:@(_difficulty) forKey:@"difficulty"];
     
     [ownState release];
     [opponentsState release];

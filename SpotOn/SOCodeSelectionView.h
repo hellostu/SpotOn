@@ -22,11 +22,14 @@
 - (void)submitAllCirclesWithCompletion:(void (^)(NSArray *circles))completion;
 
 - (BOOL)recepticlesPopulated;
+
+- (void)populateRecepticlesWithCode:(NSArray *)code;
 @end
 
 @protocol SOCodeSelectionViewDelegate <NSObject>
 
 @optional
 - (void)codeSelectionViewWillChangeRecepticles:(SOCodeSelectionView *)codeSelectionView;
+- (void)codeSelectionViewDidChangeRecepticles:(SOCodeSelectionView *)codeSelectionView;
 
 @end

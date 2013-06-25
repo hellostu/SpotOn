@@ -15,13 +15,14 @@
 @protocol SOGameViewControllerDelegate;
 
 typedef enum  {
-    SLGameStateWaitingForGuess,
-    SLGameStateGuessInput
-} SLGameState;
+    SOGameStateWaitingForGuess,
+    SOGameStateGuessInput
+} SOGameState;
+
 
 @interface SOGameViewController : UIViewController
 
-@property(nonatomic, readonly) SLGameState              gameState;
+@property(nonatomic, readonly) SOGameState              gameState;
 @property(nonatomic, readonly) SOPlayType               playType;
 @property(nonatomic, readonly) SOButton                 *submitButton;
 @property(nonatomic, readonly) SOPreviousGuessesView    *previousGuessesView;
@@ -29,7 +30,7 @@ typedef enum  {
 @property(nonatomic, readonly) NSArray                  *code;
 @property(nonatomic, readwrite, assign) id<SOGameViewControllerDelegate> delegate;
 
-- (id)initWithPlayType:(SOPlayType)playType code:(NSArray *)code;
+- (id)initWithPlayType:(SOPlayType)playType difficulty:(SODifficulty)difficulty code:(NSArray *)code;
 - (NSArray *)guessHistory;
 - (void)updateSubmitButton;
 

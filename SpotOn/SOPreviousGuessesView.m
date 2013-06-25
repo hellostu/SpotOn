@@ -14,10 +14,12 @@
 {
     NSMutableArray  *_guesses;
     UIView          *_guessWrapperView;
+    
+    int             _numberOfRecepticles;
 }
 @end
 
-#define GUESS_VIEW_HEIGHT 37
+#define GUESS_VIEW_HEIGHT 50
 #define NUMBER_OF_TURNS 12
 
 @implementation SOPreviousGuessesView
@@ -27,7 +29,7 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame numberOfRecepticles:(int)numberOfRecepticles
 {
     if ((self = [super initWithFrame:frame]) != nil)
     {
@@ -40,6 +42,8 @@
         
         [self addSubview:_guessWrapperView];
         _turnsTaken = 0;
+        
+        _numberOfRecepticles = numberOfRecepticles;
     }
     return self;
 }
@@ -76,15 +80,18 @@
 
 - (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated
 {
-    for (SOPreviousGuessView *guessView in _guesses)
+    if (_guesses.count > 0)
     {
-        if(guessView.guessFeedbackIndicator.upToDate == NO && guessView.colors != nil)
+        for (SOPreviousGuessView *guessView in _guesses)
         {
-            NSDictionary *result = [self provideFeedbackForGuess:guessView.colors withOpponentsCode:opponentsCode];
-            int rightColorWrongPosition = ((NSNumber *)result[@"Right Color Wrong Position"]).intValue;
-            int rightColorRightPosition = ((NSNumber *)result[@"Right Color Right Position"]).intValue;
-            
-            [guessView setRightColorRightPosition:rightColorRightPosition andRightColorWrongPosition:rightColorWrongPosition animated:animated];
+            if(guessView.guessFeedbackIndicator.upToDate == NO && guessView.colors != nil)
+            {
+                NSDictionary *result = [self provideFeedbackForGuess:guessView.colors withOpponentsCode:opponentsCode];
+                int rightColorWrongPosition = ((NSNumber *)result[@"Right Color Wrong Position"]).intValue;
+                int rightColorRightPosition = ((NSNumber *)result[@"Right Color Right Position"]).intValue;
+                
+                [guessView setRightColorRightPosition:rightColorRightPosition andRightColorWrongPosition:rightColorWrongPosition animated:animated];
+            }
         }
     }
 }
@@ -207,7 +214,7 @@
     if (self.turnsTaken == _guesses.count)
     {
         CGFloat y = GUESS_VIEW_HEIGHT*(self.turnsTaken)+15;
-        SOPreviousGuessView *previousGuess = [[SOPreviousGuessView alloc] initWithFrame:CGRectMake(0, y, self.frame.size.width, 20) numberOfColors:5 index:0];
+        SOPreviousGuessView *previousGuess = [[SOPreviousGuessView alloc] initWithFrame:CGRectMake(0, y, self.frame.size.width, 20) numberOfColors:_numberOfRecepticles];
         [_guessWrapperView addSubview:previousGuess];
         [_guesses addObject:previousGuess];
         
@@ -227,7 +234,7 @@
             [self updateContentSize];
             [self scrollToEndAnimated:NO withCompletion:nil];
         }
-            
+        [previousGuess release];
     }
 }
 

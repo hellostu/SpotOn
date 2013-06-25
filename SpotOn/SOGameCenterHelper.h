@@ -26,14 +26,23 @@
 - (void)findMatchWithPresentingViewController:(UIViewController *)presentingViewConroller;
 - (BOOL)isMyTurn;
 - (void)loadMatchesWithCompletionHandler:(void (^)(NSArray *matches, NSError*error))completionHandler;
+- (void)initiateWithMatch:(GKTurnBasedMatch *)match;
+- (void)quitMatch:(GKTurnBasedMatch *)match;
+
+- (void)saveColorsInRecepticles:(NSArray *)colors;
+- (NSArray *)recoverColorsInRecepticles;
+- (void)clearOldMatchData;
 @end
 
 @protocol SOGamerCenterHelperDelegate <NSObject>
 
+@optional
 - (void)enterNewGame:(GKTurnBasedMatch *)match;
 - (void)layoutMatch:(GKTurnBasedMatch *)match;
 - (void)enterExistingGame:(GKTurnBasedMatch *)match;
+- (void)opponentQuit:(GKTurnBasedMatch *)match;
 - (void)recieveEndGame:(GKTurnBasedMatch *)match;
 - (void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match;
+- (void)authenticationChanged:(SOGameCenterHelper *)gameCenterHelper;
 
 @end

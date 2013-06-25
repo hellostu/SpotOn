@@ -236,7 +236,7 @@
         {
             self.dialogView.titleLabel.text = @"Brilliant!";
             self.dialogView.messageLabel.text = @"game on";
-            self.dialogView.backgroundColor = YELLOW_COLOR;
+            self.dialogView.backgroundColor = ORANGE_COLOR;
             
             SOButton *nextButton = [[SOButton alloc] initWithType:SOButtonTypeNext];
             nextButton.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.7);

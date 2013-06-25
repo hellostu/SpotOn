@@ -22,7 +22,7 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithFrame:(CGRect)frame numberOfColors:(int)numberOfCircles index:(int)index
+- (id)initWithFrame:(CGRect)frame numberOfColors:(int)numberOfCircles
 {
     if ( (self = self = [super initWithFrame:frame]) != nil)
     {
@@ -31,7 +31,7 @@
         {
             SOCircle *circle = [[SOCircle alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
             circle.draggable = NO;
-            circle.center = CGPointMake(i*30+30, frame.size.height/2);
+            circle.center = CGPointMake(i*30+55, frame.size.height/2);
             circle.fillColor = GREY_COLOR_TOP_CORRECT;
             [self addSubview:circle];
             [_guess addObject:circle];
@@ -39,7 +39,7 @@
         }
         
         _guessFeedbackIndicator = [[SOGuessFeedbackIndicator alloc] initWithNumberRecepticles:numberOfCircles];
-        _guessFeedbackIndicator.center = CGPointMake(frame.size.width-30, frame.size.height/2);
+        _guessFeedbackIndicator.center = CGPointMake(frame.size.width-55, frame.size.height/2);
         [self addSubview:_guessFeedbackIndicator];
         
         _colors = nil;
@@ -68,19 +68,19 @@
         [UIView animateWithDuration:0.4 animations:^(){
             _guessFeedbackIndicator.alpha = 0.0f;
         } completion:^(BOOL finished) {
-            [_guessFeedbackIndicator setRightColorRightPosition:0
-                                     andRightColorWrongPosition:rightColorWrongPosition];
+            [_guessFeedbackIndicator setRightColorRightPosition:rightColorRightPosition
+                                     andRightColorWrongPosition:0];
             [UIView animateWithDuration:0.4 animations:^(){
                 _guessFeedbackIndicator.alpha = 1.0f;
             } completion:^(BOOL finished) {
                 [UIView animateWithDuration:0.4 animations:^() {
                     _guessFeedbackIndicator.alpha = 0.0f;
                 } completion:^(BOOL finished) {
-                    [_guessFeedbackIndicator setRightColorRightPosition:rightColorRightPosition
-                                             andRightColorWrongPosition:rightColorWrongPosition];
-                    [UIView animateWithDuration:0.4 animations:^(){
-                        _guessFeedbackIndicator.alpha = 1.0f;
-                    }];
+                        [_guessFeedbackIndicator setRightColorRightPosition:rightColorRightPosition
+                                                 andRightColorWrongPosition:rightColorWrongPosition];
+                        [UIView animateWithDuration:0.4 animations:^(){
+                            _guessFeedbackIndicator.alpha = 1.0f;
+                        }];
                 }];
             }];
         }];

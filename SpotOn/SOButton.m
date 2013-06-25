@@ -15,6 +15,9 @@
     SOCircle *_pressedState;
     SOCircle *_hoverState;
     SOCircle *_currentState;
+    
+    SOCircle *_fillCircle;
+    
     UIButton *_overlayButton;
 }
 @end
@@ -38,16 +41,17 @@
         _normalState = [[SOCircle alloc] initWithFrame:self.frame];
         _pressedState = [[SOCircle alloc] initWithFrame:self.frame];
         _hoverState = [[SOCircle alloc] initWithFrame:self.frame];
+        _fillCircle = nil;
         
         switch (buttonType) {
             case SOButtonTypeSubmit:
             {
                 UIImageView *normalImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"submit_check.png"]];
-                normalImage.center = CGPointMake(26, 27);
+                normalImage.center = CGPointMake(26+SO_TOUCH_AREA_INCREASE, 27+SO_TOUCH_AREA_INCREASE);
                 UIImageView *pressedImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"submit_check_active.png"]];
-                pressedImage.center = CGPointMake(26, 27);
+                pressedImage.center = CGPointMake(26+SO_TOUCH_AREA_INCREASE, 27+SO_TOUCH_AREA_INCREASE);
                 UIImageView *hoverImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"submit_check.png"]];
-                hoverImage.center = CGPointMake(26, 27);
+                hoverImage.center = CGPointMake(26+SO_TOUCH_AREA_INCREASE, 27+SO_TOUCH_AREA_INCREASE);
                 
                 [_normalState addSubview:normalImage];
                 [_pressedState addSubview:pressedImage];
@@ -86,7 +90,7 @@
                 
                 _normalState.fillColor = nil;
                 _normalState.dashedLine = YES;
-                _normalState.strokeColor = YELLOW_COLOR;
+                _normalState.strokeColor = ORANGE_COLOR;
                 
                 _pressedState.fillColor = nil;
                 _pressedState.dashedLine = YES;
@@ -94,7 +98,30 @@
                 
                 _hoverState.fillColor = nil;
                 _hoverState.dashedLine = YES;
-                _hoverState.strokeColor = YELLOW_COLOR;
+                _hoverState.strokeColor = ORANGE_COLOR;
+            }
+            case SOButtonTypeDefault:
+            {
+                _normalState.fillColor = nil;
+                _normalState.dashedLine = YES;
+                _normalState.strokeColor = GREY_COLOR_BTM_RECEPTICLE;
+                
+                _hoverState.fillColor = nil;
+                _hoverState.dashedLine = YES;
+                _hoverState.strokeColor = GREY_COLOR_BTM_RECEPTICLE;
+                
+                _pressedState.fillColor = nil;
+                _pressedState.dashedLine = YES;
+                _pressedState.strokeColor = GREY_COLOR_BTM_RECEPTICLE;
+                
+                _fillCircle = [[SOCircle alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width*0.85, self.frame.size.height*0.85)];
+                _fillCircle.center = CGPointMake(_pressedState.frame.size.width/2, _pressedState.frame.size.height/2);
+                [_pressedState addSubview:_fillCircle];
+                
+                int rand = arc4random()%6;
+                self.fillColor = [SOCircle colorForTag:rand];
+                
+                break;
             }
             default:
                 break;
@@ -121,6 +148,7 @@
     [_pressedState release];
     [_hoverState release];
     [_overlayButton release];
+    [_fillCircle release];
     [super dealloc];
 }
 
@@ -137,6 +165,12 @@
 - (BOOL)enabled
 {
     return _overlayButton.enabled;
+}
+
+- (void)setFillColor:(UIColor *)fillColor
+{
+    _fillColor = [fillColor retain];
+    _fillCircle.fillColor = fillColor;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -160,9 +194,9 @@
     _currentState = _normalState;
     [self bringSubviewToFront:_overlayButton];
     
-    if ([self.delegate respondsToSelector:@selector(submitButtonPressed:)])
+    if ([self.delegate respondsToSelector:@selector(buttonPressed:)])
     {
-        [self.delegate submitButtonPressed:self];
+        [self.delegate buttonPressed:self];
     }
 }
 

@@ -10,10 +10,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SOGameCenterHelper.h"
 
-@interface SOGameViewController () <SOCodeSelectionViewDelegate, SOSubmitButtonDelegate>
+@interface SOGameViewController () <SOCodeSelectionViewDelegate, SOButtonDelegate>
 {
-    BOOL _submitButtonAnimating;
-    BOOL _animatingTakingTurn;
+    BOOL    _submitButtonAnimating;
+    BOOL    _animatingTakingTurn;
+    
+    int     _numberOfColors;
+    int     _numberOfRecepticles;
 }
 @end
 
@@ -24,13 +27,36 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithPlayType:(SOPlayType)playType code:(NSArray *)code
+- (id)initWithPlayType:(SOPlayType)playType difficulty:(SODifficulty)difficulty code:(NSArray *)code
 {
     if ( (self = [super init]) != nil)
     {
-        _gameState = SLGameStateWaitingForGuess;
+        _gameState = SOGameStateWaitingForGuess;
         _playType = playType;
         _code = [code retain];
+        
+        switch (difficulty)
+        {
+            case SODifficultyEasy:
+            {
+                _numberOfColors = 4;
+                _numberOfRecepticles = 4;
+                break;
+            }
+            case SODifficultyMedium:
+            {
+                _numberOfColors = 6;
+                _numberOfRecepticles = 4;
+                break;
+            }
+            case SODifficultyHard:
+            default:
+            {
+                _numberOfColors = 6;
+                _numberOfRecepticles = 5;
+                break;
+            }
+        }
     }
     return self;
 }
@@ -39,19 +65,11 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
-    CGFloat offset = 0;
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-    {
-        offset = 20;
-    }
     
-	//UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Mockup.jpeg"]];
-    //imageView.frame = CGRectMake(0, -22, self.view.frame.size.width, self.view.frame.size.height+22);
-    
-    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.36-offset)
-                                                     numberOfColors:6
-                                                numberOfRecepticles:5];
-    _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.65);
+    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.35)
+                                                     numberOfColors:_numberOfColors
+                                                numberOfRecepticles:_numberOfRecepticles];
+    _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.68);
     _codeSelectionView.delegate = self;
     
     _submitButton = [[SOButton alloc] initWithType:SOButtonTypeSubmit];
@@ -59,11 +77,10 @@
     _submitButton.alpha = 0.0f;
     CGFloat y = (self.view.frame.size.height-(_codeSelectionView.frame.size.height+_codeSelectionView.frame.origin.y))/2;
     y = self.view.frame.size.height-y;
-    _submitButton.center = CGPointMake(self.view.frame.size.width/2, y);
+    _submitButton.center = CGPointMake(self.view.frame.size.width/2, y-5);
     [self.view addSubview:_submitButton];
-    [_submitButton release];
     
-    _previousGuessesView = [[SOPreviousGuessesView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,206+offset)];
+    _previousGuessesView = [[SOPreviousGuessesView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height/2) numberOfRecepticles:_numberOfRecepticles];
     [_previousGuessesView scrollToEndAnimated:NO withCompletion:nil];
     if ([self.delegate respondsToSelector:@selector(gameViewControllerDidLoadViews:)])
     {
@@ -120,28 +137,20 @@
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark SLCodeSelectionViewDelegate
+#pragma mark SOCodeSelectionViewDelegate
 //////////////////////////////////////////////////////////////////////////
 
 - (void)codeSelectionViewWillChangeRecepticles:(SOCodeSelectionView *)codeSelectionView
 {
-    BOOL isMyTurn = self.playType != SOPlayTypeGameCenter || [[SOGameCenterHelper sharedInstance] isMyTurn];
-    
-    if ([codeSelectionView recepticlesPopulated] == YES && isMyTurn == YES)
+    [self updateSubmitButton];
+}
+
+- (void)codeSelectionViewDidChangeRecepticles:(SOCodeSelectionView *)codeSelectionView
+{
+    if (_playType == SOPlayTypeGameCenter)
     {
-        _submitButton.enabled = NO;
-        [UIView animateWithDuration:0.2 animations:^() {
-            _submitButton.alpha = 1.0f;
-        } completion:^(BOOL finished) {
-            _submitButton.enabled = YES;
-        }];
-    }
-    else
-    {
-        _submitButton.enabled = NO;
-        [UIView animateWithDuration:0.2 animations:^() {
-            _submitButton.alpha = 0.0f;
-        }];
+        NSArray *code = [codeSelectionView colorsInRecepticles];
+        [[SOGameCenterHelper sharedInstance] saveColorsInRecepticles:code];
     }
 }
 
@@ -150,7 +159,7 @@
 #pragma mark SLSubmitButtonDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)submitButtonPressed:(SOButton *)submitButton
+- (void)buttonPressed:(SOButton *)submitButton
 {
     if (_submitButtonAnimating == NO)
     {
@@ -159,16 +168,16 @@
             [self hideSubmitButton];
             switch (self.gameState)
             {
-                case SLGameStateWaitingForGuess:
+                case SOGameStateWaitingForGuess:
                 {
                     [self submitTurn];
                     
                     break;
                 }
-                case SLGameStateGuessInput:
+                case SOGameStateGuessInput:
                 {
                     [self.delegate gameViewControllerReadyToTransition:self];
-                    _gameState = SLGameStateWaitingForGuess;
+                    _gameState = SOGameStateWaitingForGuess;
                     break;
                 }
                 default:
@@ -265,7 +274,7 @@
             }];
         }];
     }
-    _gameState = SLGameStateGuessInput;
+    _gameState = SOGameStateGuessInput;
 }
 
 - (NSArray *)guessHistory

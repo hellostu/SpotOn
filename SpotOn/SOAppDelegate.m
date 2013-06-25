@@ -10,7 +10,7 @@
 #import "SOPassAndPlayViewController.h"
 #import "TestFlight.h"
 #import "SOGameCenterHelper.h"
-#import "SOGameCenterViewController.h"
+#import "SOMenuController.h"
 
 #import "SOTutorialViewController.h"
 
@@ -37,6 +37,9 @@
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor blackColor];
     
+    SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
+    [gameCenterHelper clearOldMatchData];
+    
     //SOTutorialViewController *tutorialVC = [[SOTutorialViewController alloc] init];
     //self.window.rootViewController = tutorialVC;
     //[tutorialVC release];
@@ -45,29 +48,13 @@
     //self.window.rootViewController = passAndPlay;
     //[passAndPlay release];
 
-    SOGameCenterViewController *gameCenterVC = [[SOGameCenterViewController alloc] init];
+    //SOGameCenterViewController *gameCenterVC = [[SOGameCenterViewController alloc] init];
+    //self.window.rootViewController = gameCenterVC;
+    //[gameCenterVC release];
     
-    [[SOGameCenterHelper sharedInstance] authenticateLocalUserWithHandler:^(UIViewController *viewController, NSError *error) {
-        [GKTurnBasedMatch loadMatchesWithCompletionHandler:^(NSArray *matches, NSError *error){
-            for (GKTurnBasedMatch *match in matches)
-            {
-                NSLog(@"%@", match.matchID);
-                [match removeWithCompletionHandler:^(NSError *error){
-                    NSLog(@"%@", error);
-                }];
-            }
-        }];
-        
-        if (viewController != nil)
-        {
-            [gameCenterVC presentViewController:viewController
-                                   animated:YES
-                                 completion:nil];
-        }
-    }];
-    self.window.rootViewController = gameCenterVC;
-    [gameCenterVC release];
-    
+    SOMenuController *menuController = [[SOMenuController alloc] init];
+    self.window.rootViewController = menuController;
+    [menuController release];
 
 return YES;
 }

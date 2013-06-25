@@ -33,16 +33,16 @@
         
         CGFloat w = 12;
         
-        SOCircle *circle1 = [[SOCircle alloc] initWithFrame:CGRectMake(0,  0,  w, w)];
+        SOCircle *circle1 = [[SOCircle alloc] initWithFrame:CGRectMake(0,  0,  w, w) expandTouchArea:NO];
         circle1.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
         circle1.fillColor = GREY_COLOR_TOP_INCORRECT;
-        SOCircle *circle2 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width-w, 0,  w, w)];
+        SOCircle *circle2 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width-w, 0,  w, w) expandTouchArea:NO];
         circle2.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
         circle2.fillColor = GREY_COLOR_TOP_INCORRECT;
-        SOCircle *circle3 = [[SOCircle alloc] initWithFrame:CGRectMake(0,  frame.size.width-w, w, w)];
+        SOCircle *circle3 = [[SOCircle alloc] initWithFrame:CGRectMake(0,  frame.size.width-w, w, w) expandTouchArea:NO];
         circle3.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
         circle3.fillColor = GREY_COLOR_TOP_INCORRECT;
-        SOCircle *circle4 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width-w, frame.size.width-w, w, w)];
+        SOCircle *circle4 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width-w, frame.size.width-w, w, w) expandTouchArea:NO];
         circle4.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
         circle4.fillColor = GREY_COLOR_TOP_INCORRECT;
         
@@ -58,7 +58,7 @@
         
         if (numberOfRecepticles>4)
         {
-            SOCircle *circle5 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width/2-w/2, frame.size.height/2-w/2, w, w)];
+            SOCircle *circle5 = [[SOCircle alloc] initWithFrame:CGRectMake(frame.size.width/2-w/2, frame.size.height/2-w/2, w, w) expandTouchArea:NO];
             circle5.fillColor = GREY_COLOR_TOP_INCORRECT;
             circle5.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
             
@@ -131,18 +131,18 @@
         [circle setNeedsDisplay];
     }
     
-    for (int i=0; i<rightColorWrongPosition; i++)
-    {
-        SOCircle *circle = _indicators[i];
-        circle.fillColor = nil;
-        circle.strokeColor = GREY_COLOR_TOP_CORRECT;
-        [circle setNeedsDisplay];
-    }
     for (int i=0; i<rightColorRightPosition; i++)
     {
-        SOCircle *circle = _indicators[i+rightColorWrongPosition];
+        SOCircle *circle = _indicators[i];
         circle.fillColor = GREY_COLOR_TOP_CORRECT;
         circle.strokeColor = nil;
+        [circle setNeedsDisplay];
+    }
+    for (int i=0; i<rightColorWrongPosition; i++)
+    {
+        SOCircle *circle = _indicators[i+rightColorRightPosition];
+        circle.fillColor = nil;
+        circle.strokeColor = GREY_COLOR_TOP_CORRECT;
         [circle setNeedsDisplay];
     }
     _upToDate = YES;

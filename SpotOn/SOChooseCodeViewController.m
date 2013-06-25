@@ -12,10 +12,13 @@
 #import "SOGuessFeedbackIndicator.h"
 #import "SODialogView.h"
 
-@interface SOChooseCodeViewController () <SOSubmitButtonDelegate, SOCodeSelectionViewDelegate>
+@interface SOChooseCodeViewController () <SOButtonDelegate, SOCodeSelectionViewDelegate>
 {
     SOCodeSelectionView *_codeSelectionView;
     SOButton      *_submitButton;
+    
+    int     numberOfColors;
+    int     numberOfRecepticles;
 }
 
 @end
@@ -27,11 +30,34 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithPlayType:(SOPlayType)playType
+- (id)initWithPlayType:(SOPlayType)playType difficulty:(SODifficulty)difficulty
 {
     if ( (self = [super init]) != nil)
     {
          _playerType = playType;
+        
+        switch (difficulty)
+        {
+            case SODifficultyEasy:
+            {
+                numberOfColors = 4;
+                numberOfRecepticles = 4;
+                break;
+            }
+            case SODifficultyMedium:
+            {
+                numberOfColors = 6;
+                numberOfRecepticles = 4;
+                break;
+            }
+            case SODifficultyHard:
+            default:
+            {
+                numberOfColors = 6;
+                numberOfRecepticles = 5;
+                break;
+            }
+        }
     }
     return self;
 }
@@ -39,11 +65,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    CGFloat offset = 0;
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-    {
-        offset = 22;
-    }
     
     switch (self.playerType)
     {
@@ -67,12 +88,11 @@
     
     self.messageView.frame = CGRectMake(0, 70, self.view.frame.size.width,100);
     
-    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.36-offset)
-                                                     numberOfColors:6
-                                                numberOfRecepticles:5];
-    _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.65);
+    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.35)
+                                                     numberOfColors:numberOfColors
+                                                numberOfRecepticles:numberOfRecepticles];
+    _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.68);
     _codeSelectionView.delegate = self;
-
     
     _submitButton = [[SOButton alloc] initWithType:SOButtonTypeSubmit];
     _submitButton.delegate = self;
@@ -124,7 +144,7 @@
 #pragma mark SLSubmitButtonDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)submitButtonPressed:(SOButton *)submitButton
+- (void)buttonPressed:(SOButton *)submitButton
 {
     if ([self.delegate respondsToSelector:@selector(chooseCodeViewController:didReturnCode:)])
     {

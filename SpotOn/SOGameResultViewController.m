@@ -2,20 +2,21 @@
 //  SOGameResultViewController.m
 //  SpotOn
 //
-//  Created by Stuart Lynch on 16/06/2013.
+//  Created by Stuart Lynch on 22/06/2013.
 //  Copyright (c) 2013 UEA. All rights reserved.
 //
 
 #import "SOGameResultViewController.h"
-#import "SOCodeDisplayView.h"
+#import "SOPreviousGuessView.h"
 
 @interface SOGameResultViewController ()
 {
-    SOGameResult    _winType;
-    NSArray         *_player1Code;
-    NSArray         *_player2Code;
+    SOGameResult    _gameResult;
+    NSArray         *_ownCode;
+    NSArray         *_opponentsCode;
+    NSArray         *_ownBestGuess;
+    NSArray         *_opponentsBestGuess;
 }
-
 @end
 
 @implementation SOGameResultViewController
@@ -25,66 +26,80 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithWinType:(SOGameResult)winType player1Code:(NSArray *)player1Code player2Code:(NSArray *)player2Code
+- (id)initWithResult:(SOGameResult)gameResult
+             ownCode:(NSArray *)ownCode
+       opponentsCode:(NSArray *)opponentsCode
+        ownBestGuess:(NSArray *)ownBestGuess
+  opponentsBestGuess:(NSArray *)opponentsBestGuess
 {
     if ( (self = [super init]) != nil)
     {
-        _winType = winType;
-        _player1Code = [player1Code retain];
-        _player2Code = [player2Code retain];
+        _gameResult = gameResult;
+        _ownCode = [ownCode retain];
+        _opponentsCode = [opponentsCode retain];
+        _ownBestGuess = [ownBestGuess retain];
+        _opponentsBestGuess = [opponentsBestGuess retain];
+        
+        _ownProfilePicture = [[SOProfilePicture alloc] initWithType:SOProfilePictureTypeLarge];
+        _opponentsProfilePicture = [[SOProfilePicture alloc] initWithType:SOProfilePictureTypeLarge];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [_ownCode release];
+    [_opponentsCode release];
+    [_ownBestGuess release];
+    [_opponentsBestGuess release];
+    [_ownProfilePicture release];
+    [_opponentsProfilePicture release];
+    [super dealloc];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    switch (_winType)
+    
+    UILabel *ownCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height/2, self.view.frame.size.width-10, 20)];
+    ownCodeLabel.font = [UIFont fontWithName:@"GothamHTF-Medium.png" size:20.0f];
+    ownCodeLabel.backgroundColor = GREY_COLOR_TOP_BACKGROUND;
+    ownCodeLabel.textColor = GREY_COLOR_TOP_TEXT;
+    
+    _ownProfilePicture.center = CGPointMake(self.view.frame.size.width*0.3, self.view.frame.size.height*0.35);
+    _opponentsProfilePicture.center = CGPointMake(self.view.frame.size.width*0.7, self.view.frame.size.height*0.35);
+    
+    self.messageView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.15);
+    
+	switch (_gameResult)
     {
-        case SOGameResultPlayerOneWin:
+        case SOGameResultWin:
         {
-            self.messageView.text = @"PLAYER 1 WINS!";
-            break;
-        }
-        case SOGameResultPlayerTwoWin:
-        {
-            self.messageView.text = @"PLAYER 2 WINS!";
-            break;
-        }
-        case SOGameResultDraw:
-        {
-            self.messageView.text = @"IT'S A DRAW!";
-            break;
-        }
             
-        default:
+            self.messageView.text = @"CONGRATULATIONS\nYOU WON!";
             break;
+        }
+        case SOGameResultLose:
+        {
+            self.messageView.text = @"OH! YOU WERE\nSO CLOSE!";
+            break;
+        }
+        case SOGameResultTie:
+        default:
+        {
+            self.messageView.text = @"WELL DONE!\nYOU HAVE TIED!";
+            break;
+        }
     }
     
-    SOCodeDisplayView *player1CodeDisplay = [[SOCodeDisplayView alloc] initWithCode:_player1Code];
-    SOCodeDisplayView *player2CodeDisplay = [[SOCodeDisplayView alloc] initWithCode:_player2Code];
-    
-    player1CodeDisplay.center = CGPointMake(self.view.frame.size.width/2, 250);
-    player2CodeDisplay.center = CGPointMake(self.view.frame.size.width/2, 350);
-    
-    [self.view addSubview:player1CodeDisplay];
-    [self.view addSubview:player2CodeDisplay];
-    
-    [player1CodeDisplay release];
-    [player2CodeDisplay release];
-}
-
-- (void)dealloc
-{
-    [_player1Code release];
-    [_player2Code release];
-    [super dealloc];
+    [self.view addSubview:_ownProfilePicture];
+    [self.view addSubview:_opponentsProfilePicture];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
+    // Dispose of any resources that can be recreated.
 }
 
 @end

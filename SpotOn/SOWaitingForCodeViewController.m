@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     CGRect frame = self.messageView.frame;
-    frame.origin.y-=20;
+    frame.origin.y=self.view.frame.size.height*0.15;
     self.messageView.frame = frame;
 	self.messageView.text = @"WAITING FOR OPPONENT'S CODE TO GET STARTED";
 }

@@ -7,6 +7,7 @@
 //
 
 #import "SOGameCenterHelper.h"
+#import "GKTurnBasedMatch+otherParticipant.h"
 
 @interface SOGameCenterHelper ()
 {
@@ -80,13 +81,15 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 {
     if ([GKLocalPlayer localPlayer].isAuthenticated && self.userAuthenticated == NO)
     {
-        NSLog(@"Authentication changed: player authenticated.");
         _userAuthenticated = TRUE;
     }
     else if ([GKLocalPlayer localPlayer].isAuthenticated == NO && self.userAuthenticated)
     {
-        NSLog(@"Authentication changed: player not authenticated");
         _userAuthenticated = FALSE;
+    }
+    if ([self.delegate respondsToSelector:@selector(authenticationChanged:)])
+    {
+        [self.delegate authenticationChanged:self];
     }
 }
 
@@ -110,14 +113,29 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 
 -(void)handleTurnEventForMatch:(GKTurnBasedMatch *)match didBecomeActive:(BOOL)didBecomeActive
 {
-    NSLog(@"Turn has happened");
-    if ([match.matchID isEqualToString:self.currentMatch.matchID])
+    GKTurnBasedParticipant *otherParticipant = nil;
+    for (GKTurnBasedParticipant *participant in match.participants)
     {
-        if ([self isMyTurn] == YES)
+        if (participant != match.currentParticipant)
         {
-            // it's the current match and it's our turn now
-            self.currentMatch = match;
-            [self.delegate enterExistingGame:match];
+            otherParticipant = participant;
+            break;
+        }
+    }
+    if (otherParticipant.matchOutcome == GKTurnBasedMatchOutcomeQuit)
+    {
+        if ([self.delegate respondsToSelector:@selector(opponentQuit:)])
+        {
+            [self.delegate opponentQuit:match];
+        }
+    }
+    else if ([match.matchID isEqualToString:self.currentMatch.matchID])
+    {
+        if ([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == YES)
+        {
+                // it's the current match and it's our turn now
+                self.currentMatch = match;
+                [self.delegate enterExistingGame:match];
         }
         else
         {
@@ -142,7 +160,6 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 
 -(void)handleMatchEnded:(GKTurnBasedMatch *)match
 {
-    NSLog(@"Game has ended");
     if ([match.matchID isEqualToString:self.currentMatch.matchID])
     {
         [self.delegate recieveEndGame:match];
@@ -182,7 +199,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 
 -(void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController
 {
-    [_presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController
@@ -217,6 +234,104 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
+- (void)clearOldMatchData
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *colorsInRecepticles = [userDefaults dictionaryForKey:@"colors_in_recepticles"];
+    if (colorsInRecepticles == nil)
+    {
+        return;
+    }
+    NSMutableDictionary *mutableColorsInRecepticles = [colorsInRecepticles mutableCopy];
+    NSArray *keys = [colorsInRecepticles allKeys];
+    
+    NSDate *now = [NSDate date];
+    
+    for (NSString *key in keys)
+    {
+        NSDictionary *data = colorsInRecepticles[key];
+        NSDate *dateDataSet = data[@"date"];
+        NSTimeInterval interval = [now timeIntervalSinceDate:dateDataSet];
+        if (interval > 259200)
+        {
+            [mutableColorsInRecepticles removeObjectForKey:key];
+        }
+    }
+    [userDefaults setObject:mutableColorsInRecepticles forKey:@"colors_in_recepticles"];
+}
+
+- (NSArray *)recoverColorsInRecepticles
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *colorsInRecepticles = [userDefaults dictionaryForKey:@"colors_in_recepticles"];
+    if (colorsInRecepticles == nil)
+    {
+        return  nil;
+    }
+    NSString *matchID = _currentMatch.matchID;
+    NSDictionary *data = colorsInRecepticles[matchID];
+    if (data == nil)
+    {
+        return nil;
+    }
+    return data[@"code"];
+}
+
+- (void)saveColorsInRecepticles:(NSArray *)colors
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *colorsInRecepticles = [userDefaults dictionaryForKey:@"colors_in_recepticles"];
+    if (colorsInRecepticles == nil)
+    {
+        colorsInRecepticles = [NSDictionary dictionary];
+    }
+    NSMutableDictionary *mutableColorsInRecepticles = [colorsInRecepticles mutableCopy];
+    NSString *matchID = _currentMatch.matchID;
+    [mutableColorsInRecepticles removeObjectForKey:matchID];
+    
+    NSDictionary *data = @{@"code" : colors, @"date" : [NSDate date]};
+    [mutableColorsInRecepticles setObject:data forKey:matchID];
+    [userDefaults setObject:mutableColorsInRecepticles forKey:@"colors_in_recepticles"];
+}
+
+- (void)quitMatch:(GKTurnBasedMatch *)match
+{
+    if ([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == NO)
+    {
+        [match participantQuitOutOfTurnWithOutcome:GKTurnBasedMatchOutcomeQuit withCompletionHandler:^(NSError *error) {
+            for (GKTurnBasedParticipant *participant in match.participants)
+            {
+                if ([participant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == NO)
+                {
+                    participant.matchOutcome = GKTurnBasedMatchOutcomeWon;
+                    break;
+                }
+            }
+        }];
+    }
+    else
+    {
+        [match participantQuitInTurnWithOutcome:GKTurnBasedMatchOutcomeQuit
+                               nextParticipants:@[match.otherParticipant] turnTimeout:0
+                                      matchData:match.matchData completionHandler:^(NSError *error) {
+            for (GKTurnBasedParticipant *participant in match.participants)
+            {
+                if ([participant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == NO)
+                {
+                    participant.matchOutcome = GKTurnBasedMatchOutcomeWon;
+                    break;
+                }
+            }
+            [match endMatchInTurnWithMatchData:match.matchData completionHandler:^(NSError *error) {
+                if (error != nil)
+                {
+                    NSLog(@"Error: %@", error);
+                }
+            }];
+        }];
+    }
+}
+
 - (void)initiateWithMatch:(GKTurnBasedMatch *)match
 {
     self.currentMatch = match;
@@ -225,7 +340,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
     {
         if ([self.delegate respondsToSelector:@selector(enterExistingGame:)])
         {
-            [self.delegate enterExistingGame:match];
+            [self.delegate layoutMatch:match];
         }
     }
     else
@@ -300,7 +415,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
         }
         else
         {
-            NSLog(@"Already authenticated!");
+            handler(nil,nil);
             setGKEventHandlerDelegate(nil);
         }
     }

@@ -12,21 +12,21 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-    #define YELLOW_COLOR [UIColor colorWithRed:242.0f/255.0f green:153.0f/255.0f blue:30.0f/255.0f alpha:1.0f]
-    #define BLUE_COLOR [UIColor colorWithRed:43.0f/255.0f green:170.0f/255.0f blue:193.0f/255.0f alpha:1.0f]
-    #define GREEN_COLOR [UIColor colorWithRed:145.0f/255.0f green:188.0f/255.0f blue:62.0f/255.0f alpha:1.0f]
-    #define RED_COLOR [UIColor colorWithRed:240.0f/255.0f green:74.0f/255.0f blue:77.0f/255.0f alpha:1.0f]
-    #define PURPLE_COLOR [UIColor colorWithRed:137.0f/255.0f green:89.0f/255.0f blue:165.0f/255.0f alpha:1.0f]
-    #define BROWN_COLOR [UIColor colorWithRed:135.0f/255.0f green:95.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
+    #define ORANGE_COLOR [UIColor colorWithRed:248.0f/255.0f green:195.0f/255.0f blue:103.0f/255.0f alpha:1.0f]
+    #define BLUE_COLOR [UIColor colorWithRed:101.0f/255.0f green:182.0f/255.0f blue:202.0f/255.0f alpha:1.0f]
+    #define PURPLE_COLOR [UIColor colorWithRed:154.0f/255.0f green:116.0f/255.0f blue:178.0f/255.0f alpha:1.0f]
+    #define RED_COLOR [UIColor colorWithRed:242.0f/255.0f green:114.0f/255.0f blue:103.0f/255.0f alpha:1.0f]
+    #define GREEN_COLOR [UIColor colorWithRed:165.0f/255.0f green:197.0f/255.0f blue:96.0f/255.0f alpha:1.0f]
+    #define BROWN_COLOR [UIColor colorWithRed:154.0f/255.0f green:119.0f/255.0f blue:91.0f/255.0f alpha:1.0f]
 
-    #define GREY_COLOR_TOP_BACKGROUND [UIColor colorWithRed:64.0f/255.0f  green:64.0f/255.0f  blue:64.0f/255.0f  alpha:1.0f]
+    #define GREY_COLOR_TOP_BACKGROUND [UIColor colorWithRed:219.0f/255.0f green:220.0f/255.0f blue:221.0f/255.0f alpha:1.0f]
     #define GREY_COLOR_TOP_CORRECT    [UIColor colorWithRed:167.0f/255.0f green:169.0f/255.0f blue:172.0f/255.0f alpha:1.0f]
-    #define GREY_COLOR_TOP_INCORRECT  [UIColor colorWithRed:109.0f/255.0f green:110.0f/255.0f blue:113.0f/255.0f alpha:1.0f]
-    #define GREY_COLOR_TOP_TEXT       [UIColor colorWithRed:167.0f/255.0f green:169.0f/255.0f blue:172.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_TOP_INCORRECT  [UIColor colorWithRed:188.0f/255.0f green:189.0f/255.0f blue:191.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_TOP_TEXT       [UIColor colorWithRed:147.0f/255.0f green:149.0f/255.0f blue:151.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_TOP_TEXT_LIGHT [UIColor colorWithRed:188.0f/255.0f green:189.0f/255.0f blue:191.0f/255.0f alpha:1.0f]
 
-    #define GREY_COLOR_BTM_BACKGROUND [UIColor colorWithRed:76.0f/255.0f green:76.0f/255.0f blue:76.0f/255.0f alpha:1.0f]
-    #define GREY_COLOR_BTM_RECEPTICLE [UIColor colorWithRed:188.0f/255.0f green:190.0f/255.0f blue:192.0f/255.0f alpha:1.0f]
-    #define GREY_COLOR_BTM_ROUND      [UIColor colorWithRed:209.0f/255.0f green:211.0f/255.0f blue:212.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_BTM_BACKGROUND [UIColor colorWithRed:242.0f/255.0f green:242.0f/255.0f blue:242.0f/255.0f alpha:1.0f]
+    #define GREY_COLOR_BTM_RECEPTICLE [UIColor colorWithRed:147.0f/255.0f green:149.0f/255.0f blue:151.0f/255.0f alpha:1.0f]
 
 
     #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
@@ -47,6 +47,13 @@ typedef enum  {
     SOCircleColorBlue,
     SOCircleColorPurple,
     SOCircleColorRed,
-    SOCircleColorYellow,
+    SOCircleColorOrange,
     SOCircleColorBrown,
 } SOCircleColor;
+
+typedef enum  {
+    SODifficultyEasy,
+    SODifficultyMedium,
+    SODifficultyHard,
+    SODifficultyUnassigned
+} SODifficulty;

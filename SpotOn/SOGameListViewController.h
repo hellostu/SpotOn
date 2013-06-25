@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SOMenuViewController : UIViewController
+@interface SOGameListViewController : UIViewController
 
 @end
