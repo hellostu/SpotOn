@@ -19,7 +19,7 @@
 - (void)updateWithGuesses:(NSArray *)guesses;
 
 - (NSDictionary *)provideFeedbackForGuess:(NSArray *)guess withOpponentsCode:(NSArray *)opponentsCode;
-- (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated;
+- (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated completion:(void (^)(void))handler;
 
 - (NSArray *)guessesList;
 

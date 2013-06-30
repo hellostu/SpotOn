@@ -78,7 +78,7 @@
     return NO;
 }
 
-- (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated
+- (void)updateFeedbackIndicatorsWithOpponentsCode:(NSArray *)opponentsCode animated:(BOOL)animated completion:(void (^)(void))handler
 {
     if (_guesses.count > 0)
     {
@@ -90,7 +90,7 @@
                 int rightColorWrongPosition = ((NSNumber *)result[@"Right Color Wrong Position"]).intValue;
                 int rightColorRightPosition = ((NSNumber *)result[@"Right Color Right Position"]).intValue;
                 
-                [guessView setRightColorRightPosition:rightColorRightPosition andRightColorWrongPosition:rightColorWrongPosition animated:animated];
+                [guessView setRightColorRightPosition:rightColorRightPosition andRightColorWrongPosition:rightColorWrongPosition animated:animated withCompletionHandler:handler];
             }
         }
     }
@@ -203,6 +203,7 @@
 
 - (void)takeTurnWithColors:(NSArray *)colors
 {
+    NSLog(@"Colors: %@", colors);
     SOPreviousGuessView *previousGuessView = _guesses[_turnsTaken];
     [previousGuessView updateWithColors:colors];
     _turnsTaken++;

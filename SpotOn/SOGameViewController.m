@@ -1,3 +1,4 @@
+
 //
 //  SLGameViewController.m
 //  Mastermind
@@ -17,6 +18,9 @@
     
     int     _numberOfColors;
     int     _numberOfRecepticles;
+    
+    UIView                      *_loadingView;
+    UIActivityIndicatorView     *_activityIndicator;
 }
 @end
 
@@ -87,11 +91,26 @@
         [self.delegate gameViewControllerDidLoadViews:self];
     }
     
+    _loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    _loadingView.backgroundColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.2 alpha:0.4];
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    UIView *roundedSquare = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    roundedSquare.layer.cornerRadius = 10.0f;
+    roundedSquare.center = CGPointMake(_loadingView.frame.size.width/2, _loadingView.frame.size.height/2);
+    roundedSquare.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.9];
+    _activityIndicator.center = CGPointMake(50, 50);
+    
+    [roundedSquare addSubview:_activityIndicator];
+    [_loadingView addSubview:roundedSquare];
+    [roundedSquare release];
+    
+    _loadingView.alpha = 0.0f;
     
     //[self.view addSubview:imageView];
     [self.view addSubview:_submitButton];
     [self.view addSubview:_previousGuessesView];
     [self.view addSubview:_codeSelectionView];
+    [self.view addSubview:_loadingView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -126,6 +145,8 @@
     [_previousGuessesView release];
     [_code release];
     [_submitButton release];
+    [_loadingView release];
+    [_activityIndicator release];
     [super dealloc];
 }
 
@@ -165,28 +186,39 @@
     {
         if (self.playType != SOPlayTypeGameCenter)
         {
-            [self hideSubmitButton];
-            switch (self.gameState)
+            if (self.playType != SOPlayTypeSinglePlayer) // Is Pass and Play Game
             {
-                case SOGameStateWaitingForGuess:
+                [self hideSubmitButton];
+                switch (self.gameState)
                 {
-                    [self submitTurn];
-                    
-                    break;
+                    case SOGameStateWaitingForGuess:
+                    {
+                        [self submitTurn];
+                        
+                        break;
+                    }
+                    case SOGameStateGuessInput:
+                    {
+                        [self.delegate gameViewControllerReadyToTransition:self];
+                        _gameState = SOGameStateWaitingForGuess;
+                        break;
+                    }
+                    default:
+                        break;
                 }
-                case SOGameStateGuessInput:
-                {
-                    [self.delegate gameViewControllerReadyToTransition:self];
-                    _gameState = SOGameStateWaitingForGuess;
-                    break;
-                }
-                default:
-                    break;
+            }
+            else
+            {
+                [self submitTurn];
             }
         }
         else if([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
         {
-            [self submitTurn];
+            if ([self.delegate respondsToSelector:@selector(gameViewController:requestedToSendTurnWithCode:)])
+            {
+                NSArray *colorsOfCurrentTurn = [self.codeSelectionView colorsInRecepticles];
+                [self.delegate gameViewController:self requestedToSendTurnWithCode:colorsOfCurrentTurn];
+            }
             _submitButtonAnimating = YES;
             [UIView animateWithDuration:0.2 animations:^() {
                 submitButton.alpha = 0.0;
@@ -194,15 +226,15 @@
                 _submitButtonAnimating = NO;
             }];
         }
-    }
-    if (self.playType == SOPlayTypeGameCenter)
-    {
-        _submitButtonAnimating = YES;
-        [UIView animateWithDuration:0.2 animations:^(){
-            _submitButton.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            _submitButtonAnimating = NO;
-        }];
+        else
+        {
+            _submitButtonAnimating = YES;
+            [UIView animateWithDuration:0.2 animations:^(){
+                _submitButton.alpha = 0.0f;
+            } completion:^(BOOL finished) {
+                _submitButtonAnimating = NO;
+            }];
+        }
     }
 }
 
@@ -210,6 +242,23 @@
 #pragma mark -
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
+
+- (void)startLoading
+{
+    [_activityIndicator startAnimating];
+    [UIView animateWithDuration:0.2 animations:^() {
+        _loadingView.alpha = 1.0f;
+    }];
+}
+
+- (void)stopLoading
+{
+    [UIView animateWithDuration:0.2 animations:^() {
+        _loadingView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [_activityIndicator stopAnimating];
+    }];
+}
 
 - (void)updateSubmitButton
 {
@@ -263,12 +312,26 @@
                     [self.delegate gameViewController:self didTakeTurnWithCode:colors];
                 }
                 
-                if (self.playType != SOPlayTypeGameCenter)
+                if (self.playType == SOPlayTypeSinglePlayer)
+                {
+                    
+                }
+                else if (self.playType != SOPlayTypeGameCenter)
                 {
                     [UIView animateWithDuration:0.2 animations:^() {
                         _codeSelectionView.alpha = 0.0f;
                     }];
                 }
+                else
+                {
+                    NSMutableArray *emptyCode = [NSMutableArray arrayWithCapacity:_numberOfRecepticles];
+                    for (int i=0; i<_numberOfRecepticles; i++)
+                    {
+                        [emptyCode addObject:@(-1)];
+                    }
+                    [[SOGameCenterHelper sharedInstance] saveColorsInRecepticles:emptyCode];
+                }
+                
                 //[self updateSubmitButton];
                 _submitButtonAnimating = NO;
             }];

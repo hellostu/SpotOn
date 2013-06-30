@@ -94,7 +94,7 @@
     {
         otherPlayer = _playerTwo;
     }
-    [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:otherPlayer.code animated:YES];
+    [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:otherPlayer.code animated:YES completion:nil];
 }
 
 - (void)gameViewControllerReadyToTransition:(SOGameViewController *)gameViewController

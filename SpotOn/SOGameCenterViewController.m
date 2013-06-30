@@ -1,4 +1,4 @@
-//
+ //
 //  SOGameCenterViewController.m
 //  SpotOn
 //
@@ -248,7 +248,7 @@
     [match endMatchInTurnWithMatchData:match.matchData completionHandler:^(NSError *error) {
         NSLog(@"Opponent Quit");
     }];
-    #warning TODO: handle opponent quita
+    #warning TODO: handle opponent quit
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -289,7 +289,12 @@
 {
     [self updateFromMatch:[SOGameCenterHelper sharedInstance].currentMatch withCompletionHandler:^(NSError *error) {
         _ownCode = [code retain];
-        [self sendTurn];
+        [self sendTurn:nil withCompletionHandler:^(NSError *error) {
+            if (error)
+            {
+                NSLog(@"%@", error);
+            }
+        }];
         
         if (_opponentsCode == nil)
         {
@@ -319,12 +324,14 @@
     {
         [gameViewController.previousGuessesView updateWithGuesses:_ownGuessHistory];
         [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:_opponentsCode
-                                                                                 animated:NO];
+                                                                                 animated:NO
+                                                                               completion:nil];
         
         NSArray *colorCode = [[SOGameCenterHelper sharedInstance] recoverColorsInRecepticles];
         if (colorCode != nil)
         {
             [gameViewController.codeSelectionView populateRecepticlesWithCode:colorCode];
+            [gameViewController updateSubmitButton];
         }
         
         if ([[SOGameCenterHelper sharedInstance] isMyTurn] == YES)
@@ -338,15 +345,25 @@
 {
     [self updateFromMatch:[SOGameCenterHelper sharedInstance].currentMatch withCompletionHandler:^(NSError *error) {
         [gameViewController.previousGuessesView updateFeedbackIndicatorsWithOpponentsCode:_opponentsCode
-                                                                                 animated:YES];
-        [self sendTurn];
+                                                                                 animated:YES
+                                                                               completion:nil];
     }];
-    
 }
 
-- (void)gameViewControllerReadyToTransition:(SOGameViewController *)gameViewController
+- (void)gameViewController:(SOGameViewController *)gameViewController requestedToSendTurnWithCode:(NSArray *)code
 {
-    
+    [_currentGame startLoading];
+    [self sendTurn:code withCompletionHandler:^(NSError *error) {
+        if (error == nil)
+        {
+            [_currentGame submitTurn];
+        }
+        else
+        {
+            NSLog(@"Error: %@", error);
+        }
+        [_currentGame stopLoading];
+    }];
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -568,7 +585,7 @@
     
 }
 
-- (NSDictionary *)gameStateWithMatch:(GKTurnBasedMatch *)match
+- (NSDictionary *)gameStateWithMatch:(GKTurnBasedMatch *)match andCurrentTurn:(NSArray *)currentTurn
 {
     NSString *ourID = [GKLocalPlayer localPlayer].playerID;
     NSString *theirID = [self opponentIDFromMatch:match];
@@ -582,11 +599,27 @@
             NSArray *guessHistory = [_currentGame guessHistory];
             if (guessHistory != nil)
             {
-                [ownState setValue:guessHistory forKey:@"guess_history"];
+                if (currentTurn != nil)
+                {
+                    NSArray *guessHistoryWithCurrentTurn = [guessHistory arrayByAddingObject:currentTurn];
+                    [ownState setValue:guessHistoryWithCurrentTurn forKey:@"guess_history"];
+                }
+                else
+                {
+                    [ownState setValue:guessHistory forKey:@"guess_history"];
+                }
             }
             else
             {
-                [ownState setValue:@[] forKey:@"guess_history"];
+                if (currentTurn != nil)
+                {
+                    [ownState setValue:@[currentTurn] forKey:@"guess_history"];
+                }
+                else
+                {
+                    [ownState setValue:@[] forKey:@"guess_history"];
+                }
+                
             }
         }
     }
@@ -632,7 +665,7 @@
     return nil;
 }
 
-- (void)sendTurn
+- (void)sendTurn:(NSArray *)code withCompletionHandler:(void(^)(NSError *error))handler
 {
     if (([self guessedOpponentsCode] == YES || [self opponentGuessedOurCode] == YES) &&
         _opponentsGuessHistory.count == _ownGuessHistory.count)
@@ -641,15 +674,16 @@
     }
     else
     {
-        [self takeTurn];
+        [self takeTurnWithCode:code completion:handler];
     }
     
 }
 
-- (void)takeTurn
+- (void)takeTurnWithCode:(NSArray *)code completion:(void(^)(NSError *error))handler
 {
     GKTurnBasedMatch *currentMatch = [SOGameCenterHelper sharedInstance].currentMatch;
-    NSDictionary *gameDict = [self gameStateWithMatch:currentMatch];
+    NSDictionary *gameDict = [self gameStateWithMatch:currentMatch andCurrentTurn:code];
+
     NSData *data = [NSJSONSerialization dataWithJSONObject:gameDict options:0 error:nil];
     
     NSUInteger currentIndex = [currentMatch.participants
@@ -660,18 +694,13 @@
     
     [currentMatch endTurnWithNextParticipants:@[nextParticipant]
                                   turnTimeout:0
-                                    matchData:data completionHandler:^(NSError *error) {
-                                        if (error)
-                                        {
-                                            NSLog(@"%@", error);
-                                        }
-                                    }];
+                                    matchData:data completionHandler:handler];
 }
 
 - (void)endMatch
 {
     GKTurnBasedMatch *currentMatch = [SOGameCenterHelper sharedInstance].currentMatch;
-    NSDictionary *gameDict = [self gameStateWithMatch:currentMatch];
+    NSDictionary *gameDict = [self gameStateWithMatch:currentMatch andCurrentTurn:nil];
     NSData *data = [NSJSONSerialization dataWithJSONObject:gameDict options:0 error:nil];
     
     if ([self guessedOpponentsCode] == YES && [self opponentGuessedOurCode] == YES)

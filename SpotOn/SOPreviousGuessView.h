@@ -16,5 +16,5 @@
 
 - (id)initWithFrame:(CGRect)frame numberOfColors:(int)numberOfCircles;
 - (void)updateWithColors:(NSArray *)colors;
-- (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition animated:(BOOL)animated;
+- (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition animated:(BOOL)animated withCompletionHandler:(void (^)(void))handler;
 @end

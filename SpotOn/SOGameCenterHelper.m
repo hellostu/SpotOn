@@ -296,6 +296,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 
 - (void)quitMatch:(GKTurnBasedMatch *)match
 {
+    match.message = @"Opponent Quit! You Win!";
     if ([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == NO)
     {
         [match participantQuitOutOfTurnWithOutcome:GKTurnBasedMatchOutcomeQuit withCompletionHandler:^(NSError *error) {

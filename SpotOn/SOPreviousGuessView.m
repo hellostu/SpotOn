@@ -61,7 +61,7 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
-- (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition animated:(BOOL)animated
+- (void)setRightColorRightPosition:(int)rightColorRightPosition andRightColorWrongPosition:(int)rightColorWrongPosition animated:(BOOL)animated withCompletionHandler:(void (^)(void))handler
 {
     if (animated == YES)
     {
@@ -76,11 +76,15 @@
                 [UIView animateWithDuration:0.4 animations:^() {
                     _guessFeedbackIndicator.alpha = 0.0f;
                 } completion:^(BOOL finished) {
-                        [_guessFeedbackIndicator setRightColorRightPosition:rightColorRightPosition
-                                                 andRightColorWrongPosition:rightColorWrongPosition];
-                        [UIView animateWithDuration:0.4 animations:^(){
-                            _guessFeedbackIndicator.alpha = 1.0f;
-                        }];
+                    [_guessFeedbackIndicator setRightColorRightPosition:rightColorRightPosition
+                                             andRightColorWrongPosition:rightColorWrongPosition];
+                    [UIView animateWithDuration:0.4 animations:^(){
+                        _guessFeedbackIndicator.alpha = 1.0f;
+                    }];
+                    if (handler != nil)
+                    {
+                        handler();
+                    }
                 }];
             }];
         }];
@@ -99,7 +103,12 @@
     for (int i=0; i<_guess.count; i++)
     {
         SOCircle *circle = _guess[i];
-        circle.fillColor = [SOCircle colorForTag:((NSNumber *)colors[i]).intValue];
+        int colorTag = ((NSNumber *)colors[i]).intValue;
+        if (colorTag < 0)
+        {
+            [NSException raise:@"Invalid Color Tag" format:@"Color tag cannot be less than zero"];
+        }
+        circle.fillColor = [SOCircle colorForTag:colorTag];
         [circle setNeedsDisplay];
     }
 }

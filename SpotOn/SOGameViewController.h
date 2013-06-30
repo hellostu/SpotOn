@@ -33,6 +33,10 @@ typedef enum  {
 - (id)initWithPlayType:(SOPlayType)playType difficulty:(SODifficulty)difficulty code:(NSArray *)code;
 - (NSArray *)guessHistory;
 - (void)updateSubmitButton;
+- (void)submitTurn;
+
+- (void)startLoading;
+- (void)stopLoading;
 
 @end
 
@@ -41,5 +45,6 @@ typedef enum  {
 @optional
 - (void)gameViewController:(SOGameViewController *)gameViewController didTakeTurnWithCode:(NSArray *)code;
 - (void)gameViewControllerReadyToTransition:(SOGameViewController *)gameViewController;
+- (void)gameViewController:(SOGameViewController *)gameViewController requestedToSendTurnWithCode:(NSArray *)code;
 - (void)gameViewControllerDidLoadViews:(SOGameViewController *)gameViewController;
 @end

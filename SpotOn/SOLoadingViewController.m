@@ -9,6 +9,9 @@
 #import "SOLoadingViewController.h"
 
 @interface SOLoadingViewController ()
+{
+
+}
 
 @end
 
@@ -32,6 +35,12 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    [activityIndicator startAnimating];
+    [self.view addSubview:activityIndicator];
+    [activityIndicator release];
 }
 
 - (void)viewDidAppear:(BOOL)animated

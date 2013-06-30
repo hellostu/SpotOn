@@ -39,7 +39,8 @@
 typedef enum  {
     SOPlayTypePassAndPlayPlayerOne,
     SOPlayTypePassAndPlayPlayerTwo,
-    SOPlayTypeGameCenter
+    SOPlayTypeGameCenter,
+    SOPlayTypeSinglePlayer,
 } SOPlayType;
 
 typedef enum  {

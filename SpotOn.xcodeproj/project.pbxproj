@@ -24,6 +24,7 @@
 		44291CD0177900AA00B08AFC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44291CCE177900AA00B08AFC /* InfoPlist.strings */; };
 		44291CD2177900AA00B08AFC /* SpotOn_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44291CD1177900AA00B08AFC /* SpotOn_Tests.m */; };
 		44291CDC177969BE00B08AFC /* SOLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44291CDA1779688100B08AFC /* SOLoadingViewController.m */; };
+		44291CE0177A778300B08AFC /* SOSinglePlayerGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44291CDF177A776E00B08AFC /* SOSinglePlayerGameViewController.m */; };
 		446540ED176E673800C6BCA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 446540EF176E673800C6BCA3 /* InfoPlist.strings */; };
 		446540F9176E6E4C00C6BCA3 /* SOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446540F8176E6E4C00C6BCA3 /* SOViewController.m */; };
 		4474C53B176AF2BB00FF5D7E /* SORecepticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4474C53A176AF2BB00FF5D7E /* SORecepticle.m */; };
@@ -132,6 +133,8 @@
 		44291CD3177900AA00B08AFC /* SpotOn Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpotOn Tests-Prefix.pch"; sourceTree = "<group>"; };
 		44291CD91779688100B08AFC /* SOLoadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOLoadingViewController.h; sourceTree = "<group>"; };
 		44291CDA1779688100B08AFC /* SOLoadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOLoadingViewController.m; sourceTree = "<group>"; };
+		44291CDE177A776E00B08AFC /* SOSinglePlayerGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOSinglePlayerGameViewController.h; sourceTree = "<group>"; };
+		44291CDF177A776E00B08AFC /* SOSinglePlayerGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOSinglePlayerGameViewController.m; sourceTree = "<group>"; };
 		446540EE176E673800C6BCA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		446540F1176E679300C6BCA3 /* SpotOn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SpotOn-Info.plist"; sourceTree = "<group>"; };
 		446540F7176E6E4C00C6BCA3 /* SOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOViewController.h; sourceTree = "<group>"; };
@@ -350,10 +353,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		44291CDD177A773D00B08AFC /* Single Player */ = {
+			isa = PBXGroup;
+			children = (
+				44291CDE177A776E00B08AFC /* SOSinglePlayerGameViewController.h */,
+				44291CDF177A776E00B08AFC /* SOSinglePlayerGameViewController.m */,
+			);
+			name = "Single Player";
+			sourceTree = "<group>";
+		};
 		447EC2BD176D008700CBD11C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				44CC2D20177161A90001091C /* Menu */,
+				44291CDD177A773D00B08AFC /* Single Player */,
 				44BA53C5176F0398001CD03A /* Tutorial */,
 				447EC2CA176D323A00CBD11C /* Pass And Play */,
 				44CC2D2717716E580001091C /* Game Center */,
@@ -733,6 +746,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44291CE0177A778300B08AFC /* SOSinglePlayerGameViewController.m in Sources */,
 				44291CDC177969BE00B08AFC /* SOLoadingViewController.m in Sources */,
 				449A1C281777A39100C2438D /* SOGameListHeader.m in Sources */,
 				449A1C25177799EE00C2438D /* SOGameListCell.m in Sources */,
@@ -819,6 +833,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stuart Lynch (74WLM68268)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -849,6 +864,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stuart Lynch (74WLM68268)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -865,7 +881,7 @@
 		44035395176A29C700FD0DCE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stuart Lynch (74WLM68268)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_APPS_DIR)/Xcode5-DP.app/Contents/Developer/Library/Frameworks",
@@ -886,7 +902,7 @@
 		44035396176A29C700FD0DCE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stuart Lynch (74WLM68268)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_APPS_DIR)/Xcode5-DP.app/Contents/Developer/Library/Frameworks",
@@ -991,6 +1007,7 @@
 				44291CD8177900AA00B08AFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

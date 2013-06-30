@@ -334,10 +334,7 @@
 - (void)removeCircle:(SOCircle *)circle
 {
     _animating = YES;
-    if ([self.delegate respondsToSelector:@selector(codeSelectionViewWillChangeRecepticles:)] == YES)
-    {
-        [self.delegate codeSelectionViewWillChangeRecepticles:self];
-    }
+
     [UIView animateWithDuration:0.2 animations:^() {
         circle.layer.affineTransform = CGAffineTransformMakeScale(0, 0);
     } completion:^(BOOL finished) {
@@ -345,6 +342,10 @@
         circle.recepticle.circle = nil;
         circle.recepticle = nil;
         _animating = NO;
+        if ([self.delegate respondsToSelector:@selector(codeSelectionViewWillChangeRecepticles:)] == YES)
+        {
+            [self.delegate codeSelectionViewWillChangeRecepticles:self];
+        }
         if ([self.delegate respondsToSelector:@selector(codeSelectionViewDidChangeRecepticles:)])
         {
             [self.delegate codeSelectionViewDidChangeRecepticles:self];

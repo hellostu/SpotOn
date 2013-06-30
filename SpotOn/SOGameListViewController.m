@@ -13,6 +13,7 @@
 #import "SOGameListCell.h"
 #import "SOProfilePicture.h"
 #import "SOGameListHeader.h"
+#import "SOSinglePlayerGameViewController.h"
 
 @interface SOGameListViewController () <UITableViewDataSource, UITableViewDelegate, SOGamerCenterHelperDelegate, SOGameListCellDelegate>
 {
@@ -83,12 +84,19 @@
     [_gameCenterButton setTitle:@"Game Center" forState:UIControlStateNormal];
     [_gameCenterButton addTarget:self action:@selector(newGamePressed) forControlEvents:UIControlEventTouchUpInside];
     _gameCenterButton.enabled = NO;
+
+    UIButton *singlePlayerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    singlePlayerButton.frame = CGRectMake(0, 0, 130, 30);
+    singlePlayerButton.center = CGPointMake(70, 20);
+    [singlePlayerButton setTitle:@"Single Player" forState:UIControlStateNormal];
+    [singlePlayerButton addTarget:self action:@selector(singlePlayerButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
     _gamesTable.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
     
     [self.view addSubview:_gamesTable];
     [self.view addSubview:_gameCenterButton];
+    [self.view addSubview:singlePlayerButton];
     [self pullMatches];
 }
 
@@ -288,17 +296,17 @@
                 {
                     case GKTurnBasedMatchOutcomeQuit:
                     {
-                        cell.textLabel.text = @"GAME QUIT";
+                        cell.textLabel.text = @"YOU RESIGNED";
                         break;
                     }
                     case GKTurnBasedMatchOutcomeWon:
                     {
-                        cell.textLabel.text = @"GAME WON";
+                        cell.textLabel.text = @"YOU WON";
                         break;
                     }
                     case GKTurnBasedMatchOutcomeLost:
                     {
-                        cell.textLabel.text = @"GAME LOST";
+                        cell.textLabel.text = @"YOU LOST";
                         break;
                     }
                     case GKTurnBasedMatchOutcomeTied:
@@ -312,17 +320,17 @@
                         {
                             case GKTurnBasedMatchOutcomeQuit:
                             {
-                                cell.textLabel.text = @"GAME WON";
+                                cell.textLabel.text = @"YOU WIN";
                                 break;
                             }
                             case GKTurnBasedMatchOutcomeWon:
                             {
-                                cell.detailTextLabel.text = @"GAME LOST";
+                                cell.detailTextLabel.text = @"YOU LOST";
                                 break;
                             }
                             case GKTurnBasedMatchOutcomeLost:
                             {
-                                cell.detailTextLabel.text = @"GAME WON";
+                                cell.detailTextLabel.text = @"YOU WON";
                                 break;
                             }
                             case GKTurnBasedMatchOutcomeTied:
@@ -342,7 +350,7 @@
             }
             else
             {
-                cell.textLabel.text = @"Loading...";
+                cell.textLabel.text = @"LOADING...";
                 
             }
             break;
@@ -586,6 +594,13 @@
 #pragma mark -
 #pragma mark Actions
 //////////////////////////////////////////////////////////////////////////
+
+- (void)singlePlayerButtonPressed
+{
+    SOSinglePlayerGameViewController *singlePlayerGame = [[SOSinglePlayerGameViewController alloc] init];
+    [self.navigationController pushViewController:singlePlayerGame animated:YES];
+    [singlePlayerGame release];
+}
 
 - (void)newGamePressed
 {
