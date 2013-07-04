@@ -31,7 +31,12 @@
 
 - (id)initWithType:(SOButtonType)buttonType
 {
-    if (self = [super initWithFrame:CGRectMake(0,0,54,54)])
+    CGRect frame = CGRectMake(0, 0, 54, 54);
+    if (buttonType == SOButtonTypeText)
+    {
+        frame = CGRectMake(0, 0, 61, 61);
+    }
+    if (self = [super initWithFrame:frame])
     {
         _buttonType = buttonType;
         
@@ -52,6 +57,34 @@
                 pressedImage.center = CGPointMake(26+SO_TOUCH_AREA_INCREASE, 27+SO_TOUCH_AREA_INCREASE);
                 UIImageView *hoverImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"submit_check.png"]];
                 hoverImage.center = CGPointMake(26+SO_TOUCH_AREA_INCREASE, 27+SO_TOUCH_AREA_INCREASE);
+                
+                [_normalState addSubview:normalImage];
+                [_pressedState addSubview:pressedImage];
+                [_hoverState addSubview:hoverImage];
+                [normalImage release];
+                [pressedImage release];
+                [hoverImage release];
+                
+                _normalState.fillColor = nil;
+                _normalState.dashedLine = YES;
+                _normalState.strokeColor = GREY_COLOR_BTM_RECEPTICLE;
+                
+                _hoverState.fillColor = nil;
+                _hoverState.dashedLine = YES;
+                _hoverState.strokeColor = GREY_COLOR_BTM_RECEPTICLE;
+                
+                _pressedState.strokeColor = nil;
+                _pressedState.fillColor = GREY_COLOR_BTM_RECEPTICLE;
+                break;
+            }
+            case SOButtonTypeBack:
+            {
+                UIImageView *normalImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back_arrow.png"]];
+                normalImage.center = CGPointMake(25+SO_TOUCH_AREA_INCREASE, 26+SO_TOUCH_AREA_INCREASE);
+                UIImageView *pressedImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back_arrow_active.png"]];
+                pressedImage.center = CGPointMake(25+SO_TOUCH_AREA_INCREASE, 26+SO_TOUCH_AREA_INCREASE);
+                UIImageView *hoverImage  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back_arrow.png"]];
+                hoverImage.center = CGPointMake(25+SO_TOUCH_AREA_INCREASE, 26+SO_TOUCH_AREA_INCREASE);
                 
                 [_normalState addSubview:normalImage];
                 [_pressedState addSubview:pressedImage];
@@ -100,6 +133,27 @@
                 _hoverState.dashedLine = YES;
                 _hoverState.strokeColor = ORANGE_COLOR;
             }
+            case SOButtonTypeText:
+            {
+                _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _normalState.frame.size.width-1, _normalState.frame.size.height-1)];
+                _titleLabel.backgroundColor = [UIColor clearColor];
+                _titleLabel.font = [UIFont fontWithName:@"GothamHTF-Medium" size:15.0f];
+                _titleLabel.textColor = GREY_COLOR_BTM_RECEPTICLE;
+                _titleLabel.textAlignment = NSTextAlignmentCenter;
+                
+                _pressedTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _normalState.frame.size.width-1, _normalState.frame.size.height-1)];
+                _pressedTitleLabel.backgroundColor = [UIColor clearColor];
+                _pressedTitleLabel.font = [UIFont fontWithName:@"GothamHTF-Medium" size:15.0f];
+                _pressedTitleLabel.textColor = GREY_COLOR_BTM_BACKGROUND;
+                _pressedTitleLabel.textAlignment = NSTextAlignmentCenter;
+                
+                _hoverTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _normalState.frame.size.width-1, _normalState.frame.size.height-1)];
+                _hoverTitleLabel.backgroundColor = [UIColor clearColor];
+                _hoverTitleLabel.font = [UIFont fontWithName:@"GothamHTF-Medium" size:15.0f];
+                _hoverTitleLabel.textColor = GREY_COLOR_BTM_RECEPTICLE;
+                _hoverTitleLabel.textAlignment = NSTextAlignmentCenter;
+                
+            }
             case SOButtonTypeDefault:
             {
                 _normalState.fillColor = nil;
@@ -114,12 +168,16 @@
                 _pressedState.dashedLine = YES;
                 _pressedState.strokeColor = GREY_COLOR_BTM_RECEPTICLE;
                 
-                _fillCircle = [[SOCircle alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width*0.85, self.frame.size.height*0.85)];
+                _fillCircle = [[SOCircle alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width*0.88, self.frame.size.height*0.88)];
                 _fillCircle.center = CGPointMake(_pressedState.frame.size.width/2, _pressedState.frame.size.height/2);
                 [_pressedState addSubview:_fillCircle];
                 
                 int rand = arc4random()%6;
                 self.fillColor = [SOCircle colorForTag:rand];
+                
+                [_normalState addSubview:_titleLabel];
+                [_pressedState addSubview:_pressedTitleLabel];
+                [_hoverState addSubview:_hoverTitleLabel];
                 
                 break;
             }
@@ -149,6 +207,9 @@
     [_hoverState release];
     [_overlayButton release];
     [_fillCircle release];
+    [_titleLabel release];
+    [_pressedTitleLabel release];
+    [_hoverTitleLabel release];
     [super dealloc];
 }
 

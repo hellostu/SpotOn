@@ -14,6 +14,7 @@
 
 typedef enum  {
     SOGameListCellTypeNormal,
+    SOGameListCellTypeEndedGame,
     SOGameListCellTypeInvite,
 } SOGameListCellType;
 
@@ -21,8 +22,10 @@ typedef enum  {
 
 @property(nonatomic, readonly) SOProfilePicture *profilePicture;
 @property(nonatomic, readwrite, assign) id<SOGameListCellDelegate> delegate;
+@property(nonatomic, readonly) SOCircle            *greenCircle;
 
 - (id)initWithType:(SOGameListCellType)gameListCellType tableView:(UITableView *)tableView reuseIdentifier:(NSString *)reuseIdentifier;
+- (void)stopEditing;
 
 @end
 
@@ -31,5 +34,7 @@ typedef enum  {
 @optional
 - (void)gameListCell:(SOGameListCell *)gameListCell didAcceptInviteAtIndexPath:(NSIndexPath *)indexPath;
 - (void)gameListCell:(SOGameListCell *)gameListCell didDeclineInviteAtIndexPath:(NSIndexPath *)indexPath;
+- (void)gameListCell:(SOGameListCell *)gameListCell didQuitAtIndexPath:(NSIndexPath *)indexPath;
+- (void)gameListCell:(SOGameListCell *)gameListCell didDeleteAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

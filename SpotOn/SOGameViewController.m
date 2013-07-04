@@ -21,6 +21,8 @@
     
     UIView                      *_loadingView;
     UIActivityIndicatorView     *_activityIndicator;
+    
+    SOButton                    *_backButton;
 }
 @end
 
@@ -76,12 +78,17 @@
     _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.68);
     _codeSelectionView.delegate = self;
     
+    CGFloat y = self.view.frame.size.height*0.92;
+    
+    _backButton = [[SOButton alloc] initWithType:SOButtonTypeBack];
+    _backButton.delegate = self;
+    _backButton.center = CGPointMake(self.view.frame.size.width/2-50, y);
+    [self.view addSubview:_backButton];
+    
     _submitButton = [[SOButton alloc] initWithType:SOButtonTypeSubmit];
     _submitButton.delegate = self;
     _submitButton.alpha = 0.0f;
-    CGFloat y = (self.view.frame.size.height-(_codeSelectionView.frame.size.height+_codeSelectionView.frame.origin.y))/2;
-    y = self.view.frame.size.height-y;
-    _submitButton.center = CGPointMake(self.view.frame.size.width/2, y-5);
+    _submitButton.center = CGPointMake(self.view.frame.size.width/2+50, y);
     [self.view addSubview:_submitButton];
     
     _previousGuessesView = [[SOPreviousGuessesView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height/2) numberOfRecepticles:_numberOfRecepticles];
@@ -180,9 +187,13 @@
 #pragma mark SLSubmitButtonDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)buttonPressed:(SOButton *)submitButton
+- (void)buttonPressed:(SOButton *)button
 {
-    if (_submitButtonAnimating == NO)
+    if (button == _backButton)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else if (_submitButtonAnimating == NO)
     {
         if (self.playType != SOPlayTypeGameCenter)
         {
@@ -193,8 +204,8 @@
                 {
                     case SOGameStateWaitingForGuess:
                     {
+                        [self showSubmitButton];
                         [self submitTurn];
-                        
                         break;
                     }
                     case SOGameStateGuessInput:
@@ -221,7 +232,7 @@
             }
             _submitButtonAnimating = YES;
             [UIView animateWithDuration:0.2 animations:^() {
-                submitButton.alpha = 0.0;
+                button.alpha = 0.0;
             } completion:^(BOOL finished) {
                 _submitButtonAnimating = NO;
             }];

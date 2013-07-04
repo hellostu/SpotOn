@@ -15,7 +15,8 @@
 @interface SOChooseCodeViewController () <SOButtonDelegate, SOCodeSelectionViewDelegate>
 {
     SOCodeSelectionView *_codeSelectionView;
-    SOButton      *_submitButton;
+    SOButton            *_submitButton;
+    SOButton            *_backButton;
     
     int     numberOfColors;
     int     numberOfRecepticles;
@@ -94,11 +95,15 @@
     _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.68);
     _codeSelectionView.delegate = self;
     
+    CGFloat y = self.view.frame.size.height*0.92;
+    _backButton = [[SOButton alloc] initWithType:SOButtonTypeBack];
+    _backButton.delegate = self;
+    _backButton.center = CGPointMake(self.view.frame.size.width/2-50, y);
+    [self.view addSubview:_backButton];
+    
     _submitButton = [[SOButton alloc] initWithType:SOButtonTypeSubmit];
     _submitButton.delegate = self;
-    CGFloat y = (self.view.frame.size.height-(_codeSelectionView.frame.size.height+_codeSelectionView.frame.origin.y))/2;
-    y = self.view.frame.size.height-y;
-    _submitButton.center = CGPointMake(self.view.frame.size.width/2, y);
+    _submitButton.center = CGPointMake(self.view.frame.size.width/2+50, y);
     _submitButton.alpha = 0.0f;
     [self.view addSubview:_submitButton];
     
@@ -115,6 +120,7 @@
 {
     [_codeSelectionView release];
     [_submitButton release];
+    [_backButton release];
     [super dealloc];
 }
 
@@ -144,9 +150,13 @@
 #pragma mark SLSubmitButtonDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)buttonPressed:(SOButton *)submitButton
+- (void)buttonPressed:(SOButton *)button
 {
-    if ([self.delegate respondsToSelector:@selector(chooseCodeViewController:didReturnCode:)])
+    if (button == _backButton)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else if ([self.delegate respondsToSelector:@selector(chooseCodeViewController:didReturnCode:)])
     {
         [self.delegate chooseCodeViewController:self didReturnCode:[_codeSelectionView colorsInRecepticles]];
     }

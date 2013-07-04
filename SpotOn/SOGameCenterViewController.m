@@ -13,12 +13,12 @@
 #import "SOWaitingForCodeViewController.h"
 #import "SOGuessFeedbackIndicator.h"
 #import "SOGameResultViewController.h"
-#import "SOChooseDifficultyViewController.h"
+#import "SOChooseFromThreeViewController.h"
 #import "SOLoadingViewController.h"
 
 #import "GKTurnBasedMatch+otherParticipant.h"
 
-@interface SOGameCenterViewController () <SOGamerCenterHelperDelegate, SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, SOChooseDifficultyViewControllerDelegate, SOLoadingViewControllerDelegate, UIAlertViewDelegate>
+@interface SOGameCenterViewController () <SOGamerCenterHelperDelegate, SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, SOChooseFromThreeControllerDelegate, SOLoadingViewControllerDelegate, UIAlertViewDelegate>
 {
     SOGameViewController    *_currentGame;
     
@@ -124,7 +124,7 @@
             [self updateFromMatch:gameCenterHelper.currentMatch withCompletionHandler:^(NSError *error) {
                 if (_difficulty == SODifficultyUnassigned)
                 {
-                    SOChooseDifficultyViewController *chooseDifficultyViewController = [[SOChooseDifficultyViewController alloc] init];
+                    SOChooseFromThreeViewController *chooseDifficultyViewController = [[SOChooseFromThreeViewController alloc] initWithType:SOChooseFromThreeTypeDifficulty];
                     chooseDifficultyViewController.delegate = self;
                     [self transitionToViewController:chooseDifficultyViewController withTransitionAnimation:SOTransitionAnimationCrossFade];
                     [chooseDifficultyViewController release];
@@ -155,7 +155,7 @@
         }
         default:
         {
-            SOChooseDifficultyViewController *chooseDifficultyViewController = [[SOChooseDifficultyViewController alloc] init];
+            SOChooseFromThreeViewController *chooseDifficultyViewController = [[SOChooseFromThreeViewController alloc] initWithType:SOChooseFromThreeTypeDifficulty];
             chooseDifficultyViewController.delegate = self;
             [self transitionToViewController:chooseDifficultyViewController withTransitionAnimation:SOTransitionAnimationCrossFade];
             [chooseDifficultyViewController release];
@@ -270,7 +270,7 @@
 #pragma mark SOChooseDifficultyDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)chooseDifficultyViewController:(SOChooseDifficultyViewController *)chooseDifficultyVC selectedDifficulty:(SODifficulty)difficulty
+- (void)chooseFromThreeViewController:(SOChooseFromThreeViewController *)chooseDifficultyVC selectedDifficulty:(SODifficulty)difficulty
 {
     _difficulty = difficulty;
     
@@ -354,15 +354,17 @@
 {
     [_currentGame startLoading];
     [self sendTurn:code withCompletionHandler:^(NSError *error) {
-        if (error == nil)
-        {
-            [_currentGame submitTurn];
-        }
-        else
-        {
-            NSLog(@"Error: %@", error);
-        }
-        [_currentGame stopLoading];
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            if (error == nil)
+            {
+                [_currentGame submitTurn];
+            }
+            else
+            {
+                NSLog(@"Error: %@", error);
+            }
+            [_currentGame stopLoading];
+        });
     }];
 }
 

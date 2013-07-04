@@ -8,9 +8,9 @@
 
 #import "SOSinglePlayerGameViewController.h"
 #import "SOGameViewController.h"
-#import "SOChooseDifficultyViewController.h"
+#import "SOChooseFromThreeViewController.h"
 
-@interface SOSinglePlayerGameViewController () <SOChooseDifficultyViewControllerDelegate, SOGameViewControllerDelegate>
+@interface SOSinglePlayerGameViewController () <SOChooseFromThreeControllerDelegate, SOGameViewControllerDelegate>
 {
     SOGameViewController *_game;
     NSArray *_code;
@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    SOChooseDifficultyViewController *chooseDifficulty = [[SOChooseDifficultyViewController alloc] init];
+    SOChooseFromThreeViewController *chooseDifficulty = [[SOChooseFromThreeViewController alloc] initWithType:SOChooseFromThreeTypeDifficulty];
     chooseDifficulty.delegate = self;
     [self transitionToViewController:chooseDifficulty withTransitionAnimation:SOTransitionAnimationNone];
 }
@@ -60,7 +60,7 @@
 #pragma mark SOChooseDifficultyViewControllerDelegate
 //////////////////////////////////////////////////////////////////////////
 
-- (void)chooseDifficultyViewController:(SOChooseDifficultyViewController *)chooseDifficultyVC selectedDifficulty:(SODifficulty)difficulty
+- (void)chooseFromThreeViewController:(SOChooseFromThreeViewController *)chooseDifficultyVC selectedDifficulty:(SODifficulty)difficulty
 {
     _code = [self generateRandomCodeForDifficulty:difficulty];
     [_code retain];

@@ -11,11 +11,14 @@
 #import "SOGameCenterViewController.h"
 #import "GKTurnBasedMatch+otherParticipant.h"
 #import "SOGameListCell.h"
+#import "SOButtonsCell.h"
 #import "SOProfilePicture.h"
 #import "SOGameListHeader.h"
 #import "SOSinglePlayerGameViewController.h"
+#import "SOChooseFromThreeViewController.h"
+#import "SOPassAndPlayViewController.h"
 
-@interface SOGameListViewController () <UITableViewDataSource, UITableViewDelegate, SOGamerCenterHelperDelegate, SOGameListCellDelegate>
+@interface SOGameListViewController () <UITableViewDataSource, UITableViewDelegate, SOGamerCenterHelperDelegate, SOGameListCellDelegate, SOButtonsCellDelegate, SOChooseFromThreeControllerDelegate>
 {
     UITableView             *_gamesTable;
 
@@ -73,7 +76,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	_gamesTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 35, self.view.frame.size.width, self.view.frame.size.height-35)];
+	_gamesTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     _gamesTable.dataSource = self;
     _gamesTable.delegate = self;
     _gamesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -84,19 +87,12 @@
     [_gameCenterButton setTitle:@"Game Center" forState:UIControlStateNormal];
     [_gameCenterButton addTarget:self action:@selector(newGamePressed) forControlEvents:UIControlEventTouchUpInside];
     _gameCenterButton.enabled = NO;
-
-    UIButton *singlePlayerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    singlePlayerButton.frame = CGRectMake(0, 0, 130, 30);
-    singlePlayerButton.center = CGPointMake(70, 20);
-    [singlePlayerButton setTitle:@"Single Player" forState:UIControlStateNormal];
-    [singlePlayerButton addTarget:self action:@selector(singlePlayerButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
     _gamesTable.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
     
     [self.view addSubview:_gamesTable];
-    [self.view addSubview:_gameCenterButton];
-    [self.view addSubview:singlePlayerButton];
+    //[self.view addSubview:_gameCenterButton];
     [self pullMatches];
 }
 
@@ -154,7 +150,7 @@
         }
         case 2:
         {
-            return _playersInvited.count;
+            return _playersInvited.count+1;
             break;
         }
         case 3:
@@ -166,19 +162,20 @@
             
     }
 }
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        GKTurnBasedMatch *match = _matchesActive[indexPath.row];
-        [[SOGameCenterHelper sharedInstance] quitMatch:match];
-        
-        [_playersActive removeObjectAtIndex:indexPath.row];
-        [_matchesActive removeObjectAtIndex:indexPath.row];
-        [_gamesTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
+/*
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete)
+ {
+ GKTurnBasedMatch *match = _matchesActive[indexPath.row];
+ [[SOGameCenterHelper sharedInstance] quitMatch:match];
+ 
+ [_playersActive removeObjectAtIndex:indexPath.row];
+ [_matchesActive removeObjectAtIndex:indexPath.row];
+ [_gamesTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+ }
+ }
+ */
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -186,109 +183,134 @@
     {
         return YES;
     }
-    return NO;
+    return YES;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SOGameListCell *cell = nil;
-    if (indexPath.section == 0)
+    if(indexPath.section == 2 && indexPath.row == _playersInvited.count)
     {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"invite"];
+        SOButtonsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"buttons"];
         if (cell == nil)
         {
-            cell = [[SOGameListCell alloc] initWithType:SOGameListCellTypeInvite tableView:tableView reuseIdentifier:@"invite"];
+            cell = [[SOButtonsCell alloc] initWithReuseIdentifier:@"buttons"];
             cell.delegate = self;
             [cell autorelease];
         }
+        return  cell;
     }
     else
     {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"normal"];
-        if (cell == nil)
+        SOGameListCell *cell = nil;
+        if (indexPath.section == 0)
         {
-            cell = [[SOGameListCell alloc] initWithType:SOGameListCellTypeNormal tableView:tableView reuseIdentifier:@"normal"];
-            [cell autorelease];
-        }
-    }
-    
-    
-    
-    NSArray *players = nil;
-    NSArray *matches = nil;
-    
-    switch (indexPath.section)
-    {
-        case 0:
-        {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            players = _playersInvitations;
-            GKPlayer *player = players[indexPath.row];
-            
-            cell.textLabel.text = @"CHALLENGE";
-            cell.detailTextLabel.text = player.displayName.uppercaseString;
-            break;
-        }
-        case 1:
-        {
-            players = _playersActive;
-            matches = _matchesActive;
-            if (indexPath.row < players.count)
+            cell = [tableView dequeueReusableCellWithIdentifier:@"invite"];
+            if (cell == nil)
             {
-                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                
+                cell = [[SOGameListCell alloc] initWithType:SOGameListCellTypeInvite tableView:tableView reuseIdentifier:@"invite"];
+                cell.delegate = self;
+                [cell autorelease];
+            }
+        }
+        else if(indexPath.section == 1 || indexPath.section == 2)
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"normal"];
+            if (cell == nil)
+            {
+                cell = [[SOGameListCell alloc] initWithType:SOGameListCellTypeNormal tableView:tableView reuseIdentifier:@"normal"];
+                cell.delegate = self;
+                [cell autorelease];
+            }
+        }
+        else if(indexPath.section == 3)
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"ended"];
+            if (cell == nil)
+            {
+                cell = [[SOGameListCell alloc] initWithType:SOGameListCellTypeEndedGame tableView:tableView reuseIdentifier:@"ended"];
+                cell.delegate = self;
+                [cell autorelease];
+            }
+        }
+        cell.greenCircle.hidden = YES;
+        
+        
+        NSArray *players = nil;
+        NSArray *matches = nil;
+        
+        switch (indexPath.section)
+        {
+            case 0:
+            {
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                players = _playersInvitations;
                 GKPlayer *player = players[indexPath.row];
                 
-                
-                GKTurnBasedMatch *match = matches[indexPath.row];
-                if([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == YES)
+                cell.textLabel.text = @"CHALLENGE";
+                cell.detailTextLabel.text = player.displayName.uppercaseString;
+                break;
+            }
+            case 1:
+            {
+                players = _playersActive;
+                matches = _matchesActive;
+                if (indexPath.row < players.count)
                 {
-                    cell.textLabel.text = @"YOUR TURN";
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                    
+                    GKPlayer *player = players[indexPath.row];
+                    
+                    
+                    GKTurnBasedMatch *match = matches[indexPath.row];
+                    if([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] == YES)
+                    {
+                        cell.textLabel.text = @"Your Turn";
+                        cell.greenCircle.hidden = NO;
+                    }
+                    else
+                    {
+                        cell.textLabel.text = @"Their Turn";
+                    }
+                    if (player.displayName != nil)
+                    {
+                        cell.detailTextLabel.text = player.displayName;
+                    }
+                    else
+                    {
+                        cell.detailTextLabel.text = @"Waiting For Match";
+                    }
                 }
                 else
                 {
-                    cell.textLabel.text = @"THEIR TURN";
+                    cell.textLabel.text = @"Loading...";
                 }
-                if (player.displayName != nil)
+                break;
+            }
+            case 2:
+            {
+                players = _playersInvited;
+                if (indexPath.row < players.count)
                 {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    GKPlayer *player = players[indexPath.row];
+                    
+                    cell.textLabel.text = @"Invited";
                     cell.detailTextLabel.text = player.displayName.uppercaseString;
                 }
                 else
                 {
-                    cell.detailTextLabel.text = @"WAITING FOR MATCH";
+                    cell.textLabel.text = @"Loading...";
                 }
+                break;
             }
-            else
+            case 3:
             {
-                cell.textLabel.text = @"LOADING...";
-            }
-            break;
-        }
-        case 2:
-        {
-            players = _playersInvited;
-            if (indexPath.row < players.count)
-            {
-                cell.accessoryType = UITableViewCellAccessoryNone;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                GKPlayer *player = players[indexPath.row];
-                
-                cell.textLabel.text = @"INVITED";
-                cell.detailTextLabel.text = player.displayName.uppercaseString;
-            }
-            else
-            {
-                cell.textLabel.text = @"LOADING...";
-            }
-            break;
-        }
-        case 3:
-        {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            players = _playersEnded;
-            matches = _matchesEnded;
-            if (indexPath.row < players.count)
-            {
+                players = _playersEnded;
+                matches = _matchesEnded;
+                if (indexPath.row < players.count)
+                {
                 GKPlayer *player = players[indexPath.row];
                 GKTurnBasedMatch *match = matches[indexPath.row];
                 
@@ -296,22 +318,22 @@
                 {
                     case GKTurnBasedMatchOutcomeQuit:
                     {
-                        cell.textLabel.text = @"YOU RESIGNED";
+                        cell.textLabel.text = @"You Forfit";
                         break;
                     }
                     case GKTurnBasedMatchOutcomeWon:
                     {
-                        cell.textLabel.text = @"YOU WON";
+                        cell.textLabel.text = @"You Won";
                         break;
                     }
                     case GKTurnBasedMatchOutcomeLost:
                     {
-                        cell.textLabel.text = @"YOU LOST";
+                        cell.textLabel.text = @"You Lost";
                         break;
                     }
                     case GKTurnBasedMatchOutcomeTied:
                     {
-                        cell.textLabel.text = @"GAME TIED";
+                        cell.textLabel.text = @"Game Tied";
                         break;
                     }
                     default:
@@ -320,37 +342,37 @@
                         {
                             case GKTurnBasedMatchOutcomeQuit:
                             {
-                                cell.textLabel.text = @"YOU WIN";
+                                cell.textLabel.text = @"You Won";
                                 break;
                             }
                             case GKTurnBasedMatchOutcomeWon:
                             {
-                                cell.detailTextLabel.text = @"YOU LOST";
+                                cell.detailTextLabel.text = @"You Lost";
                                 break;
                             }
                             case GKTurnBasedMatchOutcomeLost:
                             {
-                                cell.detailTextLabel.text = @"YOU WON";
+                                cell.detailTextLabel.text = @"You Won";
                                 break;
                             }
                             case GKTurnBasedMatchOutcomeTied:
                             {
-                                cell.textLabel.text = @"GAME TIED";
+                                cell.textLabel.text = @"Game Tied";
                                 break;
                             }
                             default:
                             {
-                                cell.detailTextLabel.text = @"GAME OVER";
+                                cell.textLabel.text = @"Game Over";
                             }
                         }
                         break;
                     }
                 }
-                cell.detailTextLabel.text = player.displayName.uppercaseString;
+                cell.detailTextLabel.text = player.displayName;
             }
             else
             {
-                cell.textLabel.text = @"LOADING...";
+                cell.textLabel.text = @"Loading...";
                 
             }
             break;
@@ -388,6 +410,7 @@
     
     
     return cell;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -398,73 +421,39 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     SOGameListHeader *header = [[SOGameListHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40.0f)];
-    switch (section)
-    {
-        case 0:
-        {
-            header.textLabel.text = @"INVITATIONS";
-            break;
-        }
-        case 1:
-        {
-            header.textLabel.text = @"ACTIVE GAMES";
-            break;
-        }
-        case 2:
-        {
-            header.textLabel.text = @"INVITED";
-            break;
-        }
-        case 3:
-        default:
-        {
-            header.textLabel.text = @"MATCHES ENDED";
-            break;
-        }
-            
-    }
     return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 71.0f;
+    if(indexPath.section == 2 && indexPath.row == _playersInvited.count)
+    {
+        return 100.0f;
+    }
+    else
+    {
+        return 71.0f;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    NSArray *players = nil;
-    switch (section)
+    if (section == 0)
     {
-        case 0:
-        {
-            players = _playersInvitations;
-            break;
+        CGFloat contentHeight = 0.0;
+        for (int section = 0; section < [self numberOfSectionsInTableView: tableView]; section++) {
+            for (int row = 0; row < [self tableView: tableView numberOfRowsInSection: section]; row++) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow: row inSection: section];
+                contentHeight += [self tableView: tableView heightForRowAtIndexPath: indexPath];
+            }
         }
-        case 1:
-        {
-            players = _playersActive;
-            break;
-        }
-        case 2:
-        {
-            players = _playersInvitations;
-            break;
-        }
-        case 3:
-        default:
-        {
-            players = _playersEnded;
-            break;
-        }
-    }
-    if (players.count > 0)
-    {
-        return 40;
+        CGFloat headerSize = (tableView.bounds.size.height - contentHeight)/2;
+        headerSize = headerSize > 22 ? headerSize : 0;
+        return headerSize;
     }
     else
     {
-        return  0;
+        return 0;
     }
 }
 
@@ -508,6 +497,62 @@
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
+#pragma mark SOChooseFromThreeViewControllerDelegate
+//////////////////////////////////////////////////////////////////////////
+
+- (void)chooseFromThreeViewController:(SOChooseFromThreeViewController *)chooseFromThreeVC selectedPlayType:(SOPlayType)playType
+{
+    switch (playType) {
+        case SOPlayTypeGameCenter:
+        {
+            SOGameCenterHelper *gameCenterHelper = [SOGameCenterHelper sharedInstance];
+            [gameCenterHelper findMatchWithPresentingViewController:self.navigationController];
+            break;
+        }
+        case SOPlayTypePassAndPlayPlayerOne:
+        case SOPlayTypePassAndPlayPlayerTwo:
+        {
+            SOPassAndPlayViewController *passnplay = [[SOPassAndPlayViewController alloc] init];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            [self.navigationController pushViewController:passnplay animated:YES];
+            [passnplay release];
+            break;
+        }
+        case SOPlayTypeSinglePlayer:
+        {
+            SOSinglePlayerGameViewController *singlePlayer = [[SOSinglePlayerGameViewController alloc] init];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            [self.navigationController pushViewController:singlePlayer animated:YES];
+            [singlePlayer release];
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark SOButtonsCellDelegate
+//////////////////////////////////////////////////////////////////////////
+
+- (void)buttonsCellTappedMore:(SOButtonsCell *)buttonsCell
+{
+    
+}
+
+- (void)buttonsCellTappedNew:(SOButtonsCell *)buttonsCell
+{
+    SOChooseFromThreeViewController *chooseFromThreeVC = [[SOChooseFromThreeViewController alloc] initWithType:SOChooseFromThreeTypeGameType];
+    chooseFromThreeVC.delegate = self;
+    [self.navigationController pushViewController:chooseFromThreeVC animated:YES];
+    [chooseFromThreeVC release];
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
 #pragma mark SOGameListCellDelegate
 //////////////////////////////////////////////////////////////////////////
 
@@ -539,6 +584,52 @@
         [_playersInvitations removeObjectAtIndex:indexPath.row];
         [_gamesTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+- (void)gameListCell:(SOGameListCell *)gameListCell didQuitAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableArray *players = nil;
+    NSMutableArray *matches = nil;
+    
+    switch (indexPath.section)
+    {
+        case 1:
+        {
+            players = _playersActive;
+            matches = _matchesActive;
+            break;
+        }
+        case 2:
+        {
+            players = _playersInvited;
+            matches = _matchesInvited;
+        }
+        default:
+            break;
+    }
+    
+    GKTurnBasedMatch *match = matches[indexPath.row];
+    [[SOGameCenterHelper sharedInstance] quitMatch:match];
+    
+    [players removeObjectAtIndex:indexPath.row];
+    [matches removeObjectAtIndex:indexPath.row];
+    [_gamesTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)gameListCell:(SOGameListCell *)gameListCell didDeleteAtIndexPath:(NSIndexPath *)indexPath
+{
+    GKTurnBasedMatch *match = _matchesEnded[indexPath.row];
+    [match removeWithCompletionHandler:^(NSError *error) {
+        if (error != nil)
+        {
+            NSLog(@"Error:%@", error);
+        }
+    }];
+    
+    [_playersEnded removeObjectAtIndex:indexPath.row];
+    [_matchesEnded removeObjectAtIndex:indexPath.row];
+    [_gamesTable deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -594,13 +685,6 @@
 #pragma mark -
 #pragma mark Actions
 //////////////////////////////////////////////////////////////////////////
-
-- (void)singlePlayerButtonPressed
-{
-    SOSinglePlayerGameViewController *singlePlayerGame = [[SOSinglePlayerGameViewController alloc] init];
-    [self.navigationController pushViewController:singlePlayerGame animated:YES];
-    [singlePlayerGame release];
-}
 
 - (void)newGamePressed
 {
@@ -666,7 +750,7 @@
                                  }
                              }
                              else if(match.localParticipant.status == GKTurnBasedParticipantStatusActive &&
-                                     match.otherParticipant.status == GKTurnBasedParticipantStatusActive)
+                                     (match.otherParticipant.status == GKTurnBasedParticipantStatusActive || match.otherParticipant.status == GKTurnBasedParticipantStatusInvited))
                              {
                                  [_matchesActive addObject:match];
                              }

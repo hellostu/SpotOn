@@ -203,7 +203,6 @@
 
 - (void)takeTurnWithColors:(NSArray *)colors
 {
-    NSLog(@"Colors: %@", colors);
     SOPreviousGuessView *previousGuessView = _guesses[_turnsTaken];
     [previousGuessView updateWithColors:colors];
     _turnsTaken++;

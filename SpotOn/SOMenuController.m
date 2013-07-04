@@ -45,7 +45,7 @@
     [_backButton setImage:[UIImage imageNamed:@"back_arrow_active.png"] forState:UIControlStateHighlighted];
     [_backButton addTarget:self action:@selector(backButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     _backButton.alpha = 0.0;
-    [self.view addSubview:_backButton];
+    //[self.view addSubview:_backButton];
 }
 
 - (void)didReceiveMemoryWarning

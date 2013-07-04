@@ -12,7 +12,9 @@
 
 typedef enum  {
     SOButtonTypeSubmit,
+    SOButtonTypeBack,
     SOButtonTypeNext,
+    SOButtonTypeText,
     SOButtonTypeDefault,
 } SOButtonType;
 
@@ -22,6 +24,9 @@ typedef enum  {
 @property(nonatomic, readwrite, assign) BOOL    enabled;
 @property(nonatomic, readonly) SOButtonType     buttonType;
 @property(nonatomic, readonly) UIColor          *fillColor;
+@property(nonatomic, readonly) UILabel          *titleLabel;
+@property(nonatomic, readonly) UILabel          *pressedTitleLabel;
+@property(nonatomic, readonly) UILabel          *hoverTitleLabel;
 
 - (id)initWithType:(SOButtonType)buttonType;
 
@@ -30,6 +35,6 @@ typedef enum  {
 @protocol SOButtonDelegate <NSObject>
 
 @optional
-- (void)buttonPressed:(SOButton *)submitButton;
+- (void)buttonPressed:(SOButton *)button;
 
 @end

@@ -44,16 +44,12 @@
 		447EC300176D87EA00CBD11C /* SOGuessFeedbackIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 447EC2FF176D877700CBD11C /* SOGuessFeedbackIndicator.m */; };
 		44960AB71771AB5800FEDA9A /* SOWaitingForCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44960AB51771AB3800FEDA9A /* SOWaitingForCodeViewController.m */; };
 		449A1C0717767F5500C2438D /* SOGameResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C0617767D1500C2438D /* SOGameResultViewController.m */; };
-		449A1C0C177686B000C2438D /* back_arrow_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C08177686B000C2438D /* back_arrow_active.png */; };
-		449A1C0D177686B000C2438D /* back_arrow_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C09177686B000C2438D /* back_arrow_active@2x.png */; };
-		449A1C0E177686B000C2438D /* back_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C0A177686B000C2438D /* back_arrow.png */; };
-		449A1C0F177686B000C2438D /* back_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C0B177686B000C2438D /* back_arrow@2x.png */; };
 		449A1C1217768E0200C2438D /* SOProfilePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C1117768DF100C2438D /* SOProfilePicture.m */; };
 		449A1C171776904100C2438D /* avatar_head_set.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C151776904100C2438D /* avatar_head_set.png */; };
 		449A1C181776904100C2438D /* avatar_head_set@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C161776904100C2438D /* avatar_head_set@2x.png */; };
 		449A1C1A177697E100C2438D /* gameover_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C19177697E100C2438D /* gameover_avatar.png */; };
 		449A1C1C177697F800C2438D /* gameover_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C1B177697F800C2438D /* gameover_avatar@2x.png */; };
-		449A1C1F1776A3A200C2438D /* SOChooseDifficultyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C1E1776A12B00C2438D /* SOChooseDifficultyViewController.m */; };
+		449A1C1F1776A3A200C2438D /* SOChooseFromThreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C1E1776A12B00C2438D /* SOChooseFromThreeViewController.m */; };
 		449A1C221776E25300C2438D /* GKTurnBasedMatch+otherParticipant.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C211776E25300C2438D /* GKTurnBasedMatch+otherParticipant.m */; };
 		449A1C25177799EE00C2438D /* SOGameListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C241777999F00C2438D /* SOGameListCell.m */; };
 		449A1C281777A39100C2438D /* SOGameListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A1C271777A36800C2438D /* SOGameListHeader.m */; };
@@ -65,6 +61,7 @@
 		449A1C371777BB5700C2438D /* x_newgame_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C331777BB5700C2438D /* x_newgame_active@2x.png */; };
 		449A1C381777BB5700C2438D /* x_newgame.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C341777BB5700C2438D /* x_newgame.png */; };
 		449A1C391777BB5700C2438D /* x_newgame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 449A1C351777BB5700C2438D /* x_newgame@2x.png */; };
+		449BF2BE1784AE1B00BF3469 /* SOButtonsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 449BF2BD1784ADFE00BF3469 /* SOButtonsCell.m */; };
 		44A64CB9176BD98300A3ECE6 /* SOPreviousGuessesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A64CB8176BD7CE00A3ECE6 /* SOPreviousGuessesView.m */; };
 		44A64CC0176BDCFD00A3ECE6 /* GothamHTF-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A64CBB176BDCFD00A3ECE6 /* GothamHTF-Bold.otf */; };
 		44A64CC1176BDCFD00A3ECE6 /* GothamHTF-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A64CBC176BDCFD00A3ECE6 /* GothamHTF-Book.otf */; };
@@ -95,6 +92,10 @@
 		44CC2D26177163820001091C /* SOLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D25177162EB0001091C /* SOLandingViewController.m */; };
 		44CC2D2A17716E960001091C /* SOGameCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D2917716E730001091C /* SOGameCenterViewController.m */; };
 		44CC2D2E177172B70001091C /* SOTransitionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D2C177172530001091C /* SOTransitionContainer.m */; };
+		44F5C3A81782C64300FCF833 /* back_arrow_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 44F5C3A41782C64300FCF833 /* back_arrow_active.png */; };
+		44F5C3A91782C64300FCF833 /* back_arrow_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44F5C3A51782C64300FCF833 /* back_arrow_active@2x.png */; };
+		44F5C3AA1782C64300FCF833 /* back_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 44F5C3A61782C64300FCF833 /* back_arrow.png */; };
+		44F5C3AB1782C64300FCF833 /* back_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44F5C3A71782C64300FCF833 /* back_arrow@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,18 +168,14 @@
 		44960AB51771AB3800FEDA9A /* SOWaitingForCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOWaitingForCodeViewController.m; sourceTree = "<group>"; };
 		449A1C0517767D1500C2438D /* SOGameResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOGameResultViewController.h; sourceTree = "<group>"; };
 		449A1C0617767D1500C2438D /* SOGameResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGameResultViewController.m; sourceTree = "<group>"; };
-		449A1C08177686B000C2438D /* back_arrow_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow_active.png; sourceTree = "<group>"; };
-		449A1C09177686B000C2438D /* back_arrow_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_arrow_active@2x.png"; sourceTree = "<group>"; };
-		449A1C0A177686B000C2438D /* back_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow.png; sourceTree = "<group>"; };
-		449A1C0B177686B000C2438D /* back_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_arrow@2x.png"; sourceTree = "<group>"; };
 		449A1C1017768DF100C2438D /* SOProfilePicture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOProfilePicture.h; sourceTree = "<group>"; };
 		449A1C1117768DF100C2438D /* SOProfilePicture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOProfilePicture.m; sourceTree = "<group>"; };
 		449A1C151776904100C2438D /* avatar_head_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar_head_set.png; sourceTree = "<group>"; };
 		449A1C161776904100C2438D /* avatar_head_set@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar_head_set@2x.png"; sourceTree = "<group>"; };
 		449A1C19177697E100C2438D /* gameover_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameover_avatar.png; sourceTree = "<group>"; };
 		449A1C1B177697F800C2438D /* gameover_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gameover_avatar@2x.png"; sourceTree = "<group>"; };
-		449A1C1D1776A12B00C2438D /* SOChooseDifficultyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOChooseDifficultyViewController.h; sourceTree = "<group>"; };
-		449A1C1E1776A12B00C2438D /* SOChooseDifficultyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOChooseDifficultyViewController.m; sourceTree = "<group>"; };
+		449A1C1D1776A12B00C2438D /* SOChooseFromThreeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOChooseFromThreeViewController.h; sourceTree = "<group>"; };
+		449A1C1E1776A12B00C2438D /* SOChooseFromThreeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOChooseFromThreeViewController.m; sourceTree = "<group>"; };
 		449A1C201776E25300C2438D /* GKTurnBasedMatch+otherParticipant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GKTurnBasedMatch+otherParticipant.h"; sourceTree = "<group>"; };
 		449A1C211776E25300C2438D /* GKTurnBasedMatch+otherParticipant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GKTurnBasedMatch+otherParticipant.m"; sourceTree = "<group>"; };
 		449A1C231777999F00C2438D /* SOGameListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOGameListCell.h; sourceTree = "<group>"; };
@@ -193,6 +190,8 @@
 		449A1C331777BB5700C2438D /* x_newgame_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x_newgame_active@2x.png"; sourceTree = "<group>"; };
 		449A1C341777BB5700C2438D /* x_newgame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x_newgame.png; sourceTree = "<group>"; };
 		449A1C351777BB5700C2438D /* x_newgame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x_newgame@2x.png"; sourceTree = "<group>"; };
+		449BF2BC1784ADFE00BF3469 /* SOButtonsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOButtonsCell.h; sourceTree = "<group>"; };
+		449BF2BD1784ADFE00BF3469 /* SOButtonsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOButtonsCell.m; sourceTree = "<group>"; };
 		44A64CB7176BD7CE00A3ECE6 /* SOPreviousGuessesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOPreviousGuessesView.h; sourceTree = "<group>"; };
 		44A64CB8176BD7CE00A3ECE6 /* SOPreviousGuessesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOPreviousGuessesView.m; sourceTree = "<group>"; };
 		44A64CBB176BDCFD00A3ECE6 /* GothamHTF-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamHTF-Bold.otf"; sourceTree = "<group>"; };
@@ -236,6 +235,10 @@
 		44CC2D2917716E730001091C /* SOGameCenterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGameCenterViewController.m; sourceTree = "<group>"; };
 		44CC2D2B177172530001091C /* SOTransitionContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOTransitionContainer.h; sourceTree = "<group>"; };
 		44CC2D2C177172530001091C /* SOTransitionContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOTransitionContainer.m; sourceTree = "<group>"; };
+		44F5C3A41782C64300FCF833 /* back_arrow_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow_active.png; sourceTree = "<group>"; };
+		44F5C3A51782C64300FCF833 /* back_arrow_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_arrow_active@2x.png"; sourceTree = "<group>"; };
+		44F5C3A61782C64300FCF833 /* back_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow.png; sourceTree = "<group>"; };
+		44F5C3A71782C64300FCF833 /* back_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_arrow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,8 +383,8 @@
 				446540F8176E6E4C00C6BCA3 /* SOViewController.m */,
 				449A1C0517767D1500C2438D /* SOGameResultViewController.h */,
 				449A1C0617767D1500C2438D /* SOGameResultViewController.m */,
-				449A1C1D1776A12B00C2438D /* SOChooseDifficultyViewController.h */,
-				449A1C1E1776A12B00C2438D /* SOChooseDifficultyViewController.m */,
+				449A1C1D1776A12B00C2438D /* SOChooseFromThreeViewController.h */,
+				449A1C1E1776A12B00C2438D /* SOChooseFromThreeViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -464,10 +467,10 @@
 		449A1BFC17765A8300C2438D /* Back Button */ = {
 			isa = PBXGroup;
 			children = (
-				449A1C08177686B000C2438D /* back_arrow_active.png */,
-				449A1C09177686B000C2438D /* back_arrow_active@2x.png */,
-				449A1C0A177686B000C2438D /* back_arrow.png */,
-				449A1C0B177686B000C2438D /* back_arrow@2x.png */,
+				44F5C3A41782C64300FCF833 /* back_arrow_active.png */,
+				44F5C3A51782C64300FCF833 /* back_arrow_active@2x.png */,
+				44F5C3A61782C64300FCF833 /* back_arrow.png */,
+				44F5C3A71782C64300FCF833 /* back_arrow@2x.png */,
 			);
 			name = "Back Button";
 			sourceTree = "<group>";
@@ -507,6 +510,17 @@
 				449A1C2D1777BB4E00C2438D /* check_newgame@2x.png */,
 			);
 			name = YesNo;
+			sourceTree = "<group>";
+		};
+		449BF2BF1784AFFD00BF3469 /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				449A1C231777999F00C2438D /* SOGameListCell.h */,
+				449A1C241777999F00C2438D /* SOGameListCell.m */,
+				449BF2BC1784ADFE00BF3469 /* SOButtonsCell.h */,
+				449BF2BD1784ADFE00BF3469 /* SOButtonsCell.m */,
+			);
+			name = "Table Cells";
 			sourceTree = "<group>";
 		};
 		44A64CBA176BDC7B00A3ECE6 /* Fonts */ = {
@@ -570,8 +584,7 @@
 		44CC2D20177161A90001091C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				449A1C231777999F00C2438D /* SOGameListCell.h */,
-				449A1C241777999F00C2438D /* SOGameListCell.m */,
+				449BF2BF1784AFFD00BF3469 /* Table Cells */,
 				449A1C261777A36800C2438D /* SOGameListHeader.h */,
 				449A1C271777A36800C2438D /* SOGameListHeader.m */,
 				44CC2D21177162370001091C /* SOGameListViewController.h */,
@@ -695,6 +708,10 @@
 				447EC2F8176D49EA00CBD11C /* submit_check_active@2x.png in Resources */,
 				447EC2F9176D49EA00CBD11C /* submit_check.png in Resources */,
 				447EC2FA176D49EA00CBD11C /* submit_check@2x.png in Resources */,
+				44F5C3A81782C64300FCF833 /* back_arrow_active.png in Resources */,
+				44F5C3A91782C64300FCF833 /* back_arrow_active@2x.png in Resources */,
+				44F5C3AA1782C64300FCF833 /* back_arrow.png in Resources */,
+				44F5C3AB1782C64300FCF833 /* back_arrow@2x.png in Resources */,
 				44A88AFE1770277700B1E079 /* next_arrow_pressed.png in Resources */,
 				449A1C391777BB5700C2438D /* x_newgame@2x.png in Resources */,
 				449A1C171776904100C2438D /* avatar_head_set.png in Resources */,
@@ -702,23 +719,19 @@
 				449A1C1C177697F800C2438D /* gameover_avatar@2x.png in Resources */,
 				447EC2F2176D42D300CBD11C /* Mockup2.jpeg in Resources */,
 				446540ED176E673800C6BCA3 /* InfoPlist.strings in Resources */,
-				449A1C0F177686B000C2438D /* back_arrow@2x.png in Resources */,
 				44A88AFA1770277700B1E079 /* next_arrow_hover.png in Resources */,
 				44A88AFC1770277700B1E079 /* next_arrow_inactive.png in Resources */,
 				449A1C371777BB5700C2438D /* x_newgame_active@2x.png in Resources */,
 				44035378176A29C700FD0DCE /* Default.png in Resources */,
 				449A1C1A177697E100C2438D /* gameover_avatar.png in Resources */,
-				449A1C0D177686B000C2438D /* back_arrow_active@2x.png in Resources */,
 				44A88AFD1770277700B1E079 /* next_arrow_inactive@2x.png in Resources */,
 				44A88AEB176FB15200B1E079 /* README.md in Resources */,
 				4403537A176A29C700FD0DCE /* Default@2x.png in Resources */,
 				44A88AFF1770277700B1E079 /* next_arrow_pressed@2x.png in Resources */,
 				44A64CC1176BDCFD00A3ECE6 /* GothamHTF-Book.otf in Resources */,
-				449A1C0E177686B000C2438D /* back_arrow.png in Resources */,
 				44A88AF81770277700B1E079 /* next_arrow_active.png in Resources */,
 				44A88AFB1770277700B1E079 /* next_arrow_hover@2x.png in Resources */,
 				4403537C176A29C700FD0DCE /* Default-568h@2x.png in Resources */,
-				449A1C0C177686B000C2438D /* back_arrow_active.png in Resources */,
 				449A1C181776904100C2438D /* avatar_head_set@2x.png in Resources */,
 				44A64CC4176BDCFD00A3ECE6 /* GothamHTF-Thin.otf in Resources */,
 				447EC2BA176CD7AB00CBD11C /* Mockup.jpeg in Resources */,
@@ -746,11 +759,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				449BF2BE1784AE1B00BF3469 /* SOButtonsCell.m in Sources */,
 				44291CE0177A778300B08AFC /* SOSinglePlayerGameViewController.m in Sources */,
 				44291CDC177969BE00B08AFC /* SOLoadingViewController.m in Sources */,
 				449A1C281777A39100C2438D /* SOGameListHeader.m in Sources */,
 				449A1C25177799EE00C2438D /* SOGameListCell.m in Sources */,
-				449A1C1F1776A3A200C2438D /* SOChooseDifficultyViewController.m in Sources */,
+				449A1C1F1776A3A200C2438D /* SOChooseFromThreeViewController.m in Sources */,
 				449A1C1217768E0200C2438D /* SOProfilePicture.m in Sources */,
 				449A1C0717767F5500C2438D /* SOGameResultViewController.m in Sources */,
 				44CC2D26177163820001091C /* SOLandingViewController.m in Sources */,

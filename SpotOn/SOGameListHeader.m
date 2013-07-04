@@ -39,47 +39,4 @@
     [super dealloc];
 }
 
-//////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Drawing
-//////////////////////////////////////////////////////////////////////////
-
-- (void)drawLinearGradientWithContext:(CGContextRef)context inRect:(CGRect)rect startColor:(CGColorRef)startColor endColor:(CGColorRef)endColor
-{
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGFloat locations[] = { 0.0, 1.0 };
-    
-    NSArray *colors = [NSArray arrayWithObjects:(__bridge id)startColor, (__bridge id)endColor, nil];
-    
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace,
-                                                        (__bridge CFArrayRef) colors, locations);
-    
-    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
-    CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
-    
-    CGContextSaveGState(context);
-    CGContextAddRect(context, rect);
-    CGContextClip(context);
-    
-    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
-    CGContextRestoreGState(context);
-    
-    CGGradientRelease(gradient);
-    CGColorSpaceRelease(colorSpace);
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGColorRef startColor = GREY_COLOR_BTM_BACKGROUND.CGColor;
-    CGColorRef endColor = [UIColor clearColor].CGColor;
-    CGRect paperRect = self.frame;
-    [self drawLinearGradientWithContext:context
-                                            inRect:paperRect
-                                        startColor:startColor
-                                          endColor:endColor];
-    [super drawRect:rect];
-}
-
 @end

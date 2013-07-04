@@ -376,7 +376,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
         
         GKTurnBasedMatchmakerViewController *mmvc = [[GKTurnBasedMatchmakerViewController alloc]initWithMatchRequest:request];
         mmvc.turnBasedMatchmakerDelegate = self;
-        mmvc.showExistingMatches = YES;
+        mmvc.showExistingMatches = NO;
         
         [presentingViewConroller presentViewController:mmvc animated:YES completion:nil];
         [mmvc release];
