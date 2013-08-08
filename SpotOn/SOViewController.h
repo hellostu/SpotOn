@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SOViewController : UIViewController
-
+{
+    @protected
+    UIView *_backgroundView;
+}
 @end

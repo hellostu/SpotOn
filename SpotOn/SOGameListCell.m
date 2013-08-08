@@ -95,27 +95,16 @@
         
         if (gameListCellType == SOGameListCellTypeInvite)
         {
-            UIView *wrapperView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 71)];
             UIButton *acceptButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
             [acceptButton setImage:[UIImage imageNamed:@"check_newgame.png"] forState:UIControlStateNormal];
             [acceptButton setImage:[UIImage imageNamed:@"check_newgame_active.png"] forState:UIControlStateHighlighted];
-            acceptButton.center = CGPointMake(wrapperView.frame.size.width*0.1, wrapperView.frame.size.height/2);
-            acceptButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+            acceptButton.center = CGPointMake(_frontView.frame.size.width*0.8, _frontView.frame.size.height/2);
+            acceptButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
             [acceptButton addTarget:self action:@selector(acceptButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            [wrapperView addSubview:acceptButton];
-            [acceptButton release];
             
-            UIButton *declineButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
-            [declineButton setImage:[UIImage imageNamed:@"x_newgame.png"] forState:UIControlStateNormal];
-            [declineButton setImage:[UIImage imageNamed:@"x_newgame_active.png"] forState:UIControlStateHighlighted];
-            declineButton.center = CGPointMake(wrapperView.frame.size.width*0.6, wrapperView.frame.size.height/2);
-            declineButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-            [declineButton addTarget:self action:@selector(declineButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            [wrapperView addSubview:declineButton];
-            [declineButton release];
+            [_frontView addSubview:acceptButton];
+            
             [_deleteButton addTarget:self action:@selector(declineButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            
-            self.accessoryView = wrapperView;
         }
         else if(gameListCellType == SOGameListCellTypeEndedGame)
         {

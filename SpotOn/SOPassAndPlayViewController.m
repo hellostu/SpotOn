@@ -8,14 +8,18 @@
 
 #import "SOPassAndPlayViewController.h"
 #import "SOChooseCodeViewController.h"
+#import "SOChooseFromThreeViewController.h"
 #import "SOPassAndPlayTransitionViewController.h"
 #import "SOGameViewController.h"
 #import "SOGameCenterHelper.h"
+#import "SOPassAndPlayStepsViewController.h"
 
-@interface SOPassAndPlayViewController () <SOChooseCodeViewControllerDelegate, SOGameViewControllerDelegate, SOPassAndPlayTransitionViewControllerDelegate>
+@interface SOPassAndPlayViewController () <SOGameViewControllerDelegate, SOPassAndPlayTransitionViewControllerDelegate, SOChooseFromThreeControllerDelegate, SOPassAndPlayStepsViewControllerDelegate>
 {
-    SOGameViewController *_playerOne;
-    SOGameViewController *_playerTwo;
+    SOGameViewController    *_playerOne;
+    SOGameViewController    *_playerTwo;
+    
+    SODifficulty            _difficulty;
 }
     
 @end
@@ -29,13 +33,13 @@
 
 - (id)init
 {
-    SOChooseCodeViewController *player1ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne difficulty:SODifficultyHard];
-    player1ChooseCode.delegate = self;
-    if ( (self = [super initWithViewController:player1ChooseCode]) != nil)
+    SOChooseFromThreeViewController *chooseDifficulty = [[SOChooseFromThreeViewController alloc] initWithType:SOChooseFromThreeTypeDifficulty];
+    chooseDifficulty.delegate = self;
+    if ( (self = [super initWithViewController:chooseDifficulty]) != nil)
     {
         
     }
-    [player1ChooseCode autorelease];
+    [chooseDifficulty release];
     return self;
 }
 
@@ -60,7 +64,80 @@
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark SLPassAndPlayTransitionViewController
+#pragma mark SOPassAndPlayStepsViewControllerDelegate
+//////////////////////////////////////////////////////////////////////////
+
+- (void)passAndPlayStepsViewController:(SOPassAndPlayStepsViewController *)passAndPlayViewController returnedWithStep:(int)step
+{
+    switch (step)
+    {
+        case 1:
+        {
+            SOPassAndPlayStepsViewController *stepTwo = [[SOPassAndPlayStepsViewController alloc] initWithStep:2 name:passAndPlayViewController.name difficulty:_difficulty];
+            stepTwo.delegate = self;
+            stepTwo.playType = passAndPlayViewController.playType;
+            [self.navigationController pushViewController:stepTwo animated:YES];
+            [stepTwo release];
+            break;
+        }
+        case 2:
+        {
+            SOPassAndPlayStepsViewController *stepThree = [[SOPassAndPlayStepsViewController alloc] initWithStep:3 name:passAndPlayViewController.name difficulty:_difficulty];
+            stepThree.delegate = self;
+            stepThree.playType = passAndPlayViewController.playType;
+            [self.navigationController pushViewController:stepThree animated:YES];
+            [stepThree release];
+            break;
+        }
+    }
+}
+
+- (void)passAndPlayStepsViewController:(SOPassAndPlayStepsViewController *)passAndPlayerViewController returnedWithCode:(NSArray *)code
+{
+    switch (passAndPlayerViewController.playType)
+    {
+        case SOPlayTypePassAndPlayPlayerOne:
+        {
+            SOPassAndPlayStepsViewController *stepOne = [[SOPassAndPlayStepsViewController alloc] initWithStep:1 name:nil difficulty:_difficulty];
+            stepOne.delegate = self;
+            stepOne.playType = SOPlayTypePassAndPlayPlayerTwo;
+            _playerOne = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne difficulty:_difficulty code:code];
+            _playerOne.delegate = self;
+            [self.navigationController pushViewController:stepOne animated:YES];
+            [stepOne release];
+            break;
+        }
+        case SOPlayTypePassAndPlayPlayerTwo:
+        {
+            _playerTwo = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo difficulty:_difficulty code:code];
+            _playerTwo.delegate = self;
+            [self.navigationController popToViewController:self animated:NO];
+            [self transitionToViewController:_playerOne withTransitionAnimation:SOTransitionAnimationFlip];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark SOChooseFromThreeViewControllerDelegate
+//////////////////////////////////////////////////////////////////////////
+
+- (void)chooseFromThreeViewController:(SOChooseFromThreeViewController *)chooseFromThreeVC selectedDifficulty:(SODifficulty)difficulty
+{
+    _difficulty = difficulty;
+    SOPassAndPlayStepsViewController *stepOne = [[SOPassAndPlayStepsViewController alloc] initWithStep:1 name:nil difficulty:difficulty];
+    stepOne.delegate = self;
+    stepOne.playType = SOPlayTypePassAndPlayPlayerOne;
+    [self.navigationController pushViewController:stepOne animated:YES];
+    [stepOne release];
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark SOPassAndPlayTransitionViewControllerDelegate
 //////////////////////////////////////////////////////////////////////////
 
 - (void)passAndPlayTransitionViewControllerReadyToTransition:(SOPassAndPlayTransitionViewController *)passAndPlay
@@ -84,7 +161,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark SLGameViewControllerDelegate
+#pragma mark SOGameViewControllerDelegate
 //////////////////////////////////////////////////////////////////////////
 
 - (void)gameViewController:(SOGameViewController *)gameViewController didTakeTurnWithCode:(NSArray *)code
@@ -109,38 +186,6 @@
     passAndPlayTransition.delegate = self;
     [self transitionToViewController:passAndPlayTransition withTransitionAnimation:SOTransitionAnimationFlip];
     [passAndPlayTransition release];
-}
-
-//////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark SLChooseCodeViewControllerDelegate
-//////////////////////////////////////////////////////////////////////////
-
-- (void)chooseCodeViewController:(SOChooseCodeViewController *)chooseCodeViewController didReturnCode:(NSArray *)code
-{
-    switch (chooseCodeViewController.playerType)
-    {
-        case SOPlayTypePassAndPlayPlayerOne:
-        {
-            SOChooseCodeViewController *player2ChooseCode = [[SOChooseCodeViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo difficulty:SODifficultyHard];
-            player2ChooseCode.delegate = self;
-            player2ChooseCode.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-            _playerOne = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerOne difficulty:SODifficultyHard code:code];
-            _playerOne.delegate = self;
-            [self transitionToViewController:player2ChooseCode withTransitionAnimation:SOTransitionAnimationFlip];
-            [player2ChooseCode release];
-            break;
-        }
-        case SOPlayTypePassAndPlayPlayerTwo:
-        {
-            _playerTwo = [[SOGameViewController alloc] initWithPlayType:SOPlayTypePassAndPlayPlayerTwo difficulty:SODifficultyHard code:code];
-            _playerTwo.delegate = self;
-            [self transitionToViewController:_playerOne withTransitionAnimation:SOTransitionAnimationFlip];
-            break;
-        }
-        default:
-            break;
-    }
 }
 
 @end

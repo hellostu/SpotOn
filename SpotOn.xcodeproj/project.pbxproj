@@ -92,6 +92,9 @@
 		44CC2D26177163820001091C /* SOLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D25177162EB0001091C /* SOLandingViewController.m */; };
 		44CC2D2A17716E960001091C /* SOGameCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D2917716E730001091C /* SOGameCenterViewController.m */; };
 		44CC2D2E177172B70001091C /* SOTransitionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2D2C177172530001091C /* SOTransitionContainer.m */; };
+		44EA29851790B73D007CE109 /* SOPassAndPlayStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44EA29841790B73D007CE109 /* SOPassAndPlayStepsViewController.m */; };
+		44EA298817914051007CE109 /* SOPagingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44EA298717914033007CE109 /* SOPagingScrollView.m */; };
+		44EA298B17914395007CE109 /* SOAvatarChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = 44EA298A17914395007CE109 /* SOAvatarChooser.m */; };
 		44F5C3A81782C64300FCF833 /* back_arrow_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 44F5C3A41782C64300FCF833 /* back_arrow_active.png */; };
 		44F5C3A91782C64300FCF833 /* back_arrow_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44F5C3A51782C64300FCF833 /* back_arrow_active@2x.png */; };
 		44F5C3AA1782C64300FCF833 /* back_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 44F5C3A61782C64300FCF833 /* back_arrow.png */; };
@@ -235,6 +238,12 @@
 		44CC2D2917716E730001091C /* SOGameCenterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOGameCenterViewController.m; sourceTree = "<group>"; };
 		44CC2D2B177172530001091C /* SOTransitionContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOTransitionContainer.h; sourceTree = "<group>"; };
 		44CC2D2C177172530001091C /* SOTransitionContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOTransitionContainer.m; sourceTree = "<group>"; };
+		44EA29831790B73D007CE109 /* SOPassAndPlayStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOPassAndPlayStepsViewController.h; sourceTree = "<group>"; };
+		44EA29841790B73D007CE109 /* SOPassAndPlayStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOPassAndPlayStepsViewController.m; sourceTree = "<group>"; };
+		44EA298617914033007CE109 /* SOPagingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOPagingScrollView.h; sourceTree = "<group>"; };
+		44EA298717914033007CE109 /* SOPagingScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOPagingScrollView.m; sourceTree = "<group>"; };
+		44EA298917914395007CE109 /* SOAvatarChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOAvatarChooser.h; sourceTree = "<group>"; };
+		44EA298A17914395007CE109 /* SOAvatarChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOAvatarChooser.m; sourceTree = "<group>"; };
 		44F5C3A41782C64300FCF833 /* back_arrow_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow_active.png; sourceTree = "<group>"; };
 		44F5C3A51782C64300FCF833 /* back_arrow_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_arrow_active@2x.png"; sourceTree = "<group>"; };
 		44F5C3A61782C64300FCF833 /* back_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_arrow.png; sourceTree = "<group>"; };
@@ -428,6 +437,10 @@
 				44BA53BF176EF692001CD03A /* SODialogView.m */,
 				449A1C1017768DF100C2438D /* SOProfilePicture.h */,
 				449A1C1117768DF100C2438D /* SOProfilePicture.m */,
+				44EA298617914033007CE109 /* SOPagingScrollView.h */,
+				44EA298717914033007CE109 /* SOPagingScrollView.m */,
+				44EA298917914395007CE109 /* SOAvatarChooser.h */,
+				44EA298A17914395007CE109 /* SOAvatarChooser.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -439,6 +452,8 @@
 				447EC2C9176D323800CBD11C /* SOPassAndPlayTransitionViewController.m */,
 				447EC2BB176D008400CBD11C /* SOPassAndPlayViewController.h */,
 				447EC2BC176D008400CBD11C /* SOPassAndPlayViewController.m */,
+				44EA29831790B73D007CE109 /* SOPassAndPlayStepsViewController.h */,
+				44EA29841790B73D007CE109 /* SOPassAndPlayStepsViewController.m */,
 			);
 			name = "Pass And Play";
 			sourceTree = "<group>";
@@ -759,6 +774,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44EA298B17914395007CE109 /* SOAvatarChooser.m in Sources */,
+				44EA298817914051007CE109 /* SOPagingScrollView.m in Sources */,
 				449BF2BE1784AE1B00BF3469 /* SOButtonsCell.m in Sources */,
 				44291CE0177A778300B08AFC /* SOSinglePlayerGameViewController.m in Sources */,
 				44291CDC177969BE00B08AFC /* SOLoadingViewController.m in Sources */,
@@ -772,6 +789,7 @@
 				44CC2D2E177172B70001091C /* SOTransitionContainer.m in Sources */,
 				44CC2D1F177123A80001091C /* SOGameCenterHelper.m in Sources */,
 				447EC300176D87EA00CBD11C /* SOGuessFeedbackIndicator.m in Sources */,
+				44EA29851790B73D007CE109 /* SOPassAndPlayStepsViewController.m in Sources */,
 				44035372176A29C700FD0DCE /* main.m in Sources */,
 				44035376176A29C700FD0DCE /* SOAppDelegate.m in Sources */,
 				4403539F176A29EE00FD0DCE /* SOGameViewController.m in Sources */,

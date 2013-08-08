@@ -81,6 +81,7 @@
         
         _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(circlePannedWithGesture:)];
         _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(circleTappedWithGesture:)];
+        _strokeWidth = 1.0f;
     }
     return self;
 }
@@ -120,7 +121,7 @@
         }
         circleRect = CGRectMake(touchAreaIncrease+1.5, touchAreaIncrease+1.5, self.frame.size.width-5-touchAreaIncrease*2, self.frame.size.height-5-touchAreaIncrease*2);
         CGContextSetStrokeColorWithColor(context, self.strokeColor.CGColor);
-        CGContextSetLineWidth(context, 1.0);
+        CGContextSetLineWidth(context, _strokeWidth);
         CGContextStrokeEllipseInRect(context, circleRect);
     }
 }

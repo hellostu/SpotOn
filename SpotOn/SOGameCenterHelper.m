@@ -48,6 +48,11 @@ static SOGameCenterHelper *gameCenterHelper = nil;
                    selector:@selector(authenticationChanged)
                        name:GKPlayerAuthenticationDidChangeNotificationName
                      object:nil];
+            
+            if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+            {
+                [[GKLocalPlayer localPlayer] registerListener:self];
+            }
         }
     }
     return self;
@@ -95,7 +100,7 @@ static SOGameCenterHelper *gameCenterHelper = nil;
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark GKTurnBasedEventHandlerDelegate
+#pragma mark GKTurnBasedEventHandlerDelegate <<<<< iOS 6 <<<<<<<<<
 //////////////////////////////////////////////////////////////////////////
 
 - (void)handleInviteFromGameCenter:(NSArray *)playersToInvite
@@ -158,16 +163,24 @@ static SOGameCenterHelper *gameCenterHelper = nil;
     }
 }
 
--(void)handleMatchEnded:(GKTurnBasedMatch *)match
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark GKTurnBasedEventListener <<<<< iOS 7 <<<<<<<<<
+//////////////////////////////////////////////////////////////////////////
+
+- (void)player:(GKPlayer *)player receivedTurnEventForMatch:(GKTurnBasedMatch *)match didBecomeActive:(BOOL)didBecomeActive
 {
-    if ([match.matchID isEqualToString:self.currentMatch.matchID])
-    {
-        [self.delegate recieveEndGame:match];
-    }
-    else
-    {
-        [self.delegate sendNotice:@"Another Game Ended!" forMatch:match];
-    }
+    [self handleTurnEventForMatch:match didBecomeActive:YES];
+}
+
+- (void)player:(GKPlayer *)player didRequestMatchWithPlayers:(NSArray *)playerIDsToInvite
+{
+    [self handleInviteFromGameCenter:playerIDsToInvite];
+}
+
+- (void)player:(GKPlayer *)player matchEnded:(GKTurnBasedMatch *)match
+{
+    
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -11,7 +11,7 @@
 @class SOGameCenterHelper;
 @protocol SOGamerCenterHelperDelegate;
 
-@interface SOGameCenterHelper : NSObject <GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate>
+@interface SOGameCenterHelper : NSObject <GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate, GKLocalPlayerListener>
 
 @property(nonatomic, readonly) BOOL gameCenterAvailable;
 @property(nonatomic, readonly) BOOL userAuthenticated;
