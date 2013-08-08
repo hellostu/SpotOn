@@ -9,6 +9,7 @@
 #import "SOCodeSelectionView.h"
 #import "SOCircle.h"
 #import "SORecepticle.h"
+#import "SOSlotView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface SOCodeSelectionView () <SLCircleDelegate>
@@ -16,6 +17,9 @@
     NSMutableArray *_recepticles;
     NSMutableArray *_palette;
     BOOL            _animating;
+    
+    SOSlotView      *_slotView;
+    UIView          *_backgroundView;
 }
 @end
 
@@ -26,10 +30,23 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithFrame:(CGRect)frame numberOfColors:(int)numberOfColors numberOfRecepticles:(int)numberOfRecepticles
+- (id)initWithFrame:(CGRect)frame numberOfColors:(int)numberOfColors numberOfRecepticles:(int)numberOfRecepticles useHoles:(BOOL)holes
 {
     if ((self = [super initWithFrame:frame]) != nil)
     {
+        _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 99)];
+        _backgroundView.backgroundColor = GREY_COLOR_TOP_BACKGROUND;
+        [self addSubview:_backgroundView];
+        
+        _slotView = [[SOSlotView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 99) numberOfSlots:numberOfRecepticles];
+        [self addSubview:_slotView];
+        
+        if (holes == NO)
+        {
+            _backgroundView.hidden = YES;
+            _slotView.hidden = YES;
+        }
+        
         _regrowCircles = YES;
         
         _recepticles = [[NSMutableArray alloc] initWithCapacity:numberOfColors];
@@ -51,6 +68,10 @@
         for (int i=0; i<numberOfRecepticles; i++)
         {
             SORecepticle *recepticle = [[SORecepticle alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+            if (holes == YES)
+            {
+                recepticle.hidden = YES;
+            }
             recepticle.center = CGPointMake(i*recepticleInterval+25+recepticlesView.frame.origin.x, 25+recepticlesView.frame.origin.y);
             [self addSubview:recepticle];
             [_recepticles addObject:recepticle];
@@ -86,6 +107,8 @@
 {
     [_recepticles release];
     [_palette release];
+    [_slotView release];
+    [_backgroundView release];
     [super dealloc];
 }
 
@@ -224,43 +247,55 @@
 
 - (void)submitAllCirclesWithCompletion:(void (^)(NSArray *circles))completion
 {
+    [self sendSubviewToBack:_slotView];
+    [self sendSubviewToBack:_backgroundView];
     NSArray *colors = [self colorsInRecepticles];
     
     if ([self recepticlesPopulated] == YES)
     {
-        void (^completionHandler)(BOOL finished) = nil;
-        
-        for (int i=0; i<_recepticles.count; i++)
-        {
-            if (i>=(_recepticles.count-1))
+        [UIView animateKeyframesWithDuration:0.3 delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^() {
+            for (int i=0; i<_recepticles.count; i++)
             {
-                completionHandler = ^(BOOL finished) {
-                    if (completion != nil)
-                    {
-                        completion(colors);
-                    }
-                    for (int i=0; i<_recepticles.count; i++)
-                    {
-                        SOCircle *circle = ((SORecepticle *)_recepticles[i]).circle;
-                        ((SORecepticle *)_recepticles[i]).circle = nil;
-                        [circle removeFromSuperview];
-                    }
-                };
-            }
-            
-            SOCircle *circle = ((SORecepticle *)_recepticles[i]).circle;
-            CGFloat index = (CGFloat)i;
-            index/=(CGFloat)(_recepticles.count-1);
-            index*=0.3;
-            
-            
-            [UIView animateWithDuration:0.5-index delay:index options:0 animations:^(){
-                CGFloat y = -44;
-                
+                SOCircle *circle = ((SORecepticle *)_recepticles[i]).circle;
                 circle.layer.affineTransform = CGAffineTransformMakeScale(0.5, 0.5);
-                circle.center = CGPointMake(i*30+54, y);
-            }completion:completionHandler];
-        }
+            }
+        }completion:^(BOOL finished){
+            [self bringSubviewToFront:_slotView];
+            
+            void (^completionHandler)(BOOL finished) = nil;
+            
+            for (int i=0; i<_recepticles.count; i++)
+            {
+                if (i>=(_recepticles.count-1))
+                {
+                    completionHandler = ^(BOOL finished) {
+                        if (completion != nil)
+                        {
+                            completion(colors);
+                        }
+                        for (int i=0; i<_recepticles.count; i++)
+                        {
+                            SOCircle *circle = ((SORecepticle *)_recepticles[i]).circle;
+                            ((SORecepticle *)_recepticles[i]).circle = nil;
+                            [circle removeFromSuperview];
+                        }
+                        [self sendSubviewToBack:_slotView];
+                        [self sendSubviewToBack:_backgroundView];
+                    };
+                }
+                
+                SOCircle *circle = ((SORecepticle *)_recepticles[i]).circle;
+                CGFloat index = (CGFloat)i;
+                index/=(CGFloat)(_recepticles.count-1);
+                index*=0.3;
+                
+                
+                [UIView animateWithDuration:0.5-index delay:index options:0 animations:^(){
+                    CGFloat y = -40;
+                    circle.center = CGPointMake(i*30+54, y);
+                }completion:completionHandler];
+            }
+        }];
     }
 }
 
@@ -334,8 +369,8 @@
 - (void)removeCircle:(SOCircle *)circle
 {
     _animating = YES;
-
-    [UIView animateWithDuration:0.2 animations:^() {
+    
+    [UIView animateWithDuration:0.4 animations:^() {
         circle.layer.affineTransform = CGAffineTransformMakeScale(0, 0);
     } completion:^(BOOL finished) {
         [circle removeFromSuperview];

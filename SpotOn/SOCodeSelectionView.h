@@ -15,7 +15,7 @@
 @property(nonatomic, readwrite, assign) id<SOCodeSelectionViewDelegate> delegate;
 @property(nonatomic, readwrite, assign) BOOL                            regrowCircles;
 
-- (id)initWithFrame:(CGRect)frame numberOfColors:(int)numberOfColors numberOfRecepticles:(int)numberOfRecepticles;
+- (id)initWithFrame:(CGRect)frame numberOfColors:(int)numberOfColors numberOfRecepticles:(int)numberOfRecepticles useHoles:(BOOL)holes;
 
 - (NSArray *)colorsInRecepticles;
 

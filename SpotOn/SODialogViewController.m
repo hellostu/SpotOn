@@ -124,8 +124,9 @@
             self.dialogView.messageLabel.text = @"guess opponent's\ncolor code";
             self.dialogView.backgroundColor = PURPLE_COLOR;
             _additionalView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.3)
-                                                                                 numberOfColors:4
-                                                                            numberOfRecepticles:4];
+                                                          numberOfColors:4
+                                                     numberOfRecepticles:4
+                                                                useHoles:NO];
             _additionalView.center = CGPointMake(self.view.frame.size.width*1.4, self.view.frame.size.height*0.7);
             [self.view addSubview:_additionalView];
             break;

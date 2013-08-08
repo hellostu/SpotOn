@@ -107,6 +107,7 @@
     [easyLabel release];
     [mediumLabel release];
     [hardLabel release];
+    
 }
 
 - (void)didReceiveMemoryWarning

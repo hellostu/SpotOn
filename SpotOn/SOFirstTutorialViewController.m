@@ -23,7 +23,7 @@
 {
     if ( (self = [super init]) != nil)
     {
-        _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, 50, 200) numberOfColors:1 numberOfRecepticles:1];
+        _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, 50, 200) numberOfColors:1 numberOfRecepticles:1 useHoles:NO];
     }
     return self;
 }

@@ -177,7 +177,8 @@
             
             _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.35)
                                                              numberOfColors:numberOfColors
-                                                        numberOfRecepticles:numberOfRecepticles];
+                                                        numberOfRecepticles:numberOfRecepticles
+                                                                   useHoles:NO];
             _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.68);
             _codeSelectionView.delegate = self;
             

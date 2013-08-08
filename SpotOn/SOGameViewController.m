@@ -10,6 +10,7 @@
 #import "SOGameViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SOGameCenterHelper.h"
+#import "SOSlotView.h"
 
 @interface SOGameViewController () <SOCodeSelectionViewDelegate, SOButtonDelegate>
 {
@@ -71,11 +72,13 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
+    UIView *whiteBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
+    whiteBackground.backgroundColor = [UIColor whiteColor];
     
-    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.35)
+    _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height*0.35)
                                                      numberOfColors:_numberOfColors
-                                                numberOfRecepticles:_numberOfRecepticles];
-    _codeSelectionView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.68);
+                                                numberOfRecepticles:_numberOfRecepticles
+                                                           useHoles:YES];
     _codeSelectionView.delegate = self;
     
     CGFloat y = self.view.frame.size.height*0.92;
@@ -112,12 +115,14 @@
     [roundedSquare release];
     
     _loadingView.alpha = 0.0f;
+
     
-    //[self.view addSubview:imageView];
+    [self.view addSubview:whiteBackground];
     [self.view addSubview:_submitButton];
     [self.view addSubview:_previousGuessesView];
     [self.view addSubview:_codeSelectionView];
     [self.view addSubview:_loadingView];
+    [whiteBackground release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
