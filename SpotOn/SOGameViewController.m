@@ -74,6 +74,8 @@
     self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
     UIView *whiteBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
     whiteBackground.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:whiteBackground];
+    [whiteBackground release];
     
     _codeSelectionView = [[SOCodeSelectionView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height*0.35)
                                                      numberOfColors:_numberOfColors
@@ -116,13 +118,10 @@
     
     _loadingView.alpha = 0.0f;
 
-    
-    [self.view addSubview:whiteBackground];
     [self.view addSubview:_submitButton];
     [self.view addSubview:_previousGuessesView];
     [self.view addSubview:_codeSelectionView];
     [self.view addSubview:_loadingView];
-    [whiteBackground release];
 }
 
 - (void)viewWillAppear:(BOOL)animated

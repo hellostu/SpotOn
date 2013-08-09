@@ -11,19 +11,19 @@
 
 typedef enum  {
     SOGameResultWin,
-    SOGameResultLose,
     SOGameResultTie
 } SOGameResult;
 
 @interface SOGameResultViewController : SOMessageViewController
 
-@property(nonatomic, readonly) SOProfilePicture *ownProfilePicture;
-@property(nonatomic, readonly) SOProfilePicture *opponentsProfilePicture;
+@property(nonatomic, readonly) SOProfilePicture *topProfilePicture;
+@property(nonatomic, readonly) SOProfilePicture *bottomProfilePicture;
+@property(nonatomic, retain) NSString *topScreenName;
+@property(nonatomic, retain) NSString *bottomScreenName;
 
-- (id)initWithResult:(SOGameResult)gameResult
-             ownCode:(NSArray *)ownCode
-       opponentsCode:(NSArray *)opponentsCode
-        ownBestGuess:(NSArray *)ownBestGuess
-  opponentsBestGuess:(NSArray *)opponentsBestGuess;
+- (id)initWithGameResult:(SOGameResult)gameResult numberOfColors:(int)numberOfColors;
+
+- (void)setTopCode:(NSArray *)topCode;
+- (void)setBottomCode:(NSArray *)bottomCode;
 
 @end

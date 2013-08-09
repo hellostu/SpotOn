@@ -34,11 +34,11 @@
 {
     if ((self = [super initWithFrame:frame]) != nil)
     {
-        _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 99)];
+        _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 98)];
         _backgroundView.backgroundColor = GREY_COLOR_TOP_BACKGROUND;
         [self addSubview:_backgroundView];
         
-        _slotView = [[SOSlotView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 99) numberOfSlots:numberOfRecepticles];
+        _slotView = [[SOSlotView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 98) numberOfSlots:numberOfRecepticles];
         [self addSubview:_slotView];
         
         if (holes == NO)
@@ -253,7 +253,7 @@
     
     if ([self recepticlesPopulated] == YES)
     {
-        [UIView animateKeyframesWithDuration:0.3 delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^() {
+        [UIView animateWithDuration:0.4 animations:^() {
             for (int i=0; i<_recepticles.count; i++)
             {
                 SOCircle *circle = ((SORecepticle *)_recepticles[i]).circle;

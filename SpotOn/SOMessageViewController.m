@@ -31,7 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = GREY_COLOR_BTM_BACKGROUND;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     _messageView = [[UITextView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width,100)];
     _messageView.font = [UIFont fontWithName:@"GothamHTF-Medium" size:24.0f];

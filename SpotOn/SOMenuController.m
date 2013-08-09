@@ -8,6 +8,7 @@
 
 #import "SOMenuController.h"
 #import "SOGameListViewController.h"
+#import "SOGameResultViewController.h"
 
 @interface SOMenuController () <UINavigationControllerDelegate>
 {
@@ -46,6 +47,12 @@
     [_backButton addTarget:self action:@selector(backButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     _backButton.alpha = 0.0;
     //[self.view addSubview:_backButton];
+    
+    UIButton *tempButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    tempButton.frame = CGRectMake(self.view.frame.size.width-50, 20, 45, 30);
+    [tempButton setTitle:@"WIN" forState:UIControlStateNormal];
+    [tempButton addTarget:self action:@selector(tempPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:tempButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,6 +92,13 @@
 - (void)backButtonPressed
 {
     [self popViewControllerAnimated:YES];
+}
+
+- (void)tempPressed
+{
+    SOGameResultViewController *gameResultVC = [[SOGameResultViewController alloc] initWithGameResult:SOGameResultWin numberOfColors:5];
+    [self pushViewController:gameResultVC animated:YES];
+    [gameResultVC release];
 }
 
 @end

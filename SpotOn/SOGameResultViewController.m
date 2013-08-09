@@ -11,49 +11,46 @@
 
 @interface SOGameResultViewController ()
 {
-    SOGameResult    _gameResult;
-    NSArray         *_ownCode;
-    NSArray         *_opponentsCode;
-    NSArray         *_ownBestGuess;
-    NSArray         *_opponentsBestGuess;
+    SOGameResult        _gameResult;
+    
+    UILabel             *_topScreenName;
+    UILabel             *_bottomScreenName;
+    
+    SOPreviousGuessView *_topCode;
+    SOPreviousGuessView *_bottomCode;
+    
+    int                 _numberOfColors;
 }
 @end
 
 @implementation SOGameResultViewController
+@dynamic topScreenName;
+@dynamic bottomScreenName;
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (id)initWithResult:(SOGameResult)gameResult
-             ownCode:(NSArray *)ownCode
-       opponentsCode:(NSArray *)opponentsCode
-        ownBestGuess:(NSArray *)ownBestGuess
-  opponentsBestGuess:(NSArray *)opponentsBestGuess
+- (id)initWithGameResult:(SOGameResult)gameResult numberOfColors:(int)numberOfColors
 {
     if ( (self = [super init]) != nil)
     {
         _gameResult = gameResult;
-        _ownCode = [ownCode retain];
-        _opponentsCode = [opponentsCode retain];
-        _ownBestGuess = [ownBestGuess retain];
-        _opponentsBestGuess = [opponentsBestGuess retain];
+        _numberOfColors = numberOfColors;
         
-        _ownProfilePicture = [[SOProfilePicture alloc] initWithType:SOProfilePictureTypeLarge];
-        _opponentsProfilePicture = [[SOProfilePicture alloc] initWithType:SOProfilePictureTypeLarge];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [_ownCode release];
-    [_opponentsCode release];
-    [_ownBestGuess release];
-    [_opponentsBestGuess release];
-    [_ownProfilePicture release];
-    [_opponentsProfilePicture release];
+    [_topProfilePicture release];
+    [_bottomProfilePicture release];
+    [_topScreenName release];
+    [_bottomScreenName release];
+    [_topCode release];
+    [_bottomCode release];
     [super dealloc];
 }
 
@@ -61,45 +58,129 @@
 {
     [super viewDidLoad];
     
-    UILabel *ownCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height/2, self.view.frame.size.width-10, 20)];
-    ownCodeLabel.font = [UIFont fontWithName:@"GothamHTF-Medium.png" size:20.0f];
-    ownCodeLabel.backgroundColor = GREY_COLOR_TOP_BACKGROUND;
-    ownCodeLabel.textColor = GREY_COLOR_TOP_TEXT;
-    
-    _ownProfilePicture.center = CGPointMake(self.view.frame.size.width*0.3, self.view.frame.size.height*0.35);
-    _opponentsProfilePicture.center = CGPointMake(self.view.frame.size.width*0.7, self.view.frame.size.height*0.35);
-    
-    self.messageView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height*0.15);
-    
-	switch (_gameResult)
+    CGFloat labelY;
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
     {
-        case SOGameResultWin:
-        {
-            
-            self.messageView.text = @"CONGRATULATIONS\nYOU WON!";
-            break;
-        }
-        case SOGameResultLose:
-        {
-            self.messageView.text = @"OH! YOU WERE\nSO CLOSE!";
-            break;
-        }
-        case SOGameResultTie:
-        default:
-        {
-            self.messageView.text = @"WELL DONE!\nYOU HAVE TIED!";
-            break;
-        }
+        labelY = self.view.frame.size.height*0.015;
+    }
+    else
+    {
+        labelY = self.view.frame.size.height*0.05;
     }
     
-    [self.view addSubview:_ownProfilePicture];
-    [self.view addSubview:_opponentsProfilePicture];
+    UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, labelY, self.view.frame.size.width, 40)];
+    typeLabel.font = [UIFont fontWithName:@"GothamHTF-Bold" size:42.0f];
+    typeLabel.text = @"WINNER";
+    typeLabel.backgroundColor = [UIColor clearColor];
+    typeLabel.textColor = GREY_COLOR_TOP_TEXT;
+    typeLabel.textAlignment = NSTextAlignmentCenter;
+    
+    UILabel *roundsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, labelY+45, self.view.frame.size.width, 15)];
+    roundsLabel.font = [UIFont fontWithName:@"GothamHTF-Medium" size:16.0f];
+    roundsLabel.text = @"7 ROUNDS";
+    roundsLabel.backgroundColor = [UIColor clearColor];
+    roundsLabel.textColor = GREY_COLOR_TOP_TEXT;
+    roundsLabel.textAlignment = NSTextAlignmentCenter;
+    
+    CGFloat topProfileY = roundsLabel.frame.origin.y+roundsLabel.frame.size.height+5;
+    CGFloat topProfileHeight = self.view.frame.size.height/2-topProfileY-5;
+    CGFloat topOffset = topProfileHeight*0.4-60;
+    UIView *topProfile = [[UIView alloc] initWithFrame:CGRectMake(0, topProfileY, self.view.frame.size.width, topProfileHeight)];
+    _topProfilePicture = [[SOProfilePicture alloc] initWithType:SOProfilePictureTypeLarge];
+    _topProfilePicture.center = CGPointMake(self.view.frame.size.width/2, _topProfilePicture.frame.size.height/2+topOffset);
+    [topProfile addSubview:_topProfilePicture];
+    
+    
+    _topScreenName = [[UILabel alloc] initWithFrame:CGRectMake(0, topProfile.frame.size.height-60-topOffset, topProfile.frame.size.width, 30)];
+    _topScreenName.font = [UIFont fontWithName:@"GothamHTF-Medium" size:20.0f];
+    _topScreenName.text = @"ScreenName";
+    _topScreenName.backgroundColor = [UIColor clearColor];
+    _topScreenName.textColor = GREY_COLOR_TOP_TEXT;
+    _topScreenName.textAlignment = NSTextAlignmentCenter;
+    
+    [topProfile addSubview:_topScreenName];
+    
+    _topCode = [[SOPreviousGuessView alloc] initWithFrame:CGRectMake(0, 0, topProfile.frame.size.width*0.85, 30) numberOfColors:_numberOfColors];
+    _topCode.center = CGPointMake(topProfile.frame.size.width/2, topProfile.frame.size.height-15-topOffset);
+    
+    [topProfile addSubview:_topCode];
+    
+    UIView *bottomProfile = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/2+5, self.view.frame.size.width, topProfileHeight)];
+    _bottomProfilePicture = [[SOProfilePicture alloc] initWithType:SOProfilePictureTypeLarge];
+    _bottomProfilePicture.center = CGPointMake(self.view.frame.size.width/2, _topProfilePicture.frame.size.height/2+topOffset);
+    
+    [bottomProfile addSubview:_bottomProfilePicture];
+    
+    _bottomScreenName = [[UILabel alloc] initWithFrame:CGRectMake(0, topProfile.frame.size.height-60-topOffset, topProfile.frame.size.width, 30)];
+    _bottomScreenName.font = [UIFont fontWithName:@"GothamHTF-Medium" size:20.0f];
+    _bottomScreenName.text = @"ScreenName";
+    _bottomScreenName.backgroundColor = [UIColor clearColor];
+    _bottomScreenName.textColor = GREY_COLOR_TOP_TEXT;
+    _bottomScreenName.textAlignment = NSTextAlignmentCenter;
+    
+    [bottomProfile addSubview:_bottomScreenName];
+    [_bottomScreenName release];
+    
+    _bottomCode = [[SOPreviousGuessView alloc] initWithFrame:CGRectMake(0, 0, topProfile.frame.size.width*0.85, 30) numberOfColors:_numberOfColors];
+    _bottomCode.center = CGPointMake(topProfile.frame.size.width/2, topProfile.frame.size.height-15-topOffset);
+    
+    [bottomProfile addSubview:_bottomCode];
+    
+    [self.view addSubview:typeLabel];
+    [self.view addSubview:roundsLabel];
+    [self.view addSubview:topProfile];
+    [self.view addSubview:bottomProfile];
+    
+    [typeLabel release];
+    [roundsLabel release];
+    [topProfile release];
+    [bottomProfile release];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Properties
+//////////////////////////////////////////////////////////////////////////
+
+- (NSString *)topScreenName
+{
+    return _topScreenName.text;
+}
+
+- (void)setTopScreenName:(NSString *)topScreenName
+{
+    _topScreenName.text = topScreenName;
+}
+
+- (NSString *)bottomScreenName
+{
+    return _bottomScreenName.text;
+}
+
+- (void)setBottomScreenName:(NSString *)bottomScreenName
+{
+    _bottomScreenName.text = bottomScreenName;
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Methods
+//////////////////////////////////////////////////////////////////////////
+
+- (void)setTopCode:(NSArray *)topCode
+{
+    [_topCode updateWithColors:topCode];
+}
+
+- (void)setBottomCode:(NSArray *)bottomCode
+{
+    [_bottomCode updateWithColors:bottomCode];
 }
 
 @end

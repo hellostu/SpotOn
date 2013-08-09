@@ -82,21 +82,6 @@
     [self transitionToViewController:loadingViewController withTransitionAnimation:SOTransitionAnimationNone];
 }
 
-
-
-- (void)gotoWinScreen
-{
-    SOGameResultViewController *resultVC = [[SOGameResultViewController alloc] initWithResult:SOGameResultWin
-                                                                                      ownCode:_ownCode
-                                                                                opponentsCode:_opponentsCode
-                                                                                 ownBestGuess:nil
-                                                                           opponentsBestGuess:nil];
-    resultVC.ownProfilePicture.imageView.image = _ownImage;
-    resultVC.opponentsProfilePicture.imageView.image = _opponentsImage;
-    [self.navigationController pushViewController:resultVC animated:YES];
-    [resultVC release];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
